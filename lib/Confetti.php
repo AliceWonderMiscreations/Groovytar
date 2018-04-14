@@ -73,7 +73,6 @@ class Confetti
         $this->order = substr($secondHash, 8, 1);
     }//end hashToParameters()
 
-    
     /**
      * Generates the frame around the image
      *
@@ -95,7 +94,6 @@ class Confetti
         $this->svg->appendChild($path);
     }//end addFrame()
 
-    
     /**
      * Modular math, adds $incr to $input.
      *
@@ -113,7 +111,6 @@ class Confetti
         return intval($rs);
     }//end wrapAdd()
 
-    
     /**
      * Generates an SVG RGB string.
      *
@@ -133,7 +130,6 @@ class Confetti
         return $string;
     }//end setRgbString()
 
-    
     /**
      * Generates a circle of specified radius.
      *
@@ -179,7 +175,6 @@ class Confetti
         $this->svg->appendChild($circle);
     }//end addCircle()
 
-    
     /**
      * Generates a diamond shape.
      *
@@ -240,7 +235,6 @@ class Confetti
         $this->svg->appendChild($path);
     }//end addDiamond()
 
-    
     /**
      * Generates a triangle shape.
      *
@@ -318,7 +312,6 @@ class Confetti
         $this->svg->appendChild($path);
     }//end addTriange()
 
-    
     /**
      * Generates a regular polygon shape.
      *
@@ -377,7 +370,6 @@ class Confetti
             $currentAngle = $currentAngle + $angle;
         }
         // now we have an array full of points relative to our center
-        //var_dump($points); exit;
         for ($i=0; $i<$sides; $i++) {
             if ($i === 0) {
                 $pathString = 'M' . ($centerX + $points[0]['x']) . ',' . ($centerY + $points[0]['y']) . ' ';
@@ -399,7 +391,6 @@ class Confetti
         $this->svg->appendChild($path);
     }//end addRegularPolygon()
 
-    
     /**
      * Writes the SVG to the specified file.
      *
@@ -415,7 +406,6 @@ class Confetti
         fclose($fp);
     }//end writeFile()
 
-    
     /**
      * Sends generated SVG to requesting client.
      *
@@ -434,10 +424,9 @@ class Confetti
         print($content);
     }//end sendContent()
 
-    
     /**
      * The constructor function. The intent is for the $hash to be a hexadecimal number
-     * representing a 128 byte hash but it actually doesn't matter what it is.
+     * representing a 128 bit hash but it actually doesn't matter what it is.
      *
      * @param string $hash The string to use to create the SVG file.
      */
@@ -468,7 +457,7 @@ class Confetti
                 $this->addRegularPolygon(66, 12);
                 $this->addTriange(120, 0);
                 $this->addTriange(140, 3);
-              
+                // second round
                 $this->addRegularPolygon(42, 8);
                 $this->addRegularPolygon(50, 15);
                 $this->addCircle(40, 7);
@@ -503,7 +492,7 @@ class Confetti
                 $this->addRegularPolygon(66, 9);
                 $this->addTriange(120, 10);
                 $this->addRegularPolygon(50, 2);
-              
+                // second round
                 $this->addCircle(110, 0);
                 $this->addCircle(40, 1);
                 $this->addTriange(120, 5);
@@ -538,7 +527,7 @@ class Confetti
                 $this->addRegularPolygon(42, 14);
                 $this->addDiamond(70, 6);
                 $this->addRegularPolygon(66, 2);
-              
+                // second round
                 $this->addDiamond(30, 1);
                 $this->addCircle(90, 12);
                 $this->addRegularPolygon(50, 4);
@@ -573,7 +562,7 @@ class Confetti
                 $this->addDiamond(70, 10);
                 $this->addRegularPolygon(66, 5);
                 $this->addTriange(90, 11);
-              
+                // second round
                 $this->addCircle(90, 4);
                 $this->addRegularPolygon(30, 3);
                 $this->addCircle(110, 2);
@@ -608,7 +597,7 @@ class Confetti
                 $this->addRegularPolygon(30, 8);
                 $this->addCircle(90, 15);
                 $this->addRegularPolygon(66, 13);
-              
+                // second round
                 $this->addCircle(70, 5);
                 $this->addTriange(90, 1);
                 $this->addRegularPolygon(30, 2);
@@ -643,7 +632,7 @@ class Confetti
                 $this->addCircle(70, 12);
                 $this->addRegularPolygon(50, 4);
                 $this->addCircle(110, 11);
-              
+                // second round
                 $this->addDiamond(65, 5);
                 $this->addTriange(140, 11);
                 $this->addTriange(120, 0);
@@ -678,7 +667,7 @@ class Confetti
                 $this->addRegularPolygon(66, 14);
                 $this->addTriange(120, 15);
                 $this->addDiamond(40, 5);
-              
+                // second round
                 $this->addRegularPolygon(30, 4);
                 $this->addCircle(40, 0);
                 $this->addCircle(70, 5);
@@ -713,7 +702,7 @@ class Confetti
                 $this->addRegularPolygon(66, 12);
                 $this->addCircle(40, 3);
                 $this->addRegularPolygon(30, 10);
-              
+                // second round
                 $this->addCircle(70, 11);
                 $this->addTriange(140, 6);
                 $this->addRegularPolygon(30, 1);
@@ -748,7 +737,7 @@ class Confetti
                 $this->addTriange(110, 15);
                 $this->addTriange(140, 11);
                 $this->addDiamond(70, 3);
-              
+                // second round
                 $this->addTriange(110, 11);
                 $this->addCircle(90, 7);
                 $this->addCircle(110, 9);
@@ -783,7 +772,7 @@ class Confetti
                 $this->addDiamond(70, 4);
                 $this->addTriange(140, 9);
                 $this->addRegularPolygon(30, 15);
-              
+                // second round
                 $this->addTriange(120, 12);
                 $this->addRegularPolygon(30, 15);
                 $this->addDiamond(40, 5);
@@ -818,7 +807,7 @@ class Confetti
                 $this->addDiamond(40, 11);
                 $this->addCircle(70, 4);
                 $this->addTriange(110, 0);
-              
+                // second round
                 $this->addRegularPolygon(42, 0);
                 $this->addDiamond(70, 15);
                 $this->addRegularPolygon(50, 1);
@@ -853,7 +842,7 @@ class Confetti
                 $this->addCircle(110, 7);
                 $this->addCircle(40, 13);
                 $this->addDiamond(65, 11);
-              
+                // second round
                 $this->addRegularPolygon(50, 8);
                 $this->addCircle(40, 7);
                 $this->addDiamond(30, 1);
@@ -888,7 +877,7 @@ class Confetti
                 $this->addRegularPolygon(50, 5);
                 $this->addCircle(40, 7);
                 $this->addCircle(70, 3);
-              
+                // second round
                 $this->addTriange(90, 2);
                 $this->addRegularPolygon(66, 10);
                 $this->addTriange(140, 1);
@@ -923,7 +912,7 @@ class Confetti
                 $this->addTriange(140, 15);
                 $this->addRegularPolygon(50, 6);
                 $this->addTriange(120, 11);
-              
+                // second round
                 $this->addRegularPolygon(30, 6);
                 $this->addCircle(90, 4);
                 $this->addTriange(90, 14);
@@ -958,7 +947,7 @@ class Confetti
                 $this->addRegularPolygon(42, 15);
                 $this->addRegularPolygon(66, 9);
                 $this->addCircle(70, 0);
-              
+                // second round
                 $this->addCircle(70, 0);
                 $this->addTriange(140, 5);
                 $this->addTriange(90, 1);
@@ -993,7 +982,7 @@ class Confetti
                 $this->addDiamond(40, 15);
                 $this->addRegularPolygon(42, 7);
                 $this->addTriange(120, 13);
-              
+                // second round
                 $this->addCircle(70, 10);
                 $this->addRegularPolygon(42, 0);
                 $this->addTriange(140, 4);
