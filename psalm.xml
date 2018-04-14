@@ -6,7 +6,6 @@
 >
     <projectFiles>
         <directory name="lib" />
-        <directory name="tests" />
     </projectFiles>
 
     <issueHandlers>
@@ -28,29 +27,6 @@
 
         <DocblockTypeContradiction errorLevel="info" />
         <RedundantConditionGivenDocblockType errorLevel="info" />
-
-	      <!-- PHPUnit related noise -->
-        <PropertyNotSetInConstructor>
-            <errorLevel type="suppress">
-                <directory name="tests" />
-            </errorLevel>
-        </PropertyNotSetInConstructor>
-        <!-- these should not be needed in next release of vimeo/psalm -->
-        <UndefinedMethod>
-            <errorLevel type="suppress">
-                <directory name="tests" />
-            </errorLevel>
-        </UndefinedMethod>
-        <UndefinedPropertyFetch>
-            <errorLevel type="suppress">
-                <directory name="tests" />
-            </errorLevel>
-        </UndefinedPropertyFetch>
-        <InvalidScope>
-            <errorLevel type="suppress">
-                <directory name="tests" />
-            </errorLevel>
-        </InvalidScope>
 
     </issueHandlers>
 </psalm>

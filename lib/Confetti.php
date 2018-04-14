@@ -370,6 +370,7 @@ class Confetti
             $currentAngle = $currentAngle + $angle;
         }
         // now we have an array full of points relative to our center
+        $pathString = '';
         for ($i=0; $i<$sides; $i++) {
             if ($i === 0) {
                 $pathString = 'M' . ($centerX + $points[0]['x']) . ',' . ($centerY + $points[0]['y']) . ' ';
@@ -432,7 +433,7 @@ class Confetti
      */
     public function __construct(string $hash = '')
     {
-        $this->dom = new DOMDocument("1.0", "UTF-8");
+        $this->dom = new \DOMDocument("1.0", "UTF-8");
         // @codingStandardsIgnoreLine
         $docstring = '<?xml version="1.0"?><!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd"><svg xmlns="http://www.w3.org/2000/svg" version="1.1" width="800" height="800" viewBox="0 0 800 800"/>';
         $this->dom->loadXML($docstring);
