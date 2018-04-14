@@ -42,3 +42,85 @@ However there are two major flaws with Gravatar from a privacy perspective.
    government almost certainly already does this.
 2. The Gravatar domain uses tracking cookies. I do not know what they are doing
    with the data they collect, but it makes me feel very uncomfortable.
+
+The Plan
+--------
+
+John Doe uses the e-mail address `johndoe345@example.org` to post at BlogA,
+BlogB, and BlogC. Instead of using Gravatar where all three of those blogs
+would use `ca84c27b3856cdaa92bcf90fcab687df` to fetch an Avatar for John Doe,
+those blogs use Groovytar and the each have their own set of salts they use
+to come up with unique hashes that while generated from his e-mail address,
+they are all different and there simply is no way for anyone to know the hashes
+are related to each other.
+
+To a bot scanning the web, they look like three different users at the three
+different blogs.
+
+Those blogs can opt to have an API key with Groovytar that can allow John Doe
+to link the avatars used to his own image, if he so chooses. My Antifa friends
+who have WordPress blogs may not even want to have the API key simply because
+they don't want *any* of the people commenting on their blogs to be easily
+identified to an outsider as a real person, but my Animal Rescue friends who
+have blogs might decide to give their users that option.
+
+When a blog has an API key, they can have a check box when submitting a comment
+that allows the person commenting to *choose* to have his avatar used at that
+blog linked to his or her real avatar.
+
+The blog will take the user's e-mail address, hash it five times with sha512
+and hash that result with ripemd160. That final hash will be sent as a unique
+identifier along with the salted hash in the comments and the blog's API key.
+
+If John Doe does not have an account with Groovytar, nothing changes. Nothing
+changes because we have not verified that he actually wants any identity
+linking taking place, he hasn't finished opting in yet.
+
+However if John Does does have an account with Groovytar (or creates one) then
+an e-mail will be sent to him telling him which Blogs want to link to his
+custom photo. He has to log in to Groovytar to specifically approve it.
+
+Once he has specifically approved it, then what happens is the Groovytar sends
+an image of John Doe with requests for the salted hash specific to that site -
+if one exists - or generic hash associated with John Doe if one does not exist.
+
+I may get fancy and also allow John Doe to specify a Mastodon instance account
+that the blog can link to with his name, haven't decided yet if I will do that.
+
+So, John Doe will still have three different hashes used at blogs A, B, C but
+they may all fetch the same image if he has linked them together, allowing
+people to recognize him.
+
+If in the future, John needs to unlink any of those sites from his real image,
+he can. For example, if Blog C is a Animal Right blog and John wants to apply
+for a job working at a sporting good store, John can choose to unlink Blog C
+and it will no longer serve his image along with the comments he has left at
+that blog.
+
+That's the plan.
+
+
+Lots To Do
+----------
+
+The Confeti identicon generator is working. I need a few others, and I will
+need funding for hosting this project.
+
+In addition to the Confeti generator, I want one that generates stylish
+amphibians based upon the hash. Frogs, Toads, Newts, Salamanders, maybe even
+Caecilians.
+
+For websites migrating from Gravatar, these would be used in place of the
+Wavatar generated avatars.
+
+I also would like a replacement for the MonsterID identicons.
+
+It also might be fun to have one that generates Gingerbread Cookie identicons.
+
+In addition to several different options websites can choose from, the ability
+for users to create accounts and upload their own images to use needs to be
+written, though that should not be very difficult to do.
+
+
+----------------------------------------
+__EOF__
