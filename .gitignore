@@ -1,0 +1,5 @@
+*~
+*.bak
+composer.lock
+phpcs.xml
+vendor/*
