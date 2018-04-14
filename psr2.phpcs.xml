@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- PSR-2 but allow closing tags and with some Doc Comment stuff added -->
+<ruleset name="AWonderPHP Standard 20180315">
+  <![CDATA[
+    These are the rules that I am trying to live by for all my php projects
+    going forward.
+    
+    Nutshell - PSR-2 but allowing the closing ?> in pure PHP as I have a very
+    stubborn fondness for the closing ?> tag and it mentally bothers me when it
+    is not there. Rational? No, I have no problem with EOF being the closing
+    tag for other programming language (e.g. Python) but to me PHP is different
+    and for evidence of this - when you call #!/usr/bin/php in a shell script
+    you *still* need the <?php opening tag.
+    
+    Additionally I turn off the PSR1 side effect check, it is a very valid rule
+    but it comes naturally to me *except* when I code PHP shell scripts, the
+    only place my php isn't pure php. And there, I want to be allowed to define
+    functions within the shell script without needing them in an external file
+    that has to be in the include path or included full path.
+    
+    This ruleset then adds a bunch of sniffs related to PHP documentation
+    comment blocks.
+    
+    From a legal point of view, each file should have the author(s) and the
+    license defined in a standard way that is easy to programmatically
+    retrieve.
+    
+    From a code analysis point of view, each property and parameter should have
+    a type defined and each method should have a return type defined so that
+    code analysis tools can find potential bugs.
+    
+    TODO
+    
+    I need a sniff that looks for white space after the closing ?> tag.
+    I need a sniff that ensure declare(strict_types = 1); is used.
+     -- https://github.com/squizlabs/PHP_CodeSniffer/pull/1771
+  ]]>
+  <description>The coding standard for AWonderPHP</description>
+  <file>lib</file>
+  <arg name="basepath" value="." />
+  <arg name="colors" />
+  <rule ref="PSR2">
+    <!-- allow the closing tag -->
+    <exclude name="PSR2.Files.ClosingTag" />
+    <exclude name="PSR2.Files.EndFileNewline" />
+    <!-- good rule but some php shell scripts need to define local functions -->
+    <exclude name="PSR1.Files.SideEffects.FoundWithSymbols" />
+  </rule>
+  <!-- Include rules related to Doc Comment I want -->
+  <rule ref="Generic.Commenting.DocComment.ShortNotCapital" />
+  <rule ref="Generic.Commenting.DocComment.SpacingBeforeTags" />
+  <rule ref="Generic.Commenting.DocComment.TagValueIndent" />
+  <rule ref="Generic.Commenting.DocComment.NonParamGroup" />
+  <rule ref="PEAR.Commenting.FileComment.Missing" />
+  <rule ref="PEAR.Commenting.FileComment.MissingPackageTag" />
+  <rule ref="PEAR.Commenting.FileComment.PackageTagOrder" />
+  <rule ref="PEAR.Commenting.FileComment.MissingAuthorTag" />
+  <rule ref="PEAR.Commenting.FileComment.InvalidAuthors" />
+  <rule ref="PEAR.Commenting.FileComment.AuthorTagOrder" />
+  <rule ref="PEAR.Commenting.FileComment.MissingLicenseTag" />
+  <rule ref="PEAR.Commenting.FileComment.IncompleteLicense" />
+  <rule ref="PEAR.Commenting.FileComment.LicenseTagOrder" />
+  <rule ref="PEAR.Commenting.FileComment.MissingLinkTag" />
+  <rule ref="PEAR.Commenting.ClassComment.Missing" />
+  <rule ref="PEAR.Commenting.FunctionComment.Missing" />
+  <rule ref="PEAR.Commenting.FunctionComment.MissingParamTag" />
+  <rule ref="PEAR.Commenting.FunctionComment.MissingParamName" />
+  <rule ref="PEAR.Commenting.FunctionComment.MissingParamComment" />
+  <rule ref="PEAR.Commenting.FunctionComment.MissingReturn" />
+  <rule ref="PEAR.Commenting.FunctionComment.SpacingAfter" />
+  <rule ref="Squiz.Commenting.FunctionComment.ParamCommentFullStop" />
+  <rule ref="Squiz.Commenting.FunctionComment.ExtraParamComment" />
+  <!-- a few additional rules -->
+  <rule ref="Squiz.Commenting.ClosingDeclarationComment.Missing" />
+  <rule ref="Squiz.Classes.ClassDeclaration.NewlinesAfterCloseBrace" />
+</ruleset>

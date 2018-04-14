@@ -1,0 +1,27 @@
+{
+    "name": "awonderphp/groovytar",
+    "description": "A identicon avatar server that helps preserve user anonymity and privacy.",
+    "homepage": "https://github.com/AliceWonderMiscreations/Groovytar",
+    "license": "MIT",
+    "type": "library",
+    "authors": [
+        {
+            "name": "Alice Wonder",
+            "role": "Unemployed Maniac",
+            "email": "paypal@domblogger.net"
+        }
+    ],
+    "require": {
+        "php": "~7.1.0 || ~7.2.0"
+    },
+    "require-dev": {
+        "squizlabs/php_codesniffer": "3.*",
+        "vimeo/psalm": "^0",
+        "phpunit/phpunit": "^7"
+    },
+    "autoload": {
+        "psr-4": {
+            "AWonderPHP\\Groovytar\\": "lib/"
+        }
+    }
+}
