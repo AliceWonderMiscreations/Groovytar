@@ -7,6 +7,12 @@ require_once(dirname(dirname(__FILE__)) . '/vendor/awonderphp/filewrapper/lib/Nu
 require_once(dirname(dirname(__FILE__)) . '/vendor/awonderphp/filewrapper/lib/TypeErrorException.php');
 require_once(dirname(dirname(__FILE__)) . '/vendor/awonderphp/filewrapper/lib/FileWrapper.php');
 
+// The Identicons
+
+require_once(dirname(dirname(__FILE__)) . '/lib/Confetti.php');
+require_once(dirname(dirname(__FILE__)) . '/lib/PictoGlyph.php');
+
+
 use \AWonderPHP\FileWrapper\FileWrapper as FileWrapper;
 
 /**
@@ -107,7 +113,7 @@ switch ($getd) {
         $variant = 'confetti';
 }
 
-$finished = array('confetti');
+$finished = array('confetti', 'pictoglyph');
 
 if (! in_array($variant, $finished)) {
     $variant = 'confetti';
@@ -127,6 +133,13 @@ if (strlen($hash) === 32) {
 switch ($variant) {
     case 'confetti':
         $groovy = new \AWonderPHP\Groovytar\Confetti($hash);
+        if (isset($svgfile)) {
+            $groovy->writeFile($svgfile);
+        }
+        $groovy->sendContent();
+        break;
+    case 'pictoglyph':
+        $groovy = new \AWonderPHP\Groovytar\PictoGlyph($hash);
         if (isset($svgfile)) {
             $groovy->writeFile($svgfile);
         }

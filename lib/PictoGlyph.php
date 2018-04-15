@@ -10,20 +10,11 @@ declare(strict_types=1);
  * @link    https://github.com/AliceWonderMiscreations/Groovytar
  */
 
-/**
- * save for later
- *
- * B/F
- * 8e6948 / c4ac87
- * 132052 / 939689
- *
- */ 
-
 namespace AWonderPHP\Groovytar;
 
 /**
  * PictoGlyph Generation.
- * Six bytes are used for the color, 10 for the pattern.
+ * color selection currently often results in poor colors, I'm working on that...
  */
 class PictoGlyph
 {
@@ -61,6 +52,43 @@ class PictoGlyph
     protected $svg;
     
     /**
+     * Not yet used, will be an array of 128 different color combinations
+     *
+     * @param int $input A number between 0 and 255.
+     *
+     * @return void
+     */
+    protected function selectColorCombos(int $input): void
+    {
+        $colorCombos = array();
+        // 1-8
+        $colorCombos[] = array('a7256c', '96be55');
+        $colorCombos[] = array('39af5b', 'e3fdce');
+        $colorCombos[] = array('8e6948', 'c4ac87');
+        $colorCombos[] = array('132052', '939689');
+        $colorCombos[] = array('a13c42', '9de258');
+        $colorCombos[] = array('2303c8', '949d4e');
+        $colorCombos[] = array('0e10ca', 'd3a21f');
+        $colorCombos[] = array('c3155e', '87fffa');
+        // 9-16
+        $colorCombos[] = array('259b39', 'ef63a5');
+        
+        $mod = count($colorCombos); //eventually will be 128 but counting is good
+        $n = $input % $mod;
+        
+        // backgrounc color
+        $backgroundHex = $colorCombos[$n][0];
+        $this->background[0] = hexdec(substr($backgroundHex, 0, 2));
+        $this->background[1] = hexdec(substr($backgroundHex, 2, 2));
+        $this->background[2] = hexdec(substr($backgroundHex, 4, 2));
+        // pictograph color
+        $foregroundHex = $colorCombos[$n][1];
+        $this->foreground[0] = hexdec(substr($foregroundHex, 0, 2));
+        $this->foreground[1] = hexdec(substr($foregroundHex, 2, 2));
+        $this->foreground[2] = hexdec(substr($foregroundHex, 4, 2));
+    }//end selectColorCombos()
+
+    /**
      * Generate a set of parameters from a given hex hash.
      *
      * @param string $hash The hex hash to generate parameters from.
@@ -85,17 +113,17 @@ class PictoGlyph
         }
         // Background Red Index
         $oneLight = false;
-        if($this->parameters[0] > 115) {
+        if ($this->parameters[0] > 115) {
             $oneLight = true;
         }
         $this->background[0] = $this->parameters[0];
         // Background Green Index
-        if($this->parameters[1] <= 115) {
+        if ($this->parameters[1] <= 115) {
             $this->background[1] = $this->parameters[1];
         } else {
-            if($oneLight) {
+            if ($oneLight) {
                 $value = $this->parameters[1];
-                while($value > 110) {
+                while ($value > 110) {
                     $value = $value - 27;
                 }
                 $this->background[1] = $value;
@@ -105,12 +133,12 @@ class PictoGlyph
             }
         }
         // Background Blue Index
-        if($this->parameters[2] <= 115) {
+        if ($this->parameters[2] <= 115) {
             $this->background[2] = $this->parameters[2];
         } else {
-            if($oneLight) {
+            if ($oneLight) {
                 $value = $this->parameters[2];
-                while($value > 110) {
+                while ($value > 110) {
                     $value = $value - 23;
                 }
                 $this->background[2] = $value;
@@ -120,17 +148,17 @@ class PictoGlyph
         }
         // Foreground Blue Index
         $oneDark = false;
-        if($this->parameters[3] < 140) {
+        if ($this->parameters[3] < 140) {
             $oneDark = true;
         }
         $this->foreground[2] = $this->parameters[3];
         // Foreground Green Index
-        if($this->parameters[4] >= 140) {
+        if ($this->parameters[4] >= 140) {
             $this->foreground[1] = $this->parameters[4];
         } else {
-            if($oneDark) {
+            if ($oneDark) {
                 $value = $this->parameters[4];
-                while($value < 140) {
+                while ($value < 140) {
                     $value = $value + 37;
                 }
                 $this->foreground[1] = $value;
@@ -140,12 +168,12 @@ class PictoGlyph
             }
         }
         // Foreground Red Index
-        if($this->parameters[5] >= 140) {
+        if ($this->parameters[5] >= 140) {
             $this->foreground[0] = $this->parameters[5];
         } else {
-            if($oneDark) {
+            if ($oneDark) {
                 $value = $this->parameters[5];
-                while($value < 140) {
+                while ($value < 140) {
                     $value = $value + 13;
                 }
                 $this->foreground[0] = $value;
@@ -153,9 +181,18 @@ class PictoGlyph
                 $this->foreground[0] = $this->parameters[5];
             }
         }
-        // okay we now have contrasting foreground and background
-    }
-    
+        // This is better way to pick color combos that is not yet finished
+        $test = false;
+        if ($test) {
+            $sum = 17; //because I like 17
+            for ($i=0; $i<16; $i++) {
+                $sum = $sum + $this->parameters[$i];
+            }
+            $n = $sum % 256;
+            $this->selectColorCombos($n);
+        }
+    }//end hashToParameters()
+
     /**
      * Generates an SVG RGB string.
      *
@@ -165,12 +202,12 @@ class PictoGlyph
      *
      * @return string The SVG compliant RGB string.
      */
-    protected function setRgbString($r, $g, $b)
+    protected function setRgbString($r, $g, $b): string
     {
         $string = 'rgb(' . $r . ',' . $g . ',' . $b . ')';
         return $string;
-    }
-    
+    }//end setRgbString()
+
     /**
      * Generates the frame around the image
      *
@@ -193,7 +230,7 @@ class PictoGlyph
         $path->setAttribute('fill', 'rgb(80,80,80');
         $this->svg->appendChild($path);
     }//end addFrame()
-    
+
     /**
      * Draw the background canvas
      *
@@ -201,35 +238,49 @@ class PictoGlyph
      */
     protected function drawCanvas(): void
     {
+        $backgroundRgb = $this->setRgbString($this->background[0], $this->background[1], $this->background[2]);
         $path = $this->dom->createElement('path');
         $path->setAttribute('stroke', 'none');
-        $path->setAttribute('fill', $this->setRgbString($this->background[0], $this->background[1], $this->background[2]));
+        $path->setAttribute('fill', $backgroundRgb);
         $pathString = 'M0,0 l800,0 l0,800 l-800,0 l0,-800z';
         $path->setAttribute('d', $pathString);
         $this->svg->appendChild($path);
-    }
-    
+    }//end drawCanvas()
+
+    /**
+     * Used only in testing, will be nuked when I have 32 pictographs
+     *
+     * @param int $x The X coordinate for the center of the square the glyph is placed in.
+     * @param int $y The Y coordinate for the center of the square the glyph is placed in.
+     *
+     * @return void
+     */
     protected function simpleCircle($x, $y): void
     {
+        $foregroundRgb = $this->setRgbString($this->foreground[0], $this->foreground[1], $this->foreground[2]);
         $circle = $this->dom->createElement('circle');
         $circle->setAttribute('cx', (string) $x);
         $circle->setAttribute('cy', (string) $y);
         $circle->setAttribute('r', '75');
         $circle->setAttribute('stroke', 'none');
-        $circle->setAttribute('fill', $this->setRgbString($this->foreground[0], $this->foreground[1], $this->foreground[2]));
+        $circle->setAttribute('fill', $foregroundRgb);
         $this->svg->appendChild($circle);
-    }
-    
-    protected function simpleHeart($x, $y): void
-    {
-        $startX = $x;
-        $startY = $y + 75;
-        $pathString = 'M' . $startX . ',' . $startY . ' ';
-        
-    }
-    
+    }//end simpleCircle()
+
+    /**
+     * Triquetra knot, often symbolizes earth, air, and water or life, death, and rebirth.
+     * Also symbolizes the Triple Goddess - Maiden, Mother, Crone.
+     *
+     * Nutshell - Everything important comes in threes.
+     *
+     * @param int $x The X coordinate for the center of the square the glyph is placed in.
+     * @param int $y The Y coordinate for the center of the square the glyph is placed in.
+     *
+     * @return void
+     */
     protected function simpleTriquetra($x, $y): void
     {
+        $foregroundRgb = $this->setRgbString($this->foreground[0], $this->foreground[1], $this->foreground[2]);
         $startX = $x - 65;
         $startY = $y + 54;
         $pathString = 'M' . $startX . ',' . $startY . ' ';
@@ -242,13 +293,22 @@ class PictoGlyph
         $path = $this->dom->createElement('path');
         $path->setAttribute('fill', 'none');
         $path->setAttribute('stroke-width', '11');
-        $path->setAttribute('stroke', $this->setRgbString($this->foreground[0], $this->foreground[1], $this->foreground[2]));
+        $path->setAttribute('stroke', $foregroundRgb);
         $path->setAttribute('d', $pathString);
         $this->svg->appendChild($path);
-    }
-    
+    }//end simpleTriquetra()
+
+    /**
+     * Fertility Rune
+     *
+     * @param int $x The X coordinate for the center of the square the glyph is placed in.
+     * @param int $y The Y coordinate for the center of the square the glyph is placed in.
+     *
+     * @return void
+     */
     protected function simpleFertility($x, $y): void
     {
+        $foregroundRgb = $this->setRgbString($this->foreground[0], $this->foreground[1], $this->foreground[2]);
         $xWidth = 60;
         $yHeight = 166;
         $startX = $x - ($xWidth / 2);
@@ -261,7 +321,7 @@ class PictoGlyph
         $path = $this->dom->createElement('path');
         $path->setAttribute('fill', 'none');
         $path->setAttribute('stroke-width', '9');
-        $path->setAttribute('stroke', $this->setRgbString($this->foreground[0], $this->foreground[1], $this->foreground[2]));
+        $path->setAttribute('stroke', $foregroundRgb);
         $path->setAttribute('d', $pathString);
         $this->svg->appendChild($path);
         
@@ -273,19 +333,30 @@ class PictoGlyph
         $path = $this->dom->createElement('path');
         $path->setAttribute('fill', 'none');
         $path->setAttribute('stroke-width', '11');
-        $path->setAttribute('stroke', $this->setRgbString($this->foreground[0], $this->foreground[1], $this->foreground[2]));
+        $path->setAttribute('stroke', $foregroundRgb);
         $path->setAttribute('d', $pathString);
         $this->svg->appendChild($path);
-    }
-    
+    }//end simpleFertility()
+
+    /**
+     * Yin and Yang - Opposite and often seemingly contrary forces are often actually complimentary
+     * to each other.
+     *
+     * @param int $x The X coordinate for the center of the square the glyph is placed in.
+     * @param int $y The Y coordinate for the center of the square the glyph is placed in.
+     *
+     * @return void
+     */
     protected function simpleYinYang($x, $y): void
     {
+        $backgroundRgb = $this->setRgbString($this->background[0], $this->background[1], $this->background[2]);
+        $foregroundRgb = $this->setRgbString($this->foreground[0], $this->foreground[1], $this->foreground[2]);
         //Draw the light
         $pathString = 'M' . $x . ',' . ($y - 74) . ' ';
         $pathString .= 'a37,37 0 0 1 0,74 a37,37 0 0 0 0,74 a74,74 0 0 1 0,-148z';
         $path = $this->dom->createElement('path');
         $path->setAttribute('stroke', 'none');
-        $path->setAttribute('fill', $this->setRgbString($this->foreground[0], $this->foreground[1], $this->foreground[2]));
+        $path->setAttribute('fill', $foregroundRgb);
         $path->setAttribute('d', $pathString);
         $this->svg->appendChild($path);
         
@@ -295,7 +366,7 @@ class PictoGlyph
         $circle->setAttribute('cy', (string) $y);
         $circle->setAttribute('r', '75');
         $circle->setAttribute('stroke-width', '3');
-        $circle->setAttribute('stroke', $this->setRgbString($this->foreground[0], $this->foreground[1], $this->foreground[2]));
+        $circle->setAttribute('stroke', $foregroundRgb);
         $circle->setAttribute('fill', 'none');
         $this->svg->appendChild($circle);
         
@@ -308,7 +379,7 @@ class PictoGlyph
         $circle->setAttribute('cy', (string) $yUpper);
         $circle->setAttribute('r', '8');
         $circle->setAttribute('stroke', 'none');
-        $circle->setAttribute('fill', $this->setRgbString($this->background[0], $this->background[1], $this->background[2]));
+        $circle->setAttribute('fill', $backgroundRgb);
         $this->svg->appendChild($circle);
         
         $circle = $this->dom->createElement('circle');
@@ -316,20 +387,25 @@ class PictoGlyph
         $circle->setAttribute('cy', (string) $yLower);
         $circle->setAttribute('r', '8');
         $circle->setAttribute('stroke', 'none');
-        $circle->setAttribute('fill', $this->setRgbString($this->foreground[0], $this->foreground[1], $this->foreground[2]));
+        $circle->setAttribute('fill', $foregroundRgb);
         $this->svg->appendChild($circle);
-        
-    }
-    
+    }//end simpleYinYang()
+
     /**
-     * Asase Ye Duru - The Divinity of Mother Earth
+     * Asase Ye Duru - The Divinity of Mother Earth.
      * https://www.nps.gov/afbg/learn/historyculture/asase-ye-duru.htm
+     *
+     * It emphasizes the importance of Earth and it's preservation.
+     *
+     * @param int $x The X coordinate for the center of the square the glyph is placed in.
+     * @param int $y The Y coordinate for the center of the square the glyph is placed in.
+     *
+     * @return void
      */
     protected function simpleAsaseYeDuru($x, $y): void
     {
-        $startX = $x;
-        $startY = $y + 75;
-        
+        $backgroundRgb = $this->setRgbString($this->background[0], $this->background[1], $this->background[2]);
+        $foregroundRgb = $this->setRgbString($this->foreground[0], $this->foreground[1], $this->foreground[2]);
         $startX = $x;
         $startY = $y + 75;
         
@@ -345,11 +421,11 @@ class PictoGlyph
         $pathString .= 'a21.75,21.75 0 0 1 -8.25,30 ';
         $pathString .= 'a20.25,21 0 0 1 7.5,30 ';
         $pathString .= 'q-11.25,18.75 -24,30 ';
-        $pathString .= 'q-11.25,9.75 -21,15.75z ';
+        $pathString .= 'q-11.25,9.75 -21,15.75z';
         
         $path = $this->dom->createElement('path');
         $path->setAttribute('stroke', 'none');
-        $path->setAttribute('fill', $this->setRgbString($this->foreground[0], $this->foreground[1], $this->foreground[2]));
+        $path->setAttribute('fill', $foregroundRgb);
         $path->setAttribute('d', $pathString);
         $this->svg->appendChild($path);
         
@@ -381,16 +457,67 @@ class PictoGlyph
         $pathString .= 'a15.75,15 0 0 1 -16.5,-12 ';
         $pathString .= 'q-0.375,-3.375 1.5,-7.5 ';
         $pathString .= 'q4.5,-11.25 15,-22.5 ';
-        $pathString .= 'q16.875,-18 21.375,-19.5z ';
+        $pathString .= 'q16.875,-18 21.375,-19.5z';
         
         $path = $this->dom->createElement('path');
         $path->setAttribute('stroke', 'none');
-        $path->setAttribute('fill', $this->setRgbString($this->background[0], $this->background[1], $this->background[2]));
+        $path->setAttribute('fill', $backgroundRgb);
         $path->setAttribute('d', $pathString);
         $this->svg->appendChild($path);
         
-    }
-    
+        $startX = $x +1;
+        $startY = $y +66;
+        
+        $pathString = 'M' . $startX. ',' . $startY . ' ';
+        $pathString .= 'q-21.75,-15 -33.75,-30 ';
+        $pathString .= 'q-6.75,-7.5 -8.25,-18 ';
+        $pathString .= 'a-15,-14.25 0 0 1 11.25,-14.25 ';
+        $pathString .= 'q12,-1.5 17.25,3.75 ';
+        $pathString .= 'q5.25,5.25 5.25,8.25 ';
+        $pathString .= 'q-0.75,5.25 -7.5,6 ';
+        $pathString .= 'q-3,0.75 -5.25,-0.75 ';
+        $pathString .= 'q-1.5,-2.25 -2.25,-6 ';
+        $pathString .= 'a-4.5,-4.5 0 0 0 -7.875,1.5 ';
+        $pathString .= 'a-7.5,-7.5 0 0 0 1.125,8.25 ';
+        $pathString .= 'q2.25,3.75 8.25,6 ';
+        $pathString .= 'a-14.25,-14.25 0 0 0 8.25,-1.5 ';
+        $pathString .= 'q7.5,-3 12,-7.5 ';
+        $pathString .= 'a-18.75,-18.75 0 0 0 16.5,9.75 ';
+        $pathString .= 'q6,0.375 14.25,-8.625 ';
+        $pathString .= 'q2.25,-3.75 2.25,-6.75 ';
+        $pathString .= 'a-3,-3 0 0 0 -3.75,-2.25 ';
+        $pathString .= 'q-3,0 -4.875,2.625 ';
+        $pathString .= 'a-7.5,-9 0 0 1 -8.25,6 ';
+        $pathString .= 'a-9,-9.75 0 0 1 -8.25,-7.5 ';
+        $pathString .= 'q0,-10.5 15,-10.5 ';
+        $pathString .= 'a-15.75,-15 0 0 1 16.5,12 ';
+        $pathString .= 'q0.375,3.375 -1.5,7.5 ';
+        $pathString .= 'q-4.5,11.25 -15,22.5 ';
+        $pathString .= 'q-16.875,18 -21.375,19.5z';
+        
+        $path = $this->dom->createElement('path');
+        $path->setAttribute('stroke', 'none');
+        $path->setAttribute('fill', $backgroundRgb);
+        $path->setAttribute('d', $pathString);
+        $this->svg->appendChild($path);
+        
+        $startX = $x -7;
+        $startY = $y -0;
+        
+        $pathString = 'M' . $startX. ',' . $startY . ' ';
+        
+        $pathString .= 'a21,21 0 0 0 6.5,-6 ';
+        $pathString .= 'a18,18 0 0 0 8,7.5 ';
+        $pathString .= 'a21,21 0 0 0 -6.5,6 ';
+        $pathString .= 'a18,18 0 0 0 -8,-7.5z';
+        
+        $path = $this->dom->createElement('path');
+        $path->setAttribute('stroke', 'none');
+        $path->setAttribute('fill', $backgroundRgb);
+        $path->setAttribute('d', $pathString);
+        $this->svg->appendChild($path);
+    }//end simpleAsaseYeDuru()
+
     /**
      * Writes the SVG to the specified file.
      *
@@ -424,6 +551,11 @@ class PictoGlyph
         print($content);
     }//end sendContent()
     
+    /**
+     * The Constructor. Creates the SVG that is to be served.
+     *
+     * @param string $hash Intended to be a hex representation of a 128-bit hash but any string will do.
+     */
     public function __construct($hash)
     {
         $this->dom = new \DOMDocument("1.0", "UTF-8");
@@ -435,14 +567,14 @@ class PictoGlyph
         $this->drawCanvas();
         
         // The sixteen shapes
-        for($i=0; $i<4; $i++) {
-            for($j=0; $j<4; $j++) {
+        for ($i=0; $i<4; $i++) {
+            for ($j=0; $j<4; $j++) {
                 $byteN = (4 * $j) + $i;
                 $byte = $this->parameters[$byteN];
                 $x = (200 * $i) + 100;
                 $y = (200 * $j) + 100;
                 $mod = $byte % 4;
-                switch($mod) {
+                switch ($mod) {
                     case 0:
                         $this->simpleTriquetra($x, $y);
                         break;
@@ -463,16 +595,16 @@ class PictoGlyph
             }
         }
         $this->addFrame();
-    }
-}
+    }//end __construct()
+}//end class
 
-// testing testing 123
-
+/*
+// uncomment this block for testing file as standalone program
 $foo = random_bytes(32);
 $foo = base64_encode($foo);
 $bar = new PictoGlyph($foo);
 $bar->sendContent();
 exit;
-
+*/
 
 ?>
