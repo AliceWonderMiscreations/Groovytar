@@ -10,7 +10,7 @@ require_once(dirname(dirname(__FILE__)) . '/vendor/awonderphp/filewrapper/lib/Fi
 use \AWonderPHP\FileWrapper\FileWrapper as FileWrapper;
 
 /**
- * Under normal circumstances this file in only called when by a
+ * Under normal circumstances this file is only called when by a
  * .htaccess rewrite rule.
  *
  * @package AWonderPHP/Groovytar
@@ -98,10 +98,10 @@ switch ($getd) {
         $variant = 'automaton';
         break;
     case 'mm':
-        $variant = 'silhouette';
+        $variant = 'pictoglyph';
         break;
-    case 'silhouette':
-        $variant = 'silhouette';
+    case 'pictoglyph':
+        $variant = 'pictoglyph';
         break;
     default:
         $variant = 'confetti';

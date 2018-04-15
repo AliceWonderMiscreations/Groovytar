@@ -2,7 +2,7 @@
 declare(strict_types=1);
 
 /**
- * Generates a Simplebit avatar SVG file.
+ * Generates a PictoGlyph avatar SVG file.
  *
  * @package AWonderPHP/Groovytar
  * @author  Alice Wonder <paypal@domblogger.net>
@@ -22,10 +22,10 @@ declare(strict_types=1);
 namespace AWonderPHP\Groovytar;
 
 /**
- * Simplebit Generation.
+ * PictoGlyph Generation.
  * Six bytes are used for the color, 10 for the pattern.
  */
-class Simplebit
+class PictoGlyph
 {
     /**
      * The parameters, an array of 16 sets of integers between 0 and 255 inclusive
@@ -470,7 +470,7 @@ class Simplebit
 
 $foo = random_bytes(32);
 $foo = base64_encode($foo);
-$bar = new Simplebit($foo);
+$bar = new PictoGlyph($foo);
 $bar->sendContent();
 exit;
 
