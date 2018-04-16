@@ -19,6 +19,13 @@ namespace AWonderPHP\Groovytar;
 class PictoGlyph
 {
     /**
+     * Are we running in devel / test mode ???
+     *
+     * @var boolean
+     */
+    protected $devel = false;
+     
+    /**
      * The parameters, an array of 16 sets of integers between 0 and 255 inclusive
      *
      * @var array
@@ -53,7 +60,7 @@ class PictoGlyph
     
     /**
      * Not yet used, will be an array of 128 different color combinations.
-     * TODO: Need to test them for accessibility.
+     * TODO: check for color combos that are too similar
      *
      * @param int $input A number between 0 and 255.
      *
@@ -61,34 +68,61 @@ class PictoGlyph
      */
     protected function selectColorCombos(int $input): void
     {
+        // WCAG Large Text Tests
         $colorCombos = array();
-        // 1-8
-        $colorCombos[] = array('a7256c', '96be55');
-        $colorCombos[] = array('39af5b', 'e3fdce');
-        $colorCombos[] = array('8e6948', 'c4ac87');
-        $colorCombos[] = array('132052', '939689');
-        $colorCombos[] = array('a13c42', '9de258');
-        $colorCombos[] = array('2303c8', '949d4e');
-        $colorCombos[] = array('0e10ca', 'd3a21f');
-        $colorCombos[] = array('c3155e', '87fffa');
-        // 9-16
-        $colorCombos[] = array('259b39', 'ef63a5');
-        $colorCombos[] = array('b0191d', '27cfdc');
-        $colorCombos[] = array('691f4b', 'ed9439');
-        $colorCombos[] = array('3ca438', 'f6f5ed');
-        $colorCombos[] = array('a96468', '95da0c');
-        $colorCombos[] = array('00606e', 'e89a36');
-        $colorCombos[] = array('4c4da4', '8efb7f');
-        $colorCombos[] = array('202c17', '3aaefc');
-        // 17-24
-        $colorCombos[] = array('eb5b1d', 'caf77e');
-        $colorCombos[] = array('8f0f6d', '09a4d2');
-        $colorCombos[] = array('421225', 'eded0f');
-        $colorCombos[] = array('40b03f', '9214a0');
-        $colorCombos[] = array('85345f', '8ccb11');
-        $colorCombos[] = array('1f936b', 'fcac3d');
-        $colorCombos[] = array('7a5a36', '4ebd9e');
-        $colorCombos[] = array('961d07', '8ca0f6');
+        // 1-16
+        $colorCombos[] = array('861d57', '9fc464'); // WCAG PASS AA PASS AAA
+        $colorCombos[] = array('132052', '939689'); // WCAG PASS AA PASS AAA
+        $colorCombos[] = array('8d343a', 'a1e35f'); // WCAG PASS AA PASS AAA
+        $colorCombos[] = array('2303c8', 'a4ad58'); // WCAG PASS AA PASS AAA
+        $colorCombos[] = array('0e10ca', 'd3a21f'); // WCAG PASS AA PASS AAA
+        $colorCombos[] = array('c3155e', '87fffa'); // WCAG PASS AA PASS AAA
+        $colorCombos[] = array('98161a', '4bd8e2'); // WCAG PASS AA FAIL AAA
+        $colorCombos[] = array('691f4b', 'ed9439'); // WCAG PASS AA PASS AAA
+        $colorCombos[] = array('00505c', 'ecaf5f'); // WCAG PASS AA PASS AAA
+        $colorCombos[] = array('4c4da4', '8efb7f'); // WCAG PASS AA PASS AAA
+        $colorCombos[] = array('202c17', '3aaefc'); // WCAG PASS AA PASS AAA
+        $colorCombos[] = array('421225', 'eded0f'); // WCAG PASS AA PASS AAA
+        $colorCombos[] = array('85345f', '97d912'); // WCAG PASS AA PASS AAA
+        $colorCombos[] = array('961d07', 'b8c5fa'); // WCAG PASS AA PASS AAA
+        $colorCombos[] = array('0f0f3d', 'c8a12a'); // WCAG PASS AA PASS AAA
+        $colorCombos[] = array('082f4f', 'ec4ff8'); // WCAG PASS AA PASS AAA
+        // 17-32
+        $colorCombos[] = array('b1336d', 'd1fde2'); // WCAG PASS AA PASS AAA
+        $colorCombos[] = array('a80b10', 'a7d57b'); // WCAG PASS AA PASS AAA
+        $colorCombos[] = array('96381d', 'b5f803'); // WCAG PASS AA PASS AAA
+        $colorCombos[] = array('025f53', 'd4cc82'); // WCAG PASS AA PASS AAA
+        $colorCombos[] = array('1b5535', 'bcfd86'); // WCAG PASS AA PASS AAA
+        $colorCombos[] = array('3f2e22', 'd8c8b0'); // WCAG PASS AA PASS AAA
+        $colorCombos[] = array('0c3113', 'f8a0c9'); // WCAG PASS AA PASS AAA
+        $colorCombos[] = array('245e21', 'f6f5ed'); // WCAG PASS AA PASS AAA
+        $colorCombos[] = array('663838', 'c2f65a'); // WCAG PASS AA PASS AAA
+        $colorCombos[] = array('8a310a', 'd5f99a'); // WCAG PASS AA PASS AAA
+        $colorCombos[] = array('640c4d', '6dd8f8'); // WCAG PASS AA PASS AAA
+        $colorCombos[] = array('193e19', 'eeb8ef'); // WCAG PASS AA PASS AAA
+        $colorCombos[] = array('0c402e', 'fcc373'); // WCAG PASS AA PASS AAA
+        $colorCombos[] = array('5b4429', 'd0ece6'); // WCAG PASS AA PASS AAA
+        $colorCombos[] = array('2a4735', 'b7a3dc'); // WCAG PASS AA PASS AAA
+        $colorCombos[] = array('ae0f2c', 'b3e3a8'); // WCAG PASS AA PASS AAA
+        // 33-48
+        $colorCombos[] = array('9a4c4d', 'efe880'); // WCAG PASS AA PASS AAA
+        $colorCombos[] = array('67527a', '8be3c3'); // WCAG PASS AA PASS AAA
+        $colorCombos[] = array('590d60', 'd1ef85'); // WCAG PASS AA PASS AAA
+        $colorCombos[] = array('d89f36', '35355f'); // WCAG PASS AA PASS AAA
+        $colorCombos[] = array('590e2c', '8eb829'); // WCAG PASS AA PASS AAA
+        $colorCombos[] = array('6f5006', 'f2c57d'); // WCAG PASS AA PASS AAA
+        $colorCombos[] = array('144b5c', 'ecbc7b'); // WCAG PASS AA PASS AAA
+        $colorCombos[] = array('4b5f0d', '95f24f'); // WCAG PASS AA PASS AAA
+        $colorCombos[] = array('0c5f3b', 'b5dda6'); // WCAG PASS AA PASS AAA
+        $colorCombos[] = array('634f56', 'f9c56c'); // WCAG PASS AA PASS AAA
+        $colorCombos[] = array('6d2a1c', 'afa4f4'); // WCAG PASS AA PASS AAA
+        $colorCombos[] = array('7b033c', '4fcd8f'); // WCAG PASS AA PASS AAA
+        $colorCombos[] = array('2733af', '65fdf8'); // WCAG PASS AA PASS AAA
+        $colorCombos[] = array('3700e9', '8fe474'); // WCAG PASS AA PASS AAA
+        $colorCombos[] = array('751a5b', 'd5b67b'); // WCAG PASS AA PASS AAA
+        $colorCombos[] = array('103c88', 'f3ed69'); // WCAG PASS AA PASS AAA
+        
+        // not wcag tested
         
         $mod = count($colorCombos); //eventually will be 128 but counting is good
         $n = $input % $mod;
@@ -128,80 +162,80 @@ class PictoGlyph
             $n = 2 * $i;
             $this->parameters[] = hexdec(substr($hash128bit, $n, 2));
         }
-        // Background Red Index
-        $oneLight = false;
-        if ($this->parameters[0] > 115) {
-            $oneLight = true;
-        }
-        $this->background[0] = $this->parameters[0];
-        // Background Green Index
-        if ($this->parameters[1] <= 115) {
-            $this->background[1] = $this->parameters[1];
-        } else {
-            if ($oneLight) {
-                $value = $this->parameters[1];
-                while ($value > 110) {
-                    $value = $value - 27;
-                }
-                $this->background[1] = $value;
-            } else {
+        if ($this->devel) {
+            // Background Red Index
+            $oneLight = false;
+            if ($this->parameters[0] > 115) {
                 $oneLight = true;
+            }
+            $this->background[0] = $this->parameters[0];
+            // Background Green Index
+            if ($this->parameters[1] <= 115) {
                 $this->background[1] = $this->parameters[1];
-            }
-        }
-        // Background Blue Index
-        if ($this->parameters[2] <= 115) {
-            $this->background[2] = $this->parameters[2];
-        } else {
-            if ($oneLight) {
-                $value = $this->parameters[2];
-                while ($value > 110) {
-                    $value = $value - 23;
-                }
-                $this->background[2] = $value;
             } else {
+                if ($oneLight) {
+                    $value = $this->parameters[1];
+                    while ($value > 110) {
+                        $value = $value - 27;
+                    }
+                    $this->background[1] = $value;
+                } else {
+                    $oneLight = true;
+                    $this->background[1] = $this->parameters[1];
+                }
+            }
+            // Background Blue Index
+            if ($this->parameters[2] <= 115) {
                 $this->background[2] = $this->parameters[2];
-            }
-        }
-        // Foreground Blue Index
-        $oneDark = false;
-        if ($this->parameters[3] < 140) {
-            $oneDark = true;
-        }
-        $this->foreground[2] = $this->parameters[3];
-        // Foreground Green Index
-        if ($this->parameters[4] >= 140) {
-            $this->foreground[1] = $this->parameters[4];
-        } else {
-            if ($oneDark) {
-                $value = $this->parameters[4];
-                while ($value < 140) {
-                    $value = $value + 37;
-                }
-                $this->foreground[1] = $value;
             } else {
+                if ($oneLight) {
+                    $value = $this->parameters[2];
+                    while ($value > 110) {
+                        $value = $value - 23;
+                    }
+                    $this->background[2] = $value;
+                } else {
+                    $this->background[2] = $this->parameters[2];
+                }
+            }
+            // Foreground Blue Index
+            $oneDark = false;
+            if ($this->parameters[3] < 140) {
                 $oneDark = true;
+            }
+            $this->foreground[2] = $this->parameters[3];
+            // Foreground Green Index
+            if ($this->parameters[4] >= 140) {
                 $this->foreground[1] = $this->parameters[4];
-            }
-        }
-        // Foreground Red Index
-        if ($this->parameters[5] >= 140) {
-            $this->foreground[0] = $this->parameters[5];
-        } else {
-            if ($oneDark) {
-                $value = $this->parameters[5];
-                while ($value < 140) {
-                    $value = $value + 13;
-                }
-                $this->foreground[0] = $value;
             } else {
-                $this->foreground[0] = $this->parameters[5];
+                if ($oneDark) {
+                    $value = $this->parameters[4];
+                    while ($value < 140) {
+                        $value = $value + 37;
+                    }
+                    $this->foreground[1] = $value;
+                } else {
+                    $oneDark = true;
+                    $this->foreground[1] = $this->parameters[4];
+                }
             }
-        }
-        // This is better way to pick color combos that is not yet finished
-        $test = false;
-        //$test = true;
-        if ($test) {
+            // Foreground Red Index
+            if ($this->parameters[5] >= 140) {
+                $this->foreground[0] = $this->parameters[5];
+            } else {
+                if ($oneDark) {
+                    $value = $this->parameters[5];
+                    while ($value < 140) {
+                        $value = $value + 13;
+                    }
+                    $this->foreground[0] = $value;
+                } else {
+                    $this->foreground[0] = $this->parameters[5];
+                }
+            }
+        } else {
+            // This is production color scheme picker - from WCAG AA/AAA approved combinations
+            //  that look decent to me
             $sum = 17; //because I like 17
             for ($i=0; $i<16; $i++) {
                 $sum = $sum + $this->parameters[$i];
@@ -544,7 +578,7 @@ class PictoGlyph
      *
      * @return void
      */
-    public function simpleElvinStar($x, $y): void
+    protected function simpleElvinStar($x, $y): void
     {
         $foregroundRgb = $this->setRgbString($this->foreground[0], $this->foreground[1], $this->foreground[2]);
         // 51.428571429 degrees = 360/7 = 0.897597901 radians
@@ -598,7 +632,7 @@ class PictoGlyph
      *
      * @return void
      */
-    public function simpleTurtle(int $x, int $y): void
+    protected function simpleTurtle(int $x, int $y): void
     {
         $backgroundRgb = $this->setRgbString($this->background[0], $this->background[1], $this->background[2]);
         $foregroundRgb = $this->setRgbString($this->foreground[0], $this->foreground[1], $this->foreground[2]);
@@ -675,6 +709,110 @@ class PictoGlyph
         $path->setAttribute('d', $pathString);
         $this->svg->appendChild($path);
     }//end simpleTurtle()
+    
+    /**
+     * Boa Me Na Me Mmoa Wo - Adinkra "Help me and let me help you"
+     * Symbolizes cooperation and interdependence.
+     *
+     * @param int $x The X coordinate for the center of the square the glyph is placed in.
+     * @param int $y The Y coordinate for the center of the square the glyph is placed in.
+     *
+     * @return void
+     */
+    protected function simpleBoaMeNaMeMmoaWo(int $x, int $y): void
+    {
+        $backgroundRgb = $this->setRgbString($this->background[0], $this->background[1], $this->background[2]);
+        $foregroundRgb = $this->setRgbString($this->foreground[0], $this->foreground[1], $this->foreground[2]);
+        
+        $pathString = 'M' . ($x - 34) . ',' . ($y + 50) . ' ';
+        $pathString .= 'a390,150 0 0 1 0,-100 ';
+        $pathString .= 'l 11,14 ';
+        $pathString .= 'a 700,175 0 0 0 0,72 ';
+        $pathString .= 'l -11,14z';
+        
+        $path = $this->dom->createElement('path');
+        $path->setAttribute('stroke', 'none');
+        $path->setAttribute('fill', $foregroundRgb);
+        $path->setAttribute('d', $pathString);
+        $this->svg->appendChild($path);
+        
+        $pathString = 'M' . ($x + 34) . ',' . ($y + 50) . ' ';
+        $pathString .= 'a 390,150 0 0 0 0,-100 ';
+        $pathString .= 'l -11,14 ';
+        $pathString .= 'a 700,175 0 0 1 0,72 ';
+        $pathString .= 'l 11,14z';
+        
+        $path = $this->dom->createElement('path');
+        $path->setAttribute('stroke', 'none');
+        $path->setAttribute('fill', $foregroundRgb);
+        $path->setAttribute('d', $pathString);
+        $this->svg->appendChild($path);
+        
+        $pathString = 'M' . $x . ',' . $y . ' ';
+        $pathString .= 'l -47.5,61.5 ';
+        $pathString .= 'l 95,0 ';
+        $pathString .= 'l -47.5,-61.5z';
+        
+        $path = $this->dom->createElement('path');
+        $path->setAttribute('stroke', 'none');
+        $path->setAttribute('fill', $foregroundRgb);
+        $path->setAttribute('d', $pathString);
+        $this->svg->appendChild($path);
+        
+        $pathString = 'M' . $x . ',' . $y . ' ';
+        $pathString .= 'l -47.5,-61.5 ';
+        $pathString .= 'l 95,0 ';
+        $pathString .= 'l -47.5,61.5z';
+        
+        $path = $this->dom->createElement('path');
+        $path->setAttribute('stroke', 'none');
+        $path->setAttribute('fill', $foregroundRgb);
+        $path->setAttribute('d', $pathString);
+        $this->svg->appendChild($path);
+        
+        $pathString = 'M' . ($x - 14) . ',' . ($y + 59) . ' ';
+        $pathString .= 'l 0,28 ';
+        $pathString .= 'l 28,0 ';
+        $pathString .= 'l 0,-28';
+        $pathString .= 'l -28,0z';
+        
+        $path = $this->dom->createElement('path');
+        $path->setAttribute('stroke', 'none');
+        $path->setAttribute('fill', $foregroundRgb);
+        $path->setAttribute('d', $pathString);
+        $this->svg->appendChild($path);
+        
+        $circle = $this->dom->createElement('circle');
+        $circle->setAttribute('stroke', 'none');
+        $circle->setAttribute('fill', $foregroundRgb);
+        $circle->setAttribute('cx', (string) $x);
+        $cy = ($y - 71.5);
+        $circle->setAttribute('cy', (string) $cy);
+        $circle->setAttribute('r', '16');
+        $this->svg->appendChild($circle);
+        
+        $circle = $this->dom->createElement('circle');
+        $circle->setAttribute('stroke', 'none');
+        $circle->setAttribute('fill', $backgroundRgb);
+        $circle->setAttribute('cx', (string) $x);
+        $cy = ($y + 38.5);
+        $circle->setAttribute('cy', (string) $cy);
+        $circle->setAttribute('r', '13');
+        $this->svg->appendChild($circle);
+        
+        $pathString = 'M' . ($x - 11.5) . ',' . ($y - 50) . ' ';
+        $pathString .= 'l 0,23 ';
+        $pathString .= 'l 23,0 ';
+        $pathString .= 'l 0,-23 ';
+        $pathString .= 'l -23,0z';
+        
+        $path = $this->dom->createElement('path');
+        $path->setAttribute('stroke', 'none');
+        $path->setAttribute('fill', $backgroundRgb);
+        $path->setAttribute('d', $pathString);
+        $this->svg->appendChild($path);
+    }//end simpleBoaMeNaMeMmoaWo()
+
 
     /**
      * Writes the SVG to the specified file.
@@ -712,10 +850,14 @@ class PictoGlyph
     /**
      * The Constructor. Creates the SVG that is to be served.
      *
-     * @param string $hash Intended to be a hex representation of a 128-bit hash but any string will do.
+     * @param string $hash  Intended to be a hex representation of a 128-bit hash but any string will do.
+     * @param bool   $devel For testing purposes.
      */
-    public function __construct($hash)
+    public function __construct($hash, bool $devel = false)
     {
+        if ($devel) {
+            $this->devel = true;
+        }
         $this->dom = new \DOMDocument("1.0", "UTF-8");
         //$this->dom->formatOutput = true;
         // @codingStandardsIgnoreLine
@@ -733,7 +875,7 @@ class PictoGlyph
                 $byte = $this->parameters[$byteN];
                 $x = (200 * $i) + 100;
                 $y = (200 * $j) + 100;
-                $mod = $byte % 6;
+                $mod = $byte % 7;
                 switch ($mod) {
                     case 0:
                         $this->simpleTriquetra($x, $y);
@@ -753,9 +895,12 @@ class PictoGlyph
                     case 5:
                         $this->simpleTurtle($x, $y);
                         break;
+                    case 6:
+                        $this->simpleBoaMeNaMeMmoaWo($x, $y);
+                        break;
                     default:
                         $this->simpleCircle($x, $y);
-                        //$this->simpleTurtle($x, $y);
+                        //$this->simpleBoaMeNaMeMmoaWo($x, $y);
                         break;
                 }
             }
@@ -770,10 +915,11 @@ class PictoGlyph
     }//end __construct()
 }//end class
 
-/*
 // uncomment this block for testing file as standalone program
+/*
 $foo = random_bytes(32);
 $foo = base64_encode($foo);
+//$bar = new PictoGlyph($foo, true);
 $bar = new PictoGlyph($foo);
 $bar->sendContent();
 exit;
