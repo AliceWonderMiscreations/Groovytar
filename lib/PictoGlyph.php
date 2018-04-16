@@ -52,7 +52,8 @@ class PictoGlyph
     protected $svg;
     
     /**
-     * Not yet used, will be an array of 128 different color combinations
+     * Not yet used, will be an array of 128 different color combinations.
+     * TODO: Need to test them for accessibility.
      *
      * @param int $input A number between 0 and 255.
      *
@@ -72,6 +73,22 @@ class PictoGlyph
         $colorCombos[] = array('c3155e', '87fffa');
         // 9-16
         $colorCombos[] = array('259b39', 'ef63a5');
+        $colorCombos[] = array('b0191d', '27cfdc');
+        $colorCombos[] = array('691f4b', 'ed9439');
+        $colorCombos[] = array('3ca438', 'f6f5ed');
+        $colorCombos[] = array('a96468', '95da0c');
+        $colorCombos[] = array('00606e', 'e89a36');
+        $colorCombos[] = array('4c4da4', '8efb7f');
+        $colorCombos[] = array('202c17', '3aaefc');
+        // 17-24
+        $colorCombos[] = array('eb5b1d', 'caf77e');
+        $colorCombos[] = array('8f0f6d', '09a4d2');
+        $colorCombos[] = array('421225', 'eded0f');
+        $colorCombos[] = array('40b03f', '9214a0');
+        $colorCombos[] = array('85345f', '8ccb11');
+        $colorCombos[] = array('1f936b', 'fcac3d');
+        $colorCombos[] = array('7a5a36', '4ebd9e');
+        $colorCombos[] = array('961d07', '8ca0f6');
         
         $mod = count($colorCombos); //eventually will be 128 but counting is good
         $n = $input % $mod;
@@ -183,6 +200,7 @@ class PictoGlyph
         }
         // This is better way to pick color combos that is not yet finished
         $test = false;
+        //$test = true;
         if ($test) {
             $sum = 17; //because I like 17
             for ($i=0; $i<16; $i++) {
@@ -517,6 +535,146 @@ class PictoGlyph
         $path->setAttribute('d', $pathString);
         $this->svg->appendChild($path);
     }//end simpleAsaseYeDuru()
+    
+    /**
+     * Elvin Star - Many different meanings, 7 has lots of significance in historic cultures.
+     *
+     * @param int $x The X coordinate for the center of the square the glyph is placed in.
+     * @param int $y The Y coordinate for the center of the square the glyph is placed in.
+     *
+     * @return void
+     */
+    public function simpleElvinStar($x, $y): void
+    {
+        $foregroundRgb = $this->setRgbString($this->foreground[0], $this->foreground[1], $this->foreground[2]);
+        // 51.428571429 degrees = 360/7 = 0.897597901 radians
+        // 25.714285714 degrees = 360/14 = 0.448798951 radians
+        
+        // Point Ax = $x + + r * (sin 25.714285714)
+        // Point Ay = $y + * r * (cos 25.714285714)
+      
+        $rad07 = 0.897597901;
+        $rad14 = 0.448798951;
+      
+        $r = 75;
+      
+        $Ax = $x - ($r * (sin($rad14)));
+        $Ay = $y + ($r * (cos($rad14)));
+        $Bx = $x - ($r * (sin($rad14 + (3 * $rad07))));
+        $By = $y + ($r * (cos($rad14 + (3 * $rad07))));
+        $Cx = $x - ($r * (sin($rad14 + (6 * $rad07))));
+        $Cy = $y + ($r * (cos($rad14 + (6 * $rad07))));
+        $Dx = $x - ($r * (sin($rad14 + (9 * $rad07))));
+        $Dy = $y + ($r * (cos($rad14 + (9 * $rad07))));
+        $Ex = $x - ($r * (sin($rad14 + (12 * $rad07))));
+        $Ey = $y + ($r * (cos($rad14 + (12 * $rad07))));
+        $Fx = $x - ($r * (sin($rad14 + (15 * $rad07))));
+        $Fy = $y + ($r * (cos($rad14 + (15 * $rad07))));
+        $Gx = $x - ($r * (sin($rad14 + (18 * $rad07))));
+        $Gy = $y + ($r * (cos($rad14 + (18 * $rad07))));
+      
+        $pathString = 'M' . $Ax . ',' . $Ay . ' ';
+        $pathString = $pathString . 'l' . ($Bx - $Ax) . ',' . ($By - $Ay) . ' ';
+        $pathString = $pathString . 'l' . ($Cx - $Bx) . ',' . ($Cy - $By) . ' ';
+        $pathString = $pathString . 'l' . ($Dx - $Cx) . ',' . ($Dy - $Cy) . ' ';
+        $pathString = $pathString . 'l' . ($Ex - $Dx) . ',' . ($Ey - $Dy) . ' ';
+        $pathString = $pathString . 'l' . ($Fx - $Ex) . ',' . ($Fy - $Ey) . ' ';
+        $pathString = $pathString . 'l' . ($Gx - $Fx) . ',' . ($Gy - $Fy) . ' ';
+        $pathString = $pathString . 'l' . ($Ax - $Gx) . ',' . ($Ay - $Gy) . 'z';
+        
+        $path = $this->dom->createElement('path');
+        $path->setAttribute('fill', 'none');
+        $path->setAttribute('stroke', $foregroundRgb);
+        $path->setAttribute('stroke-width', '5');
+        $path->setAttribute('d', $pathString);
+        $this->svg->appendChild($path);
+    }//end simpleElvinStar()
+
+    /**
+     * Hawaiian Turtle Glyph - Means Good Luck
+     *
+     * @param int $x The X coordinate for the center of the square the glyph is placed in.
+     * @param int $y The Y coordinate for the center of the square the glyph is placed in.
+     *
+     * @return void
+     */
+    public function simpleTurtle(int $x, int $y): void
+    {
+        $backgroundRgb = $this->setRgbString($this->background[0], $this->background[1], $this->background[2]);
+        $foregroundRgb = $this->setRgbString($this->foreground[0], $this->foreground[1], $this->foreground[2]);
+        
+        $pathString = 'M' . $x . ',' . ($y + 75) . ' ';
+        $pathString .= 'a24.5,47 0 0 0 -44.5,13.5 ';
+        $pathString .= 'a20,27.5 0 0 1 9.5,-47.75 ';
+        $pathString .= 'a87.5,75 0 0 1 0,-73 ';
+        $pathString .= 'a10,10 0 0 0 -3,-4 ';
+        $pathString .= 'a10,10 0 0 0 -6.5,-0.5 ';
+        $pathString .= 'a40,40 0 0 0 -26.5,30 ';
+        $pathString .= 'a6,40 0 0 1 -4,9.25 ';
+        $pathString .= 'a10,15 0 0 1 -9,-7.5 ';
+        $pathString .= 'a50,50 0 0 1 15,-40.5 ';
+        $pathString .= 'a35,40 0 0 1 31.5,-3.5 ';
+        $pathString .= 'l 10,4 ';
+        $pathString .= 'a15,20 0 0 0 10.5,-0.5 ';
+        $pathString .= 'a27.5,20 0 0 1 10,-2.75 ';
+        $pathString .= 'c1,-8 -7,-15 -7,-25 ';
+        $pathString .= 'a14,15 0 0 1 28,0 ';
+        $pathString .= 'c0,10 -8,17 -7,25 ';
+        $pathString .= 'a27.5,20 0 0 1 10,2.75 ';
+        $pathString .= 'a15,20 0 0 0 10.5,0.5 ';
+        $pathString .= 'l 10,-4 ';
+        $pathString .= 'a35,40 0 0 1 32,3.5 ';
+        $pathString .= 'a50,50 0 0 1 16,40.5 ';
+        $pathString .= 'a10,15 0 0 1 -9.5,8 ';
+        $pathString .= 'a6,40 0 0 1 -4,-9.25 ';
+        $pathString .= 'a40,40 0 0 0 -26.5,-30.5 ';
+        $pathString .= 'a10,10 0 0 0 -7,0.5 ';
+        $pathString .= 'a10,10 0 0 0 -3.5,4 ';
+        $pathString .= 'a87.5,75 0 0 1 0,73 ';
+        $pathString .= 'a20,27.5 0 0 1 9.5,47.75 ';
+        $pathString .= 'a24.5,47 0 0 0 -44.5,-13.5z';
+        
+        $path = $this->dom->createElement('path');
+        $path->setAttribute('stroke', 'none');
+        $path->setAttribute('fill', $foregroundRgb);
+        $path->setAttribute('d', $pathString);
+        $this->svg->appendChild($path);
+        
+        $pathString = 'M' . ($x - 25) . ',' . ($y + 51.5) . ' ';
+        $pathString .= 'a30,20 0 0 0 50,0z';
+        
+        $path = $this->dom->createElement('path');
+        $path->setAttribute('stroke', 'none');
+        $path->setAttribute('fill', $foregroundRgb);
+        $path->setAttribute('d', $pathString);
+        $this->svg->appendChild($path);
+        
+        $pathString = 'M' . ($x - 2.75) . ',' . ($y - 33.75) . ' ';
+        $pathString .= 'l 0,78 ';
+        $pathString .= 'c0,6.5 -7.5,5 -11,3 ';
+        $pathString .= 'a37.5,45 0 0 1 0,-84 ';
+        $pathString .= 'c3.5,-2 11,-3.5 11,3z';
+        
+        $path = $this->dom->createElement('path');
+        $path->setAttribute('stroke', 'none');
+        $path->setAttribute('fill', $backgroundRgb);
+        $path->setAttribute('fill-opacity', '0.7');
+        $path->setAttribute('d', $pathString);
+        $this->svg->appendChild($path);
+        
+        $pathString = 'M' . ($x + 2.75) . ',' . ($y - 33.75) . ' ';
+        $pathString .= 'l 0,78 ';
+        $pathString .= 'c0,6.5 7.5,5 11,3 ';
+        $pathString .= 'a37.5,45 0 0 0 0,-84 ';
+        $pathString .= 'c-3.5,-2 -11,-3.5 -11,3z';
+        
+        $path = $this->dom->createElement('path');
+        $path->setAttribute('stroke', 'none');
+        $path->setAttribute('fill', $backgroundRgb);
+        $path->setAttribute('fill-opacity', '0.7');
+        $path->setAttribute('d', $pathString);
+        $this->svg->appendChild($path);
+    }//end simpleTurtle()
 
     /**
      * Writes the SVG to the specified file.
@@ -559,21 +717,23 @@ class PictoGlyph
     public function __construct($hash)
     {
         $this->dom = new \DOMDocument("1.0", "UTF-8");
+        //$this->dom->formatOutput = true;
         // @codingStandardsIgnoreLine
         $docstring = '<?xml version="1.0"?><!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd"><svg xmlns="http://www.w3.org/2000/svg" version="1.1" width="800" height="800" viewBox="0 0 800 800"/>';
         $this->dom->loadXML($docstring);
         $this->svg = $this->dom->getElementsByTagName('svg')->item(0);
+        
         $this->hashToParameters($hash);
         $this->drawCanvas();
         
-        // The sixteen shapes
+        // The sixteen squares
         for ($i=0; $i<4; $i++) {
             for ($j=0; $j<4; $j++) {
                 $byteN = (4 * $j) + $i;
                 $byte = $this->parameters[$byteN];
                 $x = (200 * $i) + 100;
                 $y = (200 * $j) + 100;
-                $mod = $byte % 4;
+                $mod = $byte % 6;
                 switch ($mod) {
                     case 0:
                         $this->simpleTriquetra($x, $y);
@@ -587,14 +747,26 @@ class PictoGlyph
                     case 3:
                         $this->simpleAsaseYeDuru($x, $y);
                         break;
+                    case 4:
+                        $this->simpleElvinStar($x, $y);
+                        break;
+                    case 5:
+                        $this->simpleTurtle($x, $y);
+                        break;
                     default:
-                        //$this->simpleCircle($x, $y);
-                        $this->simpleAsaseYeDuru($x, $y);
+                        $this->simpleCircle($x, $y);
+                        //$this->simpleTurtle($x, $y);
                         break;
                 }
             }
         }
         $this->addFrame();
+        $gendate = 'SVG Generated on ' . date('r');
+        $comment = $this->dom->createComment($gendate);
+        // make psalm happy
+        if (! is_null($this->svg)) {
+            $this->svg->appendChild($comment);
+        }
     }//end __construct()
 }//end class
 
