@@ -18,6 +18,12 @@ namespace AWonderPHP\Groovytar;
  */
 class ColorMeta
 {
+    /**
+     * Named Reference Colors.
+     *
+     * @var array
+     */
+    protected $referenceColors;
   
     /**
      * Calculate the luminance of a color.
