@@ -34,16 +34,17 @@ class ColorMeta
      */
     protected function greyscaleLuminance($hex)
     {
-        $red = hexdec(substr($hex, 0, 2);
-        $green = hexdec(substr($hex, 2, 2);
-        $blue = hexdec(substr($hex, 4, 2);
-        $redRatio = bcdiv(255, $red, 4);
-        $greenRatio = bcdiv(255, $green, 4);
-        $blueRatio = bcdiv(255, $blue, 4);
+        //var_dump($hex);
+        $red = hexdec(substr($hex, 0, 2));
+        $green = hexdec(substr($hex, 2, 2));
+        $blue = hexdec(substr($hex, 4, 2));
+        $redRatio = bcdiv((string) $red, '255', 4);
+        $greenRatio = bcdiv((string) $green, '255', 4);
+        $blueRatio = bcdiv((string) $blue, '255', 4);
         
-        $redComponent = bcmul(0.299, $redRatio, 4);
-        $greenComponent = bcmul(0.587, $greenRatio, 4);
-        $blueComponent = bcmul(0.114, $blueComponent, 4);
+        $redComponent = bcmul('0.299', $redRatio, 4);
+        $greenComponent = bcmul('0.587', $greenRatio, 4);
+        $blueComponent = bcmul('0.114', $blueRatio, 4);
         
         $luminance = bcadd($redComponent, $greenComponent, 4);
         $luminance = bcadd($luminance, $blueComponent, 4);
@@ -63,11 +64,11 @@ class ColorMeta
     {
         $obj = new \stdClass();
         $obj->majorCat = $majorCat;
-        if(! is_null($colorName) {
+        if(! is_null($colorName)) {
             $obj->colorName = $colorName;
         }
         $obj->hex = strtolower($hex);
-        $onj->luminance = $this->greyscaleLuminance($hex);
+        $obj->luminance = $this->greyscaleLuminance($hex);
         return $obj;
     }
     
@@ -81,7 +82,7 @@ class ColorMeta
         } else {
             $lumediff = bcsub($two->luminance, $one->luminance, 2);
         }
-        $ldiff = intval(bcmul(100, $lumediff, 0));
+        $ldiff = intval(bcmul('100', $lumediff, 0));
         if($ldiff > 10) {
             // too different to compare this way
             return false;
@@ -89,12 +90,12 @@ class ColorMeta
       
         $cone = array();
         $ctwo = array();
-        $cone['red'] = hexdec(substr($one->hex, 0, 2);
-        $cone['green'] = hexdec(substr($one->hex, 2, 2);
-        $cone['blue'] = hexdec(substr($one->hex, 4, 2);
-        $ctwo['red'] = hexdec(substr($two->hex, 0, 2);
-        $ctwo['green'] = hexdec(substr($two->hex, 2, 2);
-        $ctwo['blue'] = hexdec(substr($two->hex, 4, 2);
+        $cone['red'] = hexdec(substr($one->hex, 0, 2));
+        $cone['green'] = hexdec(substr($one->hex, 2, 2));
+        $cone['blue'] = hexdec(substr($one->hex, 4, 2));
+        $ctwo['red'] = hexdec(substr($two->hex, 0, 2));
+        $ctwo['green'] = hexdec(substr($two->hex, 2, 2));
+        $ctwo['blue'] = hexdec(substr($two->hex, 4, 2));
         $diff = 0;
         $a = $cone['red'] - $ctwo['red'];
         $diff = $diff + abs($a);
@@ -271,10 +272,231 @@ class ColorMeta
         
         
     }
+    
+    public function findClosestReference($hex) {
+          $return = array();
+          $test = $this->createColorObject('unknown', $hex);
+          $nearestMatch = ((3 * 255) + 1);
+          foreach($this->referenceColors as $ref) {
+              $n = $this->compareTwoColors($ref, $test);
+              if($n !== false) {
+                if($n < $nearestMatch) {
+                  $majorCat = $ref->majorCat;
+                  $refNamed = $ref->colorName;
+                  $nearestMatch = $n;
+                }
+              }
+          }
+          if(isset($majorCat)) {
+              $return[] = $majorCat;
+              $return[] = $refNamed;
+          }
+          return $return;
+    }
+    
+    public static function printLine($arr)
+    {
+        $a = $arr['data'][0];
+        $b = $arr['data'][1];
+        $c = str_pad($arr['background'], 15, ' ');
+        $d = $arr['foreground'];
+        //
+        echo sprintf('        $colorCombos[] = array(\'%s\', \'%s\'); // %s || %s', $a, $b, $c, $d);
+        echo "\n";
+    }
+    
+    public function __construct()
+    {
+          $this->generateReferenceColors();
+    }
 }
 
+header("Content-Type: text/plain");
+
+$foo = new ColorMeta();
+
+$colorCombos = array();
+        // 1-16
+        $colorCombos[] = array('861d57', '9fc464'); // WCAG PASS AAA
+        $colorCombos[] = array('132052', '939689'); // WCAG PASS AAA
+        $colorCombos[] = array('8d343a', 'a1e35f'); // WCAG PASS AAA
+        $colorCombos[] = array('2303c8', 'a4ad58'); // WCAG PASS AAA
+        $colorCombos[] = array('0e10ca', 'd3a21f'); // WCAG PASS AAA
+        $colorCombos[] = array('c3155e', '87fffa'); // WCAG PASS AAA
+        $colorCombos[] = array('98161a', '4bd8e2'); // WCAG PASS AA FAIL AAA
+        $colorCombos[] = array('691f4b', 'ed9439'); // WCAG PASS AAA
+        $colorCombos[] = array('00505c', 'ecaf5f'); // WCAG PASS AAA
+        $colorCombos[] = array('4c4da4', '8efb7f'); // WCAG PASS AAA
+        $colorCombos[] = array('202c17', '3aaefc'); // WCAG PASS AAA
+        $colorCombos[] = array('421225', 'eded0f'); // WCAG PASS AAA
+        $colorCombos[] = array('85345f', '97d912'); // WCAG PASS AAA
+        $colorCombos[] = array('961d07', 'b8c5fa'); // WCAG PASS AAA
+        $colorCombos[] = array('0f0f3d', 'c8a12a'); // WCAG PASS AAA
+        $colorCombos[] = array('082f4f', 'ec4ff8'); // WCAG PASS AAA
+        // 17-32
+        $colorCombos[] = array('b1336d', 'd1fde2'); // WCAG PASS AAA
+        $colorCombos[] = array('a80b10', 'a7d57b'); // WCAG PASS AAA
+        $colorCombos[] = array('96381d', 'b5f803'); // WCAG PASS AAA
+        $colorCombos[] = array('025f53', 'd4cc82'); // WCAG PASS AAA
+        $colorCombos[] = array('1b5535', 'bcfd86'); // WCAG PASS AAA
+        $colorCombos[] = array('3f2e22', 'd8c8b0'); // WCAG PASS AAA
+        $colorCombos[] = array('0c3113', 'f8a0c9'); // WCAG PASS AAA
+        $colorCombos[] = array('245e21', 'f6f5ed'); // WCAG PASS AAA
+        $colorCombos[] = array('663838', 'c2f65a'); // WCAG PASS AAA
+        $colorCombos[] = array('8a310a', 'd5f99a'); // WCAG PASS AAA
+        $colorCombos[] = array('640c4d', '6dd8f8'); // WCAG PASS AAA
+        $colorCombos[] = array('193e19', 'eeb8ef'); // WCAG PASS AAA
+        $colorCombos[] = array('0c402e', 'fcc373'); // WCAG PASS AAA
+        $colorCombos[] = array('5b4429', 'd0ece6'); // WCAG PASS AAA
+        $colorCombos[] = array('2a4735', 'b7a3dc'); // WCAG PASS AAA
+        $colorCombos[] = array('ae0f2c', 'b3e3a8'); // WCAG PASS AAA
+        // 33-48
+        $colorCombos[] = array('9a4c4d', 'efe880'); // WCAG PASS AAA
+        $colorCombos[] = array('67527a', '8be3c3'); // WCAG PASS AAA
+        $colorCombos[] = array('590d60', 'd1ef85'); // WCAG PASS AAA
+        $colorCombos[] = array('d89f36', '35355f'); // WCAG PASS AAA
+        $colorCombos[] = array('590e2c', '8eb829'); // WCAG PASS AAA
+        $colorCombos[] = array('6f5006', 'f2c57d'); // WCAG PASS AAA
+        $colorCombos[] = array('144b5c', 'ecbc7b'); // WCAG PASS AAA
+        $colorCombos[] = array('4b5f0d', '95f24f'); // WCAG PASS AAA
+        $colorCombos[] = array('0c5f3b', 'b5dda6'); // WCAG PASS AAA
+        $colorCombos[] = array('634f56', 'f9c56c'); // WCAG PASS AAA
+        $colorCombos[] = array('6d2a1c', 'afa4f4'); // WCAG PASS AAA
+        $colorCombos[] = array('7b033c', '4fcd8f'); // WCAG PASS AAA
+        $colorCombos[] = array('2733af', '65fdf8'); // WCAG PASS AAA
+        $colorCombos[] = array('3700e9', '8fe474'); // WCAG PASS AAA
+        $colorCombos[] = array('751a5b', 'd5b67b'); // WCAG PASS AAA
+        $colorCombos[] = array('103c88', 'f3ed69'); // WCAG PASS AAA
+        // 49-64
+        $colorCombos[] = array('a24320', 'a9fc4a'); // WCAG PASS AAA
+        $colorCombos[] = array('1d3987', 'd494f9'); // WCAG PASS AAA
+        $colorCombos[] = array('1c2410', 'b49183'); // WCAG PASS AAA
+        $colorCombos[] = array('834458', '8ce800'); // WCAG PASS AAA
+        $colorCombos[] = array('96305a', '97e0e8'); // WCAG PASS AAA
+        $colorCombos[] = array('c44703', 'f5f5f5'); // WCAG PASS AAA
+        $colorCombos[] = array('5cd417', '70149f'); // WCAG PASS AAA
+        $colorCombos[] = array('453513', 'bd91de'); // WCAG PASS AAA
+        $colorCombos[] = array('294216', '95bd1e'); // WCAG PASS AAA
+        $colorCombos[] = array('8a0261', 'f5bdb8'); // WCAG PASS AAA
+        $colorCombos[] = array('814d04', '84e5a3'); // WCAG PASS AAA
+        $colorCombos[] = array('674410', 'b8b7f0'); // WCAG PASS AAA
+        $colorCombos[] = array('7b016b', 'b8b432'); // WCAG PASS AAA
+        $colorCombos[] = array('b92736', 'e7ee96'); // WCAG PASS AAA
+        $colorCombos[] = array('39062a', 'a36fce'); // WCAG PASS AAA
+        $colorCombos[] = array('2efa44', '97279a'); // WCAG PASS AAA
 
 
+$pink = array();
+$red = array();
+$orange = array();
+$yellow = array();
+$brown = array();
+$green = array();
+$cyan = array();
+$blue = array();
+$purple = array();
+$white = array();
+$gray = array();
+
+foreach($colorCombos as $combo) {
+    $testMe = $foo->findClosestReference($combo[0]);
+    $teaseMe = $foo->findClosestReference($combo[1]);
+    if(count($testMe) === 2) {
+      $major = $testMe[0];
+      $background = $testMe[1];
+      $foreground = $teaseMe[1];
+      $a = array();
+      $a['data'] = $combo;
+      $a['background'] = $background;
+      $a['foreground'] = $foreground;
+      switch($major) {
+        case 'Pink Colors':
+          $pink[] = $a;
+          break;
+        case 'Red Colors':
+          $red[] = $a;
+          break;
+        case 'Orange Colors':
+            $orange[] = $a;
+            break;
+        case 'Yellow Colors':
+          $yellow[] = $a;
+          break;
+        case 'Brown Colors':
+          $brown[] = $a;
+          break;
+        case 'Green Colors':
+           $green[] = $a;
+           break;
+        case 'Cyan Colors':
+          $cyan[] = $a;
+          break;
+        case 'Blue Colors':
+          $blue[] = $a;
+          break;
+        case 'Purple Colors':
+          $purple[] = $a;
+          break;
+        case 'White Colors':
+          $white[] = $a;
+          break;
+        default:
+          $gray[] = $a;
+          break;
+      }
+    } else {
+      echo "\n\nFAIL:\n\n";
+      var_dump($combo);
+    }
+}
+
+echo "\n        //Pink:\n";
+foreach($pink as $arr) {
+  $foo->printLine($arr);
+}
+echo "\n        //Red:\n";
+foreach($red as $arr) {
+  $foo->printLine($arr);
+}
+echo "\n        //Orange:\n";
+foreach($orange as $arr) {
+  $foo->printLine($arr);
+}
+
+echo "\n        //Yellow:\n";
+foreach($yellow as $arr) {
+  $foo->printLine($arr);
+}
+echo "\n        //Brown:\n";
+foreach($brown as $arr) {
+  $foo->printLine($arr);
+}
+echo "\n        //Green:\n";
+foreach($green as $arr) {
+  $foo->printLine($arr);
+}
+
+echo "\n        //Cyan:\n";
+foreach($cyan as $arr) {
+  $foo->printLine($arr);
+}
+echo "\n        //Blue:\n";
+foreach($blue as $arr) {
+  $foo->printLine($arr);
+}
+echo "\n        //Purple:\n";
+foreach($purple as $arr) {
+  $foo->printLine($arr);
+}
+
+echo "\n        //White:\n";
+foreach($white as $arr) {
+  $foo->printLine($arr);
+}
+echo "\n        //Gray:\n";
+foreach($gray as $arr) {
+  $foo->printLine($arr);
+}
 
 
 
