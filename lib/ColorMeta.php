@@ -50,7 +50,8 @@ class ColorMeta
         $luminance = bcadd($luminance, $blueComponent, 4);
         
         return $luminance;
-    }
+    }//end greyscaleLuminance()
+
     
     /**
      * Created a stdClass object with properties related to the color.
@@ -64,26 +65,27 @@ class ColorMeta
     {
         $obj = new \stdClass();
         $obj->majorCat = $majorCat;
-        if(! is_null($colorName)) {
+        if (! is_null($colorName)) {
             $obj->colorName = $colorName;
         }
         $obj->hex = strtolower($hex);
         $obj->luminance = $this->greyscaleLuminance($hex);
         return $obj;
-    }
+    }//end createColorObject()
+
     
     // only should be used when colors already determined to have
     // similar luminense
     protected function compareTwoColors($one, $two)
     {
         $lumediff = 0;
-        if($one->luminance > $two->luminance) {
+        if ($one->luminance > $two->luminance) {
             $lumediff = bcsub($one->luminance, $two->luminance, 2);
         } else {
             $lumediff = bcsub($two->luminance, $one->luminance, 2);
         }
         $ldiff = intval(bcmul('100', $lumediff, 0));
-        if($ldiff > 10) {
+        if ($ldiff > 10) {
             // too different to compare this way
             return false;
         }
@@ -96,15 +98,17 @@ class ColorMeta
         $ctwo['red'] = hexdec(substr($two->hex, 0, 2));
         $ctwo['green'] = hexdec(substr($two->hex, 2, 2));
         $ctwo['blue'] = hexdec(substr($two->hex, 4, 2));
-        $diff = 0;
-        $a = $cone['red'] - $ctwo['red'];
-        $diff = $diff + abs($a);
-        $a = $cone['green'] - $ctwo['green'];
-        $diff = $diff + abs($a);
-        $a = $cone['blue'] - $ctwo['blue'];
-        $diff = $diff + abs($a);
-        return $diff;
-    }
+        
+        $diffX = $cone['red'] - $ctwo['red'];
+        $diffY = $cone['green'] - $ctwo['green'];
+        $diffZ = $cone['blue'] - $ctwo['blue'];
+        
+        $sumsquares = (($diffX * $diffX) + ($diffY * $diffY) + ($diffZ * $diffZ));
+        $num = intval((1000 * sqrt($sumsquares)), 10);
+        
+        return $num;
+    }//end compareTwoColors()
+
     
     // X11 color names - W3C takes precedence where clash
     protected function generateReferenceColors()
@@ -269,30 +273,31 @@ class ColorMeta
         $colors[] = $this->createColorObject($majorCat, '000000', 'Black');
         
         $this->referenceColors = $colors;
-        
-        
-    }
+    }//end generateReferenceColors()
+
     
-    public function findClosestReference($hex) {
+    public function findClosestReference($hex)
+    {
           $return = array();
           $test = $this->createColorObject('unknown', $hex);
           $nearestMatch = ((3 * 255) + 1);
-          foreach($this->referenceColors as $ref) {
-              $n = $this->compareTwoColors($ref, $test);
-              if($n !== false) {
-                if($n < $nearestMatch) {
-                  $majorCat = $ref->majorCat;
-                  $refNamed = $ref->colorName;
-                  $nearestMatch = $n;
+        foreach ($this->referenceColors as $ref) {
+            $n = $this->compareTwoColors($ref, $test);
+            if ($n !== false) {
+                if ($n < $nearestMatch) {
+                    $majorCat = $ref->majorCat;
+                    $refNamed = $ref->colorName;
+                    $nearestMatch = $n;
                 }
-              }
-          }
-          if(isset($majorCat)) {
-              $return[] = $majorCat;
-              $return[] = $refNamed;
-          }
+            }
+        }
+        if (isset($majorCat)) {
+            $return[] = $majorCat;
+            $return[] = $refNamed;
+        }
           return $return;
-    }
+    }//end findClosestReference()
+
     
     public static function printLine($arr)
     {
@@ -303,13 +308,14 @@ class ColorMeta
         //
         echo sprintf('        $colorCombos[] = array(\'%s\', \'%s\'); // %s || %s', $a, $b, $c, $d);
         echo "\n";
-    }
+    }//end printLine()
+
     
     public function __construct()
     {
           $this->generateReferenceColors();
-    }
-}
+    }//end __construct()
+}//end class
 
 header("Content-Type: text/plain");
 
@@ -398,104 +404,104 @@ $purple = array();
 $white = array();
 $gray = array();
 
-foreach($colorCombos as $combo) {
+foreach ($colorCombos as $combo) {
     $testMe = $foo->findClosestReference($combo[0]);
     $teaseMe = $foo->findClosestReference($combo[1]);
-    if(count($testMe) === 2) {
-      $major = $testMe[0];
-      $background = $testMe[1];
-      $foreground = $teaseMe[1];
-      $a = array();
-      $a['data'] = $combo;
-      $a['background'] = $background;
-      $a['foreground'] = $foreground;
-      switch($major) {
-        case 'Pink Colors':
-          $pink[] = $a;
-          break;
-        case 'Red Colors':
-          $red[] = $a;
-          break;
-        case 'Orange Colors':
-            $orange[] = $a;
-            break;
-        case 'Yellow Colors':
-          $yellow[] = $a;
-          break;
-        case 'Brown Colors':
-          $brown[] = $a;
-          break;
-        case 'Green Colors':
-           $green[] = $a;
-           break;
-        case 'Cyan Colors':
-          $cyan[] = $a;
-          break;
-        case 'Blue Colors':
-          $blue[] = $a;
-          break;
-        case 'Purple Colors':
-          $purple[] = $a;
-          break;
-        case 'White Colors':
-          $white[] = $a;
-          break;
-        default:
-          $gray[] = $a;
-          break;
-      }
+    if (count($testMe) === 2) {
+        $major = $testMe[0];
+        $background = $testMe[1];
+        $foreground = $teaseMe[1];
+        $a = array();
+        $a['data'] = $combo;
+        $a['background'] = $background;
+        $a['foreground'] = $foreground;
+        switch ($major) {
+            case 'Pink Colors':
+                $pink[] = $a;
+                break;
+            case 'Red Colors':
+                $red[] = $a;
+                break;
+            case 'Orange Colors':
+                $orange[] = $a;
+                break;
+            case 'Yellow Colors':
+                $yellow[] = $a;
+                break;
+            case 'Brown Colors':
+                $brown[] = $a;
+                break;
+            case 'Green Colors':
+                $green[] = $a;
+                break;
+            case 'Cyan Colors':
+                $cyan[] = $a;
+                break;
+            case 'Blue Colors':
+                $blue[] = $a;
+                break;
+            case 'Purple Colors':
+                $purple[] = $a;
+                break;
+            case 'White Colors':
+                $white[] = $a;
+                break;
+            default:
+                $gray[] = $a;
+                break;
+        }
     } else {
-      echo "\n\nFAIL:\n\n";
-      var_dump($combo);
+        echo "\n\nFAIL:\n\n";
+        var_dump($combo);
     }
 }
 
 echo "\n        //Pink:\n";
-foreach($pink as $arr) {
-  $foo->printLine($arr);
+foreach ($pink as $arr) {
+    $foo->printLine($arr);
 }
 echo "\n        //Red:\n";
-foreach($red as $arr) {
-  $foo->printLine($arr);
+foreach ($red as $arr) {
+    $foo->printLine($arr);
 }
 echo "\n        //Orange:\n";
-foreach($orange as $arr) {
-  $foo->printLine($arr);
+foreach ($orange as $arr) {
+    $foo->printLine($arr);
 }
 
 echo "\n        //Yellow:\n";
-foreach($yellow as $arr) {
-  $foo->printLine($arr);
+foreach ($yellow as $arr) {
+    $foo->printLine($arr);
 }
 echo "\n        //Brown:\n";
-foreach($brown as $arr) {
-  $foo->printLine($arr);
+foreach ($brown as $arr) {
+    $foo->printLine($arr);
 }
 echo "\n        //Green:\n";
-foreach($green as $arr) {
-  $foo->printLine($arr);
+foreach ($green as $arr) {
+    $foo->printLine($arr);
 }
 
 echo "\n        //Cyan:\n";
-foreach($cyan as $arr) {
-  $foo->printLine($arr);
+foreach ($cyan as $arr) {
+    $foo->printLine($arr);
 }
 echo "\n        //Blue:\n";
-foreach($blue as $arr) {
-  $foo->printLine($arr);
+foreach ($blue as $arr) {
+    $foo->printLine($arr);
 }
 echo "\n        //Purple:\n";
-foreach($purple as $arr) {
-  $foo->printLine($arr);
+foreach ($purple as $arr) {
+    $foo->printLine($arr);
 }
 
 echo "\n        //White:\n";
-foreach($white as $arr) {
-  $foo->printLine($arr);
+foreach ($white as $arr) {
+    $foo->printLine($arr);
 }
 echo "\n        //Gray:\n";
-foreach($gray as $arr) {
-  $foo->printLine($arr);
+foreach ($gray as $arr) {
+    $foo->printLine($arr);
 }
 
 

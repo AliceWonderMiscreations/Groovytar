@@ -149,10 +149,13 @@ class PictoGlyph
         
         //Red:
         $colorCombos[] = array('961d07', 'b8c5fa'); // DarkRed         || LightSteelBlue
-        $colorCombos[] = array('a80b10', 'a7d57b'); // FireBrick       || DarkKhaki
-        $colorCombos[] = array('b92736', 'e7ee96'); // FireBrick       || Khaki
-        $colorCombos[] = array('98161a', '4bd8e2'); // FireBrick       || MediumTurquoise        
-        $colorCombos[] = array('ae0f2c', 'b3e3a8'); // FireBrick       || PaleGoldenrod
+        
+        $colorCombos[] = array('98161a', '4bd8e2'); // FireBrick       || MediumTurquoise
+        
+          // These three very similar
+        //$colorCombos[] = array('a80b10', 'a7d57b'); // FireBrick       || DarkKhaki
+        //$colorCombos[] = array('b92736', 'e7ee96'); // FireBrick       || Khaki
+        //$colorCombos[] = array('ae0f2c', 'b3e3a8'); // FireBrick       || PaleGoldenrod
                 
         //Orange:
         $colorCombos[] = array('c44703', 'f5f5f5'); // OrangeRed       || WhiteSmoke
@@ -165,43 +168,47 @@ class PictoGlyph
         $colorCombos[] = array('421225', 'eded0f'); // Maroon          || Yellow
         $colorCombos[] = array('590e2c', '8eb829'); // Maroon          || YellowGreen
         $colorCombos[] = array('d89f36', '35355f'); // Peru            || DarkSlateGray
+
+        /* These all differ enough */
         $colorCombos[] = array('96381d', 'b5f803'); // SaddleBrown     || GreenYellow
-        $colorCombos[] = array('834458', '8ce800'); // SaddleBrown     || LawnGreen
+        $colorCombos[] = array('834458', '8ce800'); // SaddleBrown     || LawnGreen || Maroon SaddleBrown
         $colorCombos[] = array('814d04', '84e5a3'); // SaddleBrown     || LightGreen
         $colorCombos[] = array('674410', 'b8b7f0'); // SaddleBrown     || LightSteelBlue
-        $colorCombos[] = array('6d2a1c', 'afa4f4'); // SaddleBrown     || LightSteelBlue
+        $colorCombos[] = array('6d2a1c', 'afa4f4'); // SaddleBrown     || LightSteelBlue || Maroon SaddleBrown
         $colorCombos[] = array('8a310a', 'd5f99a'); // SaddleBrown     || PaleGoldenrod
         $colorCombos[] = array('6f5006', 'f2c57d'); // SaddleBrown     || Tan
         $colorCombos[] = array('9a4c4d', 'efe880'); // Sienna          || Khaki
         $colorCombos[] = array('a24320', 'a9fc4a'); // Sienna          || GreenYellow
         
+        
         //Green:
         $colorCombos[] = array('202c17', '3aaefc'); // Dark Green      || DodgerBlue
         $colorCombos[] = array('0c3113', 'f8a0c9'); // Dark Green      || LightPink
         $colorCombos[] = array('1c2410', 'b49183'); // Dark Green      || RosyBrown
-        $colorCombos[] = array('193e19', 'eeb8ef'); // Dark Green      || Thistle        
-        $colorCombos[] = array('5b4429', 'd0ece6'); // DarkOliveGreen  || Gainsboro
-        $colorCombos[] = array('4b5f0d', '95f24f'); // DarkOliveGreen  || GreenYellow
-        $colorCombos[] = array('663838', 'c2f65a'); // DarkOliveGreen  || GreenYellow
+        $colorCombos[] = array('193e19', 'eeb8ef'); // Dark Green      || Thistle
+        $colorCombos[] = array('5b4429', 'd0ece6'); // DarkOliveGreen  || Gainsboro       ||Browner
+        $colorCombos[] = array('4b5f0d', '95f24f'); // DarkOliveGreen  || GreenYellow     ||Greener
+        $colorCombos[] = array('663838', 'c2f65a'); // DarkOliveGreen  || GreenYellow     ||Redder
         $colorCombos[] = array('245e21', 'f6f5ed'); // ForestGreen     || WhiteSmoke
-        $colorCombos[] = array('5cd417', '70149f'); // LimeGreen       || DarkMagenta
-        $colorCombos[] = array('2efa44', '97279a'); // LimeGreen       || DarkOrchid
+        /* These two are very similar */
+//        $colorCombos[] = array('5cd417', '70149f'); // LimeGreen       || DarkMagenta
+//        $colorCombos[] = array('2efa44', '97279a'); // LimeGreen       || DarkOrchid
         
         //Blue:
         $colorCombos[] = array('3700e9', '8fe474'); // Blue            || LightGreen
         $colorCombos[] = array('2303c8', 'a4ad58'); // MediumBlue      || DarkKhaki
         $colorCombos[] = array('0e10ca', 'd3a21f'); // MediumBlue      || Peru
-        $colorCombos[] = array('132052', '939689'); // MidnightBlue    || DarkSeaGreen        
+        $colorCombos[] = array('132052', '939689'); // MidnightBlue    || DarkSeaGreen
         $colorCombos[] = array('082f4f', 'ec4ff8'); // MidnightBlue    || Orchid
         $colorCombos[] = array('0f0f3d', 'c8a12a'); // MidnightBlue    || Peru
         
         //Purple:
-        $colorCombos[] = array('2733af', '65fdf8'); // DarkSlateBlue   || Aquamarine        
+        $colorCombos[] = array('2733af', '65fdf8'); // DarkSlateBlue   || Aquamarine
         $colorCombos[] = array('103c88', 'f3ed69'); // DarkSlateBlue   || Khaki
         $colorCombos[] = array('4c4da4', '8efb7f'); // DarkSlateBlue   || LightGreen
         $colorCombos[] = array('1d3987', 'd494f9'); // DarkSlateBlue   || Plum
         $colorCombos[] = array('590d60', 'd1ef85'); // Indigo          || Khaki
-        $colorCombos[] = array('640c4d', '6dd8f8'); // Indigo          || LightSkyBlue        
+        $colorCombos[] = array('640c4d', '6dd8f8'); // Indigo          || LightSkyBlue
         $colorCombos[] = array('861d57', '9fc464'); // Purple          || DarkKhaki
         $colorCombos[] = array('8a0261', 'f5bdb8'); // Purple          || LightPink
         $colorCombos[] = array('751a5b', 'd5b67b'); // Purple          || Tan
@@ -217,15 +224,15 @@ class PictoGlyph
         $colorCombos[] = array('3f2e22', 'd8c8b0'); // DarkSlateGray   || Silver
         $colorCombos[] = array('0c5f3b', 'b5dda6'); // DarkSlateGray   || Silver
         $colorCombos[] = array('025f53', 'd4cc82'); // DarkSlateGray   || Tan
-        $colorCombos[] = array('144b5c', 'ecbc7b'); // DarkSlateGray   || Tan   
+        $colorCombos[] = array('144b5c', 'ecbc7b'); // DarkSlateGray   || Tan
         $colorCombos[] = array('294216', '95bd1e'); // DarkSlateGray   || YellowGreen
-        $colorCombos[] = array('67527a', '8be3c3'); // DimGray         || Aquamarine        
+        $colorCombos[] = array('67527a', '8be3c3'); // DimGray         || Aquamarine
         $colorCombos[] = array('634f56', 'f9c56c'); // DimGray         || SandyBrown
         $colorCombos[] = array('85345f', '97d912'); // DimGray         || YellowGreen
         
         
-        
-
+        // not yet wcag evaluated
+        $colorCombos[] = array('0c3113', 'f8a0c9');
         
         
         
@@ -930,7 +937,260 @@ class PictoGlyph
     protected function simpleKoru(int $x, int $y): void
     {
         return;
-    }
+    }//end simpleKoru()
+
+    
+    /**
+     * Taino Coqui frog.
+     *
+     * @param int $x The X coordinate for the center of the square the glyph is placed in.
+     * @param int $y The Y coordinate for the center of the square the glyph is placed in.
+     *
+     * @return void
+     */
+    protected function simpleCoqui(int $x, int $y): void
+    {
+        $foregroundRgb = $this->setRgbString($this->foreground[0], $this->foreground[1], $this->foreground[2]);
+        $adjustX = 0;
+        $adjustY = 0;
+        
+        $startMainX = ($x - 15.5) + $adjustX;
+        $startLeftEyeX = ($x - 45) + $adjustX;
+        $startRightEyeX = ($x + 25.25) + $adjustX;
+        $startMainY = ($y + 23) + $adjustY;
+        $startLeftEyeY = ($y - 55) + $adjustY;
+        $startRightEyeY = ($y - 63) + $adjustY;
+        
+        $pathString = 'M' . $startMainX . ',' . $startMainY . ' ';
+        $pathString .= 'l5.5,-42 ';
+        $pathString .= 'a80,90 0 0 1 -53.75,-34.5 ';
+        $pathString .= 'l-5,1.5 ';
+        $pathString .= 'c-7.5,2.25 -13.5,1.5 -8,-8 ';
+        $pathString .= 'c3.25,-5.613635 2.5,-8.5 1.25,-11.5 ';
+        $pathString .= 'c-2.5,-6 0,-8 0.5,-8.75 ';
+        $pathString .= 'c2,-3 3,-3.5 6.5,-1.75 ';
+        $pathString .= 'c3.5,1.75 5,4 7,5.5 ';
+        $pathString .= 'c1,0.75 2,1 4,-0.5 ';
+        $pathString .= 'c5,-3.75 11.5,-3.5 6.5,10 ';
+        
+        $pathString .= 'c-1.5,5 -2,8 -1.75,8.25 ';
+        $pathString .= 'c15,16.25 31.25,22.5 42.5,22.25 ';
+        $pathString .= 'c1,-0.75 3.75,-12.5 4,-15 ';
+        $pathString .= 'c0.25,-2.5 2.25,-11.75 2.5,-12.5 ';
+        $pathString .= 'c1.75,-5.25 5,-9 7.25,-9 ';
+        $pathString .= 'c4,0 5.25,5 6,6.75 ';
+        $pathString .= 'c1,2.333333 1.75,8.75 1.5,11 ';
+        $pathString .= 'c-0.5,8.666667 -1,15 -1.5,18.75 ';
+        $pathString .= 'c-0.25,5.041667 4.25,4.5 5,4.75 ';
+        $pathString .= 'c3.75,1.25 38.25,-5 42.5,-11.75 ';
+        
+        $pathString .= 'c0.75,-4 1,-8 1.25,-10.5 ';
+        $pathString .= 'c0.5,-5 3.75,-6.5 6.75,-3 ';
+        $pathString .= 'c1.75,3.5 4.25,3.75 6.75,0.5 ';
+        $pathString .= 'c1.25,-1.625 2,-2.25 5.75,-0.75 ';
+        $pathString .= 'c3.25,2.383333 4.5,2 4.75,4.5 ';
+        $pathString .= 'c0.25,2.5 -3,5.5 -4.5,6 ';
+        $pathString .= 'c-4.5,1.5 -4.75,4.75 1.25,6 ';
+        $pathString .= 'c1.25,0.260418 3.25,0.75 3.5,3.75 ';
+        $pathString .= 'c0.25,3 -1.5,3.25 -2.25,4 ';
+        $pathString .= 'c-0.5,0.5 -1.25,2 -4.25,1.25 ';
+        
+        $pathString .= 'c-3,-0.75 -6,-0.75 -7.25,0 ';
+        $pathString .= 'c-20.25,7 -35,13 -62,16 ';
+        $pathString .= 'l-3.5,32.5 ';
+        $pathString .= 'c-0.375,3.482143 1.75,5.75 5,5 ';
+        $pathString .= 'c28.75,-6.634615 62.5,7.5 27.5,55 ';
+        $pathString .= 'c-1.25,1.696428 -3,2 -3.75,4.5 ';
+        $pathString .= 'c-0.75,2.5 -5,5.25 -8.75,5.5 ';
+        $pathString .= 'c-5,-0.333333 -6.75,-2 -6.75,-12.5 ';
+        $pathString .= 'c0,-4.5 -4.25,-3.75 -5,-3.25 ';
+        $pathString .= 'c-3.75,2.5 -6,-2.5 -0.5,-6.5 ';
+        
+        $pathString .= 'c3.5,-2.545455 8.75,-5 10.5,-10 ';
+        $pathString .= 'c0.625,-1.785715 4,-2.5 5,-5.5 ';
+        $pathString .= 'c2.25,-3 3.5,-14.5 -7.5,-14.5 ';
+        $pathString .= 'c-7.5,0 -17.5,7.5 -28.75,25 ';
+        $pathString .= 'c-6.75,10.5 -12,3.75 -12.5,-2.5 ';
+        $pathString .= 'c-1,-12.5 -2.75,-12.5 -3.75,-13.75 ';
+        $pathString .= 'c-3,-3.75 -15,0 -21.75,10 ';
+        $pathString .= 'c-1.5,2.222222 -2.5,4.5 -3.5,5 ';
+        $pathString .= 'c-1,0.5 -2.75,3 -3,5 ';
+        $pathString .= 'c-0.25,2 -1,4.5 -2,5 ';
+        
+        $pathString .= 'c-0.5,1 -0.55,2 -0.5,4 ';
+        $pathString .= 'c-0.25,1.25 -0.5,5 -1.25,6 ';
+        $pathString .= 'c-2,2.6666667 -2.75,3.25 -7.5,0 ';
+        $pathString .= 'c-2.5,-1.710528 -5,-1.75 -10,0 ';
+        $pathString .= 'c-1.75,0.6125 -3.5,1.5 -5.25,1.5 ';
+        $pathString .= 'c-1.5,0 -4,-1 -3.25,-3.5 ';
+        $pathString .= 'c11.25,-37.5 45,-52.5 68.5,-53.25z';
+
+        $path = $this->dom->createElement('path');
+        $path->setAttribute('stroke', 'none');
+        $path->setAttribute('fill', $foregroundRgb);
+        $path->setAttribute('d', $pathString);
+        $this->svg->appendChild($path);
+        
+        $ellipse = $this->dom->createElement('ellipse');
+        $ellipse->setAttribute('cx', (string) $startLeftEyeX);
+        $ellipse->setAttribute('cy', (string) $startLeftEyeY);
+        $ellipse->setAttribute('rx', '8');
+        $ellipse->setAttribute('ry', '5.5');
+        $ellipse->setAttribute('fill', $foregroundRgb);
+        $ellipse->setAttribute('transform', 'rotate(24 ' . $x . ' ' . $y . ')');
+        $this->svg->appendChild($ellipse);
+        
+        $circle = $this->dom->createElement('circle');
+        $circle->setAttribute('cx', (string) $startRightEyeX);
+        $circle->setAttribute('cy', (string) $startRightEyeY);
+        $circle->setAttribute('r', '5.25');
+        $circle->setAttribute('fill', $foregroundRgb);
+        $this->svg->appendChild($circle);
+    }//end simpleCoqui()
+
+    
+    /**
+     * Native North American Sun - Not sure which tribe(s).
+     *
+     * @param int $x The X coordinate for the center of the square the glyph is placed in.
+     * @param int $y The Y coordinate for the center of the square the glyph is placed in.
+     *
+     * @return void
+     */
+    protected function simpleSun(int $x, int $y): void
+    {
+        $backgroundRgb = $this->setRgbString($this->background[0], $this->background[1], $this->background[2]);
+        $foregroundRgb = $this->setRgbString($this->foreground[0], $this->foreground[1], $this->foreground[2]);
+        
+        // vertical bars
+        $pathString = 'M' . ($x - 21.5) . ',' . ($y + 68) . ' ';
+        $pathString .= 'l0,-136 ';
+        $pathString .= 'c0,-2.25 3,-3 4,-3 ';
+        $pathString .= 'c1,0 4,0.75 4,3 ';
+        $pathString .= 'l0,136 ';
+        $pathString .= 'c0,2.25 -3,3 -4,3 ';
+        $pathString .= 'c-1,0 -4,-0.75 -4,-4z';
+        
+        $path = $this->dom->createElement('path');
+        $path->setAttribute('stroke', 'none');
+        $path->setAttribute('fill', $foregroundRgb);
+        $path->setAttribute('d', $pathString);
+        $this->svg->appendChild($path);
+        
+        $pathString = 'M' . ($x + 13.5) . ',' . ($y + 68) . ' ';
+        $pathString .= 'l0,-136 ';
+        $pathString .= 'c0,-2.25 3,-3 4,-3 ';
+        $pathString .= 'c1,0 4,0.75 4,3 ';
+        $pathString .= 'l0,136 ';
+        $pathString .= 'c0,2.25 -3,3 -4,3 ';
+        $pathString .= 'c-1,0 -4,-0.75 -4,-4z';
+        
+        $path = $this->dom->createElement('path');
+        $path->setAttribute('stroke', 'none');
+        $path->setAttribute('fill', $foregroundRgb);
+        $path->setAttribute('d', $pathString);
+        $this->svg->appendChild($path);
+        
+        $pathString = 'M' . ($x - 9.833333) . ',' . ($y + 82.5) . ' ';
+        $pathString .= 'l0,-165 ';
+        $pathString .= 'c0,-2.25 3,-3 4,-3 ';
+        $pathString .= 'c1,0 4,0.75 4,3 ';
+        $pathString .= 'l0,165 ';
+        $pathString .= 'c0,2.25 -3,3 -4,3 ';
+        $pathString .= 'c-1,0 -4,-0.75 -4,-3z';
+        
+        $path = $this->dom->createElement('path');
+        $path->setAttribute('stroke', 'none');
+        $path->setAttribute('fill', $foregroundRgb);
+        $path->setAttribute('d', $pathString);
+        $this->svg->appendChild($path);
+        
+        $pathString = 'M' . ($x + 1.833333) . ',' . ($y + 82.5) . ' ';
+        $pathString .= 'l0,-165 ';
+        $pathString .= 'c0,-2.25 3,-3 4,-3 ';
+        $pathString .= 'c1,0 4,0.75 4,3 ';
+        $pathString .= 'l0,165 ';
+        $pathString .= 'c0,2.25 -3,3 -4,3 ';
+        $pathString .= 'c-1,0 -4,-0.75 -4,-3z';
+        
+        $path = $this->dom->createElement('path');
+        $path->setAttribute('stroke', 'none');
+        $path->setAttribute('fill', $foregroundRgb);
+        $path->setAttribute('d', $pathString);
+        $this->svg->appendChild($path);
+        
+        // horizontal bars
+        $pathString = 'M' . ($x + 68) . ',' . ($y - 21.5) . ' ';
+        $pathString .= 'l-136,0 ';
+        $pathString .= 'c-2.25,0 -3,3 -3,4 ';
+        $pathString .= 'c0,1 0.75,4 3,4 ';
+        $pathString .= 'l136,0 ';
+        $pathString .= 'c2.25,0 3,-3 3,-4 ';
+        $pathString .= 'c 0,-1 -0.75,-4 -3,-4z';
+        
+        $path = $this->dom->createElement('path');
+        $path->setAttribute('stroke', 'none');
+        $path->setAttribute('fill', $foregroundRgb);
+        $path->setAttribute('d', $pathString);
+        $this->svg->appendChild($path);
+        
+        $pathString = 'M' . ($x + 68) . ',' . ($y + 13.5) . ' ';
+        $pathString .= 'l-136,0 ';
+        $pathString .= 'c-2.25,0 -3,3 -3,4 ';
+        $pathString .= 'c0,1 0.75,4 3,4 ';
+        $pathString .= 'l136,0 ';
+        $pathString .= 'c2.25,0 3,-3 3,-4 ';
+        $pathString .= 'c 0,-1 -0.75,-4 -3,-4z';
+        
+        $path = $this->dom->createElement('path');
+        $path->setAttribute('stroke', 'none');
+        $path->setAttribute('fill', $foregroundRgb);
+        $path->setAttribute('d', $pathString);
+        $this->svg->appendChild($path);
+        
+        $pathString = 'M' . ($x + 82.5) . ',' . ($y - 9.833333) . ' ';
+        $pathString .= 'l-165,0 ';
+        $pathString .= 'c-2.25,0 -3,3 -3,4 ';
+        $pathString .= 'c0,1 0.75,4 3,4 ';
+        $pathString .= 'l165,0 ';
+        $pathString .= 'c2.25,0 3,-3 3,-4 ';
+        $pathString .= 'c 0,-1 -0.75,-4 -3,-4z';
+        
+        $path = $this->dom->createElement('path');
+        $path->setAttribute('stroke', 'none');
+        $path->setAttribute('fill', $foregroundRgb);
+        $path->setAttribute('d', $pathString);
+        $this->svg->appendChild($path);
+        
+        $pathString = 'M' . ($x + 82.5) . ',' . ($y + 1.833333) . ' ';
+        $pathString .= 'l-165,0 ';
+        $pathString .= 'c-2.25,0 -3,3 -3,4 ';
+        $pathString .= 'c0,1 0.75,4 3,4 ';
+        $pathString .= 'l165,0 ';
+        $pathString .= 'c2.25,0 3,-3 3,-4 ';
+        $pathString .= 'c 0,-1 -0.75,-4 -3,-4z';
+        
+        $path = $this->dom->createElement('path');
+        $path->setAttribute('stroke', 'none');
+        $path->setAttribute('fill', $foregroundRgb);
+        $path->setAttribute('d', $pathString);
+        $this->svg->appendChild($path);
+        
+        $circle = $this->dom->createElement('circle');
+        $circle->setAttribute('cx', (string) $x);
+        $circle->setAttribute('cy', (string) $y);
+        $circle->setAttribute('r', '36');
+        $circle->setAttribute('fill', $foregroundRgb);
+        $this->svg->appendChild($circle);
+        
+        $circle = $this->dom->createElement('circle');
+        $circle->setAttribute('cx', (string) $x);
+        $circle->setAttribute('cy', (string) $y);
+        $circle->setAttribute('r', '28');
+        $circle->setAttribute('fill', $backgroundRgb);
+        $this->svg->appendChild($circle);
+    }//end simpleSun()
+
 
     /**
      * Writes the SVG to the specified file.
@@ -993,7 +1253,7 @@ class PictoGlyph
                 $byte = $this->parameters[$byteN];
                 $x = (200 * $i) + 100;
                 $y = (200 * $j) + 100;
-                $mod = $byte % 7;
+                $mod = $byte % 9;
                 switch ($mod) {
                     case 0:
                         $this->simpleTriquetra($x, $y);
@@ -1016,9 +1276,15 @@ class PictoGlyph
                     case 6:
                         $this->simpleBoaMeNaMeMmoaWo($x, $y);
                         break;
+                    case 7:
+                        $this->simpleCoqui($x, $y);
+                        break;
+                    case 8:
+                        $this->simpleSun($x, $y);
+                        break;
                     default:
                         $this->simpleCircle($x, $y);
-                        //$this->simpleBoaMeNaMeMmoaWo($x, $y);
+                        //$this->simpleSun($x, $y);
                         break;
                 }
             }
