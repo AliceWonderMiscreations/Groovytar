@@ -3,6 +3,10 @@ Groovytar
 
 A pipe dream privacy centric replacement for Gravatar.
 
+* [The Plan](#the-plan)
+* [PictoGlypg](#pictoglyph)
+* [Lots To Do](#lots-to-do)
+
 I am what some people would call anti-social. I am not sure what that term
 actually means, it seems to have different meanings depending upon the context,
 but generally I do not socialize. Except online.
