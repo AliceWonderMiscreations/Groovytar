@@ -183,7 +183,7 @@ Currently the following pictographs exist:
 
 There will eventually be 32 glyphs.
 
-*** Small Size Variant
+### Small Size Variant
 
 A four by four grid of pictoglyphs really needs at least 120x120 to display
 well. Not yet implemented, but planned is a variant than is three by three
