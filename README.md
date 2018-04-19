@@ -4,7 +4,7 @@ Groovytar
 A pipe dream privacy centric replacement for Gravatar.
 
 * [The Plan](#the-plan)
-* [PictoGlypg](#pictoglyph)
+* [PictoGlyph](#pictoglyph)
 * [Lots To Do](#lots-to-do)
 
 I am what some people would call anti-social. I am not sure what that term
