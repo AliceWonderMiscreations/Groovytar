@@ -392,8 +392,8 @@ class PictoGlyph extends Identicon implements IdenticonIface
      */
     protected function simpleBoaMeNaMeMmoaWo(int $x, int $y): void
     {
-        $backgroundRgb = $this->setRgbString($this->background[0], $this->background[1], $this->background[2]);
-        $foregroundRgb = $this->setRgbString($this->foreground[0], $this->foreground[1], $this->foreground[2]);
+        //$this->backgroundRgb = $this->setRgbString($this->background[0], $this->background[1], $this->background[2]);
+        //$this->foregroundRgb = $this->setRgbString($this->foreground[0], $this->foreground[1], $this->foreground[2]);
         
         $pathString = 'M' . ($x - 34) . ',' . ($y + 50) . ' ';
         $pathString .= 'a390,150 0 0 1 0,-100 ';
@@ -403,7 +403,7 @@ class PictoGlyph extends Identicon implements IdenticonIface
         
         $path = $this->dom->createElement('path');
         $path->setAttribute('stroke', 'none');
-        $path->setAttribute('fill', $foregroundRgb);
+        $path->setAttribute('fill', $this->foregroundRgb);
         $path->setAttribute('d', $pathString);
         $this->svg->appendChild($path);
         
@@ -415,7 +415,7 @@ class PictoGlyph extends Identicon implements IdenticonIface
         
         $path = $this->dom->createElement('path');
         $path->setAttribute('stroke', 'none');
-        $path->setAttribute('fill', $foregroundRgb);
+        $path->setAttribute('fill', $this->foregroundRgb);
         $path->setAttribute('d', $pathString);
         $this->svg->appendChild($path);
         
@@ -426,7 +426,7 @@ class PictoGlyph extends Identicon implements IdenticonIface
         
         $path = $this->dom->createElement('path');
         $path->setAttribute('stroke', 'none');
-        $path->setAttribute('fill', $foregroundRgb);
+        $path->setAttribute('fill', $this->foregroundRgb);
         $path->setAttribute('d', $pathString);
         $this->svg->appendChild($path);
         
@@ -437,7 +437,7 @@ class PictoGlyph extends Identicon implements IdenticonIface
         
         $path = $this->dom->createElement('path');
         $path->setAttribute('stroke', 'none');
-        $path->setAttribute('fill', $foregroundRgb);
+        $path->setAttribute('fill', $this->foregroundRgb);
         $path->setAttribute('d', $pathString);
         $this->svg->appendChild($path);
         
@@ -449,13 +449,13 @@ class PictoGlyph extends Identicon implements IdenticonIface
         
         $path = $this->dom->createElement('path');
         $path->setAttribute('stroke', 'none');
-        $path->setAttribute('fill', $foregroundRgb);
+        $path->setAttribute('fill', $this->foregroundRgb);
         $path->setAttribute('d', $pathString);
         $this->svg->appendChild($path);
         
         $circle = $this->dom->createElement('circle');
         $circle->setAttribute('stroke', 'none');
-        $circle->setAttribute('fill', $foregroundRgb);
+        $circle->setAttribute('fill', $this->foregroundRgb);
         $circle->setAttribute('cx', (string) $x);
         $cy = ($y - 71.5);
         $circle->setAttribute('cy', (string) $cy);
@@ -464,7 +464,7 @@ class PictoGlyph extends Identicon implements IdenticonIface
         
         $circle = $this->dom->createElement('circle');
         $circle->setAttribute('stroke', 'none');
-        $circle->setAttribute('fill', $backgroundRgb);
+        $circle->setAttribute('fill', $this->backgroundRgb);
         $circle->setAttribute('cx', (string) $x);
         $cy = ($y + 38.5);
         $circle->setAttribute('cy', (string) $cy);
@@ -479,7 +479,7 @@ class PictoGlyph extends Identicon implements IdenticonIface
         
         $path = $this->dom->createElement('path');
         $path->setAttribute('stroke', 'none');
-        $path->setAttribute('fill', $backgroundRgb);
+        $path->setAttribute('fill', $this->backgroundRgb);
         $path->setAttribute('d', $pathString);
         $this->svg->appendChild($path);
     }//end simpleBoaMeNaMeMmoaWo()
@@ -508,7 +508,7 @@ class PictoGlyph extends Identicon implements IdenticonIface
      */
     protected function simpleCoqui(int $x, int $y): void
     {
-        $foregroundRgb = $this->setRgbString($this->foreground[0], $this->foreground[1], $this->foreground[2]);
+        //$this->foregroundRgb = $this->setRgbString($this->foreground[0], $this->foreground[1], $this->foreground[2]);
         $adjustX = 0;
         $adjustY = 0;
         
@@ -585,7 +585,7 @@ class PictoGlyph extends Identicon implements IdenticonIface
 
         $path = $this->dom->createElement('path');
         $path->setAttribute('stroke', 'none');
-        $path->setAttribute('fill', $foregroundRgb);
+        $path->setAttribute('fill', $this->foregroundRgb);
         $path->setAttribute('d', $pathString);
         $this->svg->appendChild($path);
         
@@ -594,7 +594,7 @@ class PictoGlyph extends Identicon implements IdenticonIface
         $ellipse->setAttribute('cy', (string) $startLeftEyeY);
         $ellipse->setAttribute('rx', '8');
         $ellipse->setAttribute('ry', '5.5');
-        $ellipse->setAttribute('fill', $foregroundRgb);
+        $ellipse->setAttribute('fill', $this->foregroundRgb);
         $ellipse->setAttribute('transform', 'rotate(24 ' . $x . ' ' . $y . ')');
         $this->svg->appendChild($ellipse);
         
@@ -602,7 +602,7 @@ class PictoGlyph extends Identicon implements IdenticonIface
         $circle->setAttribute('cx', (string) $startRightEyeX);
         $circle->setAttribute('cy', (string) $startRightEyeY);
         $circle->setAttribute('r', '5.25');
-        $circle->setAttribute('fill', $foregroundRgb);
+        $circle->setAttribute('fill', $this->foregroundRgb);
         $this->svg->appendChild($circle);
     }//end simpleCoqui()
 
@@ -616,8 +616,8 @@ class PictoGlyph extends Identicon implements IdenticonIface
      */
     protected function simpleSun(int $x, int $y): void
     {
-        $backgroundRgb = $this->setRgbString($this->background[0], $this->background[1], $this->background[2]);
-        $foregroundRgb = $this->setRgbString($this->foreground[0], $this->foreground[1], $this->foreground[2]);
+        //$this->backgroundRgb = $this->setRgbString($this->background[0], $this->background[1], $this->background[2]);
+        //$this->foregroundRgb = $this->setRgbString($this->foreground[0], $this->foreground[1], $this->foreground[2]);
         
         // vertical bars
         $pathString = 'M' . ($x - 21.5) . ',' . ($y + 68) . ' ';
@@ -630,7 +630,7 @@ class PictoGlyph extends Identicon implements IdenticonIface
         
         $path = $this->dom->createElement('path');
         $path->setAttribute('stroke', 'none');
-        $path->setAttribute('fill', $foregroundRgb);
+        $path->setAttribute('fill', $this->foregroundRgb);
         $path->setAttribute('d', $pathString);
         $this->svg->appendChild($path);
         
@@ -644,7 +644,7 @@ class PictoGlyph extends Identicon implements IdenticonIface
         
         $path = $this->dom->createElement('path');
         $path->setAttribute('stroke', 'none');
-        $path->setAttribute('fill', $foregroundRgb);
+        $path->setAttribute('fill', $this->foregroundRgb);
         $path->setAttribute('d', $pathString);
         $this->svg->appendChild($path);
         
@@ -658,7 +658,7 @@ class PictoGlyph extends Identicon implements IdenticonIface
         
         $path = $this->dom->createElement('path');
         $path->setAttribute('stroke', 'none');
-        $path->setAttribute('fill', $foregroundRgb);
+        $path->setAttribute('fill', $this->foregroundRgb);
         $path->setAttribute('d', $pathString);
         $this->svg->appendChild($path);
         
@@ -672,7 +672,7 @@ class PictoGlyph extends Identicon implements IdenticonIface
         
         $path = $this->dom->createElement('path');
         $path->setAttribute('stroke', 'none');
-        $path->setAttribute('fill', $foregroundRgb);
+        $path->setAttribute('fill', $this->foregroundRgb);
         $path->setAttribute('d', $pathString);
         $this->svg->appendChild($path);
         
@@ -687,7 +687,7 @@ class PictoGlyph extends Identicon implements IdenticonIface
         
         $path = $this->dom->createElement('path');
         $path->setAttribute('stroke', 'none');
-        $path->setAttribute('fill', $foregroundRgb);
+        $path->setAttribute('fill', $this->foregroundRgb);
         $path->setAttribute('d', $pathString);
         $this->svg->appendChild($path);
         
@@ -701,7 +701,7 @@ class PictoGlyph extends Identicon implements IdenticonIface
         
         $path = $this->dom->createElement('path');
         $path->setAttribute('stroke', 'none');
-        $path->setAttribute('fill', $foregroundRgb);
+        $path->setAttribute('fill', $this->foregroundRgb);
         $path->setAttribute('d', $pathString);
         $this->svg->appendChild($path);
         
@@ -715,7 +715,7 @@ class PictoGlyph extends Identicon implements IdenticonIface
         
         $path = $this->dom->createElement('path');
         $path->setAttribute('stroke', 'none');
-        $path->setAttribute('fill', $foregroundRgb);
+        $path->setAttribute('fill', $this->foregroundRgb);
         $path->setAttribute('d', $pathString);
         $this->svg->appendChild($path);
         
@@ -729,7 +729,7 @@ class PictoGlyph extends Identicon implements IdenticonIface
         
         $path = $this->dom->createElement('path');
         $path->setAttribute('stroke', 'none');
-        $path->setAttribute('fill', $foregroundRgb);
+        $path->setAttribute('fill', $this->foregroundRgb);
         $path->setAttribute('d', $pathString);
         $this->svg->appendChild($path);
         
@@ -737,14 +737,14 @@ class PictoGlyph extends Identicon implements IdenticonIface
         $circle->setAttribute('cx', (string) $x);
         $circle->setAttribute('cy', (string) $y);
         $circle->setAttribute('r', '36');
-        $circle->setAttribute('fill', $foregroundRgb);
+        $circle->setAttribute('fill', $this->foregroundRgb);
         $this->svg->appendChild($circle);
         
         $circle = $this->dom->createElement('circle');
         $circle->setAttribute('cx', (string) $x);
         $circle->setAttribute('cy', (string) $y);
         $circle->setAttribute('r', '28');
-        $circle->setAttribute('fill', $backgroundRgb);
+        $circle->setAttribute('fill', $this->backgroundRgb);
         $this->svg->appendChild($circle);
     }//end simpleSun()
     
@@ -817,8 +817,8 @@ class PictoGlyph extends Identicon implements IdenticonIface
      */
     protected function simpleWaugal(int $x, int $y): void
     {
-        $backgroundRgb = $this->setRgbString($this->background[0], $this->background[1], $this->background[2]);
-        $foregroundRgb = $this->setRgbString($this->foreground[0], $this->foreground[1], $this->foreground[2]);
+        //$this->backgroundRgb = $this->setRgbString($this->background[0], $this->background[1], $this->background[2]);
+        //$this->foregroundRgb = $this->setRgbString($this->foreground[0], $this->foreground[1], $this->foreground[2]);
         
         //body
         $pathString = 'M' . ($x - 69.75) . ',' . ($y + 70) . ' ';
@@ -862,7 +862,7 @@ class PictoGlyph extends Identicon implements IdenticonIface
         
         $path = $this->dom->createElement('path');
         $path->setAttribute('stroke', 'none');
-        $path->setAttribute('fill', $foregroundRgb);
+        $path->setAttribute('fill', $this->foregroundRgb);
         $path->setAttribute('d', $pathString);
         $this->svg->appendChild($path);
         
@@ -878,7 +878,7 @@ class PictoGlyph extends Identicon implements IdenticonIface
         
         $path = $this->dom->createElement('path');
         $path->setAttribute('stroke', 'none');
-        $path->setAttribute('fill', $backgroundRgb);
+        $path->setAttribute('fill', $this->backgroundRgb);
         $path->setAttribute('fill-opacity', '0.7');
         $path->setAttribute('d', $pathString);
         $this->svg->appendChild($path);
@@ -890,7 +890,7 @@ class PictoGlyph extends Identicon implements IdenticonIface
         $circle->setAttribute('cx', (string) $sx);
         $circle->setAttribute('cy', (string) $sy);
         $circle->setAttribute('r', '0.75');
-        $circle->setAttribute('fill', $backgroundRgb);
+        $circle->setAttribute('fill', $this->backgroundRgb);
         $circle->setAttribute('fill-opacity', '0.6');
         $this->svg->appendChild($circle);
         // right nostril
@@ -900,7 +900,7 @@ class PictoGlyph extends Identicon implements IdenticonIface
         $circle->setAttribute('cx', (string) $sx);
         $circle->setAttribute('cy', (string) $sy);
         $circle->setAttribute('r', '0.75');
-        $circle->setAttribute('fill', $backgroundRgb);
+        $circle->setAttribute('fill', $this->backgroundRgb);
         $circle->setAttribute('fill-opacity', '0.6');
         $this->svg->appendChild($circle);
         
@@ -911,14 +911,14 @@ class PictoGlyph extends Identicon implements IdenticonIface
         $circle->setAttribute('cx', (string) $sx);
         $circle->setAttribute('cy', (string) $sy);
         $circle->setAttribute('r', '2.5');
-        $circle->setAttribute('fill', $backgroundRgb);
+        $circle->setAttribute('fill', $this->backgroundRgb);
         $this->svg->appendChild($circle);
         
         for ($i=0; $i<7; $i++) {
             $scalePath = $this->addScalesToEye($sx, $sy, 2.5, 5.5, 8.5, $i);
             $path = $this->dom->createElement('path');
             $path->setAttribute('stroke', 'none');
-            $path->setAttribute('fill', $backgroundRgb);
+            $path->setAttribute('fill', $this->backgroundRgb);
             $path->setAttribute('fill-opacity', '0.5');
             $path->setAttribute('d', $scalePath);
             $this->svg->appendChild($path);
@@ -930,14 +930,14 @@ class PictoGlyph extends Identicon implements IdenticonIface
         $circle->setAttribute('cx', (string) $sx);
         $circle->setAttribute('cy', (string) $sy);
         $circle->setAttribute('r', '2.5');
-        $circle->setAttribute('fill', $backgroundRgb);
+        $circle->setAttribute('fill', $this->backgroundRgb);
         $this->svg->appendChild($circle);
         
         for ($i=0; $i<7; $i++) {
             $scalePath = $this->addScalesToEye($sx, $sy, 2.5, 5.5, 8.5, $i);
             $path = $this->dom->createElement('path');
             $path->setAttribute('stroke', 'none');
-            $path->setAttribute('fill', $backgroundRgb);
+            $path->setAttribute('fill', $this->backgroundRgb);
             $path->setAttribute('fill-opacity', '0.5');
             $path->setAttribute('d', $scalePath);
             $this->svg->appendChild($path);
@@ -953,7 +953,7 @@ class PictoGlyph extends Identicon implements IdenticonIface
         
         $path = $this->dom->createElement('path');
         $path->setAttribute('stroke', 'none');
-        $path->setAttribute('fill', $backgroundRgb);
+        $path->setAttribute('fill', $this->backgroundRgb);
         $path->setAttribute('fill-opacity', '0.7');
         $path->setAttribute('d', $pathString);
         $this->svg->appendChild($path);
@@ -971,7 +971,7 @@ class PictoGlyph extends Identicon implements IdenticonIface
         
         $path = $this->dom->createElement('path');
         $path->setAttribute('stroke', 'none');
-        $path->setAttribute('fill', $backgroundRgb);
+        $path->setAttribute('fill', $this->backgroundRgb);
         $path->setAttribute('fill-opacity', '0.7');
         $path->setAttribute('d', $pathString);
         $this->svg->appendChild($path);
@@ -985,7 +985,7 @@ class PictoGlyph extends Identicon implements IdenticonIface
         
         $path = $this->dom->createElement('path');
         $path->setAttribute('stroke', 'none');
-        $path->setAttribute('fill', $foregroundRgb);
+        $path->setAttribute('fill', $this->foregroundRgb);
         $path->setAttribute('d', $pathString);
         $this->svg->appendChild($path);
         
@@ -1000,7 +1000,7 @@ class PictoGlyph extends Identicon implements IdenticonIface
         
         $path = $this->dom->createElement('path');
         $path->setAttribute('stroke', 'none');
-        $path->setAttribute('fill', $backgroundRgb);
+        $path->setAttribute('fill', $this->backgroundRgb);
         $path->setAttribute('fill-opacity', '0.7');
         $path->setAttribute('d', $pathString);
         $this->svg->appendChild($path);
@@ -1018,7 +1018,7 @@ class PictoGlyph extends Identicon implements IdenticonIface
         
         $path = $this->dom->createElement('path');
         $path->setAttribute('stroke', 'none');
-        $path->setAttribute('fill', $backgroundRgb);
+        $path->setAttribute('fill', $this->backgroundRgb);
         $path->setAttribute('fill-opacity', '0.7');
         $path->setAttribute('d', $pathString);
         $this->svg->appendChild($path);
@@ -1041,71 +1041,71 @@ class PictoGlyph extends Identicon implements IdenticonIface
         
         $path = $this->dom->createElement('path');
         $path->setAttribute('stroke', 'none');
-        $path->setAttribute('fill', $backgroundRgb);
+        $path->setAttribute('fill', $this->backgroundRgb);
         $path->setAttribute('fill-opacity', '0.7');
         $path->setAttribute('d', $pathString);
         $this->svg->appendChild($path);
 
         // The lines - lots and lots and fucking lots of lines to add
-        $this->svgStrokePath(($x - 42.25), ($y + 17.75), 'l15.75,-15', $foregroundRgb, '1');
-        $this->svgStrokePath(($x - 34), ($y + 17.75), 'l20.25,-19', $foregroundRgb, '1.5');
-        $this->svgStrokePath(($x - 25.25), ($y + 17.75), 'l29.5,-28', $foregroundRgb, '1');
-        $this->svgStrokePath(($x - 17), ($y + 18.25), 'l30.25,-28.75', $foregroundRgb, '1.5');
-        $this->svgStrokePath(($x - 7), ($y + 17.75), 'l29.25,-27.75', $foregroundRgb, '1');
+        $this->svgStrokePath(($x - 42.25), ($y + 17.75), 'l15.75,-15', $this->foregroundRgb, '1');
+        $this->svgStrokePath(($x - 34), ($y + 17.75), 'l20.25,-19', $this->foregroundRgb, '1.5');
+        $this->svgStrokePath(($x - 25.25), ($y + 17.75), 'l29.5,-28', $this->foregroundRgb, '1');
+        $this->svgStrokePath(($x - 17), ($y + 18.25), 'l30.25,-28.75', $this->foregroundRgb, '1.5');
+        $this->svgStrokePath(($x - 7), ($y + 17.75), 'l29.25,-27.75', $this->foregroundRgb, '1');
         
-        $this->svgStrokePath(($x + 2), ($y + 17.75), 'l27.25,-25.5', $foregroundRgb, '1.5');
-        $this->svgStrokePath(($x + 15), ($y + 14), 'l6,-5.625', $foregroundRgb, '0.75');
-        $this->svgStrokePath(($x + 21.5), ($y + 8.875), 'l11.375,-11.125', $foregroundRgb, '1.5');
-        $this->svgStrokePath(($x - 30.75), ($y + 18), 'l-7.25,-6.75', $foregroundRgb, '1.5');
-        $this->svgStrokePath(($x - 22.5), ($y + 18.25), 'l-12,-11.5', $foregroundRgb, '1');
+        $this->svgStrokePath(($x + 2), ($y + 17.75), 'l27.25,-25.5', $this->foregroundRgb, '1.5');
+        $this->svgStrokePath(($x + 15), ($y + 14), 'l6,-5.625', $this->foregroundRgb, '0.75');
+        $this->svgStrokePath(($x + 21.5), ($y + 8.875), 'l11.375,-11.125', $this->foregroundRgb, '1.5');
+        $this->svgStrokePath(($x - 30.75), ($y + 18), 'l-7.25,-6.75', $this->foregroundRgb, '1.5');
+        $this->svgStrokePath(($x - 22.5), ($y + 18.25), 'l-12,-11.5', $this->foregroundRgb, '1');
         
-        $this->svgStrokePath(($x - 13.75), ($y + 18.25), 'l-15,-14.25', $foregroundRgb, '1.5');
-        $this->svgStrokePath(($x - 5.5), ($y + 18.25), 'l-17.75,-17', $foregroundRgb, '1');
-        $this->svgStrokePath(($x + 3), ($y + 18.25), 'l-20.25,-19.25', $foregroundRgb, '1.5');
-        $this->svgStrokePath(($x + 10), ($y + 16), 'l-20,-19', $foregroundRgb, '1');
-        $this->svgStrokePath(($x + 17), ($y + 13.75), 'l-20,-19', $foregroundRgb, '1.5');
+        $this->svgStrokePath(($x - 13.75), ($y + 18.25), 'l-15,-14.25', $this->foregroundRgb, '1.5');
+        $this->svgStrokePath(($x - 5.5), ($y + 18.25), 'l-17.75,-17', $this->foregroundRgb, '1');
+        $this->svgStrokePath(($x + 3), ($y + 18.25), 'l-20.25,-19.25', $this->foregroundRgb, '1.5');
+        $this->svgStrokePath(($x + 10), ($y + 16), 'l-20,-19', $this->foregroundRgb, '1');
+        $this->svgStrokePath(($x + 17), ($y + 13.75), 'l-20,-19', $this->foregroundRgb, '1.5');
         
-        $this->svgStrokePath(($x + 23.75), ($y + 11.25), 'l-21.5,-20.5', $foregroundRgb, '1.5');
-        $this->svgStrokePath(($x + 30), ($y + 8.75), 'l-20,-19', $foregroundRgb, '1');
-        $this->svgStrokePath(($x + 33.75), ($y + 3.25), 'l-14.5,-13.75', $foregroundRgb, '1.5');
-        $this->svgStrokePath(($x - 29.75), ($y + 75), 'l11.5,-11', $foregroundRgb, '1');
-        $this->svgStrokePath(($x - 21.75), ($y + 75.375), 'l12.75,-13', $foregroundRgb, '1.5');
+        $this->svgStrokePath(($x + 23.75), ($y + 11.25), 'l-21.5,-20.5', $this->foregroundRgb, '1.5');
+        $this->svgStrokePath(($x + 30), ($y + 8.75), 'l-20,-19', $this->foregroundRgb, '1');
+        $this->svgStrokePath(($x + 33.75), ($y + 3.25), 'l-14.5,-13.75', $this->foregroundRgb, '1.5');
+        $this->svgStrokePath(($x - 29.75), ($y + 75), 'l11.5,-11', $this->foregroundRgb, '1');
+        $this->svgStrokePath(($x - 21.75), ($y + 75.375), 'l12.75,-13', $this->foregroundRgb, '1.5');
 
-        $this->svgStrokePath(($x - 14), ($y + 75.75), 'l15.75,-15', $foregroundRgb, '1');
-        $this->svgStrokePath(($x - 5.5), ($y + 76), 'l16.75,-16.25', $foregroundRgb, '1.5');
-        $this->svgStrokePath(($x + 2.75), ($y + 76.25), 'l20.75,-20', $foregroundRgb, '1');
-        $this->svgStrokePath(($x + 11.5), ($y + 76.5), 'l20.75,-20', $foregroundRgb, '1.5');
-        $this->svgStrokePath(($x + 20.25), ($y + 76.5), 'l20.75,-20', $foregroundRgb, '1.5');
+        $this->svgStrokePath(($x - 14), ($y + 75.75), 'l15.75,-15', $this->foregroundRgb, '1');
+        $this->svgStrokePath(($x - 5.5), ($y + 76), 'l16.75,-16.25', $this->foregroundRgb, '1.5');
+        $this->svgStrokePath(($x + 2.75), ($y + 76.25), 'l20.75,-20', $this->foregroundRgb, '1');
+        $this->svgStrokePath(($x + 11.5), ($y + 76.5), 'l20.75,-20', $this->foregroundRgb, '1.5');
+        $this->svgStrokePath(($x + 20.25), ($y + 76.5), 'l20.75,-20', $this->foregroundRgb, '1.5');
         
-        $this->svgStrokePath(($x + 28.75), ($y + 76.5), 'l20.75,-20', $foregroundRgb, '1');
-        $this->svgStrokePath(($x + 37.55), ($y + 76), 'l20.75,-19.5', $foregroundRgb, '1.5');
-        $this->svgStrokePath(($x - 15), ($y + 75.5), 'l-11,-10.75', $foregroundRgb, '1.5');
-        $this->svgStrokePath(($x - 6.75), ($y + 76), 'l-11.5,-12', $foregroundRgb, '1');
-        $this->svgStrokePath(($x + 1.75), ($y + 76.25), 'l-13.5,-13.5', $foregroundRgb, '1.5');
+        $this->svgStrokePath(($x + 28.75), ($y + 76.5), 'l20.75,-20', $this->foregroundRgb, '1');
+        $this->svgStrokePath(($x + 37.55), ($y + 76), 'l20.75,-19.5', $this->foregroundRgb, '1.5');
+        $this->svgStrokePath(($x - 15), ($y + 75.5), 'l-11,-10.75', $this->foregroundRgb, '1.5');
+        $this->svgStrokePath(($x - 6.75), ($y + 76), 'l-11.5,-12', $this->foregroundRgb, '1');
+        $this->svgStrokePath(($x + 1.75), ($y + 76.25), 'l-13.5,-13.5', $this->foregroundRgb, '1.5');
         
-        $this->svgStrokePath(($x + 1.75), ($y + 69), 'l-7,-7.25', $foregroundRgb, '1');
-        $this->svgStrokePath(($x + 10.5), ($y + 76.5), 'l-7.75,-8', $foregroundRgb, '1');
-        $this->svgStrokePath(($x + 10.5), ($y + 69), 'l-8.25,-8.5', $foregroundRgb, '1.5');
-        $this->svgStrokePath(($x + 19.25), ($y + 76.75), 'l-8.25,-8.5', $foregroundRgb, '1.5');
-        $this->svgStrokePath(($x + 23.5), ($y + 73.5), 'l-12.5,-13.75', $foregroundRgb, '1.5');
+        $this->svgStrokePath(($x + 1.75), ($y + 69), 'l-7,-7.25', $this->foregroundRgb, '1');
+        $this->svgStrokePath(($x + 10.5), ($y + 76.5), 'l-7.75,-8', $this->foregroundRgb, '1');
+        $this->svgStrokePath(($x + 10.5), ($y + 69), 'l-8.25,-8.5', $this->foregroundRgb, '1.5');
+        $this->svgStrokePath(($x + 19.25), ($y + 76.75), 'l-8.25,-8.5', $this->foregroundRgb, '1.5');
+        $this->svgStrokePath(($x + 23.5), ($y + 73.5), 'l-12.5,-13.75', $this->foregroundRgb, '1.5');
         
-        $this->svgStrokePath(($x + 28), ($y + 76.5), 'l-4,-4.25', $foregroundRgb, '1');
-        $this->svgStrokePath(($x + 23.25), ($y + 65.25), 'l-8.25,-8.5', $foregroundRgb, '1.5');
-        $this->svgStrokePath(($x + 35.75), ($y + 76), 'l-11.5,-12', $foregroundRgb, '1.5');
-        $this->svgStrokePath(($x + 32.25), ($y + 65), 'l-8.25,-8.5', $foregroundRgb, '1');
-        $this->svgStrokePath(($x + 43.75), ($y + 75.25), 'l-10.75,-11.25', $foregroundRgb, '1');
+        $this->svgStrokePath(($x + 28), ($y + 76.5), 'l-4,-4.25', $this->foregroundRgb, '1');
+        $this->svgStrokePath(($x + 23.25), ($y + 65.25), 'l-8.25,-8.5', $this->foregroundRgb, '1.5');
+        $this->svgStrokePath(($x + 35.75), ($y + 76), 'l-11.5,-12', $this->foregroundRgb, '1.5');
+        $this->svgStrokePath(($x + 32.25), ($y + 65), 'l-8.25,-8.5', $this->foregroundRgb, '1');
+        $this->svgStrokePath(($x + 43.75), ($y + 75.25), 'l-10.75,-11.25', $this->foregroundRgb, '1');
         
-        $this->svgStrokePath(($x + 36), ($y + 61.25), 'l-4.5,-4.75', $foregroundRgb, '1.5');
-        $this->svgStrokePath(($x + 50), ($y + 73), 'l-12.5,-13', $foregroundRgb, '1.5');
-        $this->svgStrokePath(($x + 54.5), ($y + 69.5), 'l-12.5,-13', $foregroundRgb, '1');
-        $this->svgStrokePath(($x + 59.5), ($y + 66.25), 'l-9,-9.5', $foregroundRgb, '1');
-        $this->svgStrokePath(($x - 34.75), ($y + 72.25), 'l6.75,-6.75', $foregroundRgb, '1');
+        $this->svgStrokePath(($x + 36), ($y + 61.25), 'l-4.5,-4.75', $this->foregroundRgb, '1.5');
+        $this->svgStrokePath(($x + 50), ($y + 73), 'l-12.5,-13', $this->foregroundRgb, '1.5');
+        $this->svgStrokePath(($x + 54.5), ($y + 69.5), 'l-12.5,-13', $this->foregroundRgb, '1');
+        $this->svgStrokePath(($x + 59.5), ($y + 66.25), 'l-9,-9.5', $this->foregroundRgb, '1');
+        $this->svgStrokePath(($x - 34.75), ($y + 72.25), 'l6.75,-6.75', $this->foregroundRgb, '1');
         
         //only four in this cluster
-        $this->svgStrokePath(($x - 32.275), ($y + 74.725), 'l-7,-7', $foregroundRgb, '0.75');
-        $this->svgStrokePath(($x - 35.75), ($y + 71.75), 'l-4.5,-4.5', $foregroundRgb, '0.75');
-        $this->svgStrokePath(($x - 22.75), ($y + 75.25), 'l-7.875,-7.375', $foregroundRgb, '0.75');
-        $this->svgStrokePath(($x - 27), ($y + 72), 'l-6.5,-6.087301587', $foregroundRgb, '1');
+        $this->svgStrokePath(($x - 32.275), ($y + 74.725), 'l-7,-7', $this->foregroundRgb, '0.75');
+        $this->svgStrokePath(($x - 35.75), ($y + 71.75), 'l-4.5,-4.5', $this->foregroundRgb, '0.75');
+        $this->svgStrokePath(($x - 22.75), ($y + 75.25), 'l-7.875,-7.375', $this->foregroundRgb, '0.75');
+        $this->svgStrokePath(($x - 27), ($y + 72), 'l-6.5,-6.087301587', $this->foregroundRgb, '1');
         
         //special path - fill, not stroke
         $pathString = 'M' . ($x - 40) . ',' . ($y + 74.5) . ' ';
@@ -1117,7 +1117,7 @@ class PictoGlyph extends Identicon implements IdenticonIface
         
         $path = $this->dom->createElement('path');
         $path->setAttribute('stroke', 'none');
-        $path->setAttribute('fill', $foregroundRgb);
+        $path->setAttribute('fill', $this->foregroundRgb);
         $path->setAttribute('d', $pathString);
         $this->svg->appendChild($path);
     }//end simpleWaugal()
@@ -1157,9 +1157,6 @@ class PictoGlyph extends Identicon implements IdenticonIface
         $this->svg = $this->dom->getElementsByTagName('svg')->item(0);
         
         $this->hashToParameters($hash, $example);
-        
-        //$this->backgroundRgb = $this->setRgbString($this->background[0], $this->background[1], $this->background[2]);
-        //$this->foregroundRgb = $this->setRgbString($this->foreground[0], $this->foreground[1], $this->foreground[2]);
         
         $this->drawCanvas($size, $this->backgroundRgb);
         
