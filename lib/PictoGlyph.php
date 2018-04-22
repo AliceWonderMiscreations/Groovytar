@@ -105,8 +105,16 @@ class PictoGlyph extends Identicon implements IdenticonIface
         }
         $n = $sum % 256;
         $colorScheme = WcagColor::selectColorCombo($n);
-        $this->backgroundRgb = $this->setRgbString($colorScheme['background'][0], $colorScheme['background'][1], $colorScheme['background'][2]);
-        $this->foregroundRgb = $this->setRgbString($colorScheme['foreground'][0], $colorScheme['foreground'][1], $colorScheme['foreground'][2]);
+        $this->backgroundRgb = $this->setRgbString(
+            $colorScheme['background'][0],
+            $colorScheme['background'][1],
+            $colorScheme['background'][2]
+        );
+        $this->foregroundRgb = $this->setRgbString(
+            $colorScheme['foreground'][0],
+            $colorScheme['foreground'][1],
+            $colorScheme['foreground'][2]
+        );
     }//end hashToParameters()
 
     /**
@@ -544,136 +552,46 @@ class PictoGlyph extends Identicon implements IdenticonIface
      */
     protected function simpleSun(int $x, int $y): void
     {
-        //$this->backgroundRgb = $this->setRgbString($this->background[0], $this->background[1], $this->background[2]);
-        //$this->foregroundRgb = $this->setRgbString($this->foreground[0], $this->foreground[1], $this->foreground[2]);
-        
         // vertical bars
-        $pathString = 'M' . ($x - 21.5) . ',' . ($y + 68) . ' ';
-        $pathString .= 'l0,-136 ';
-        $pathString .= 'c0,-2.25 3,-3 4,-3 ';
-        $pathString .= 'c1,0 4,0.75 4,3 ';
-        $pathString .= 'l0,136 ';
-        $pathString .= 'c0,2.25 -3,3 -4,3 ';
-        $pathString .= 'c-1,0 -4,-0.75 -4,-4z';
-        
-        $path = $this->dom->createElement('path');
-        $path->setAttribute('stroke', 'none');
-        $path->setAttribute('fill', $this->foregroundRgb);
-        $path->setAttribute('d', $pathString);
-        $this->svg->appendChild($path);
-        
-        $pathString = 'M' . ($x + 13.5) . ',' . ($y + 68) . ' ';
-        $pathString .= 'l0,-136 ';
-        $pathString .= 'c0,-2.25 3,-3 4,-3 ';
-        $pathString .= 'c1,0 4,0.75 4,3 ';
-        $pathString .= 'l0,136 ';
-        $pathString .= 'c0,2.25 -3,3 -4,3 ';
-        $pathString .= 'c-1,0 -4,-0.75 -4,-4z';
-        
-        $path = $this->dom->createElement('path');
-        $path->setAttribute('stroke', 'none');
-        $path->setAttribute('fill', $this->foregroundRgb);
-        $path->setAttribute('d', $pathString);
-        $this->svg->appendChild($path);
-        
-        $pathString = 'M' . ($x - 9.833333) . ',' . ($y + 82.5) . ' ';
-        $pathString .= 'l0,-165 ';
-        $pathString .= 'c0,-2.25 3,-3 4,-3 ';
-        $pathString .= 'c1,0 4,0.75 4,3 ';
-        $pathString .= 'l0,165 ';
-        $pathString .= 'c0,2.25 -3,3 -4,3 ';
-        $pathString .= 'c-1,0 -4,-0.75 -4,-3z';
-        
-        $path = $this->dom->createElement('path');
-        $path->setAttribute('stroke', 'none');
-        $path->setAttribute('fill', $this->foregroundRgb);
-        $path->setAttribute('d', $pathString);
-        $this->svg->appendChild($path);
-        
-        $pathString = 'M' . ($x + 1.833333) . ',' . ($y + 82.5) . ' ';
-        $pathString .= 'l0,-165 ';
-        $pathString .= 'c0,-2.25 3,-3 4,-3 ';
-        $pathString .= 'c1,0 4,0.75 4,3 ';
-        $pathString .= 'l0,165 ';
-        $pathString .= 'c0,2.25 -3,3 -4,3 ';
-        $pathString .= 'c-1,0 -4,-0.75 -4,-3z';
-        
-        $path = $this->dom->createElement('path');
-        $path->setAttribute('stroke', 'none');
-        $path->setAttribute('fill', $this->foregroundRgb);
-        $path->setAttribute('d', $pathString);
-        $this->svg->appendChild($path);
-        
+        $spath = 'l0,-136 ';
+        $spath .= 'c0,-2.25 3,-3 4,-3 ';
+        $spath .= 'c1,0 4,0.75 4,3 ';
+        $spath .= 'l0,136 ';
+        $spath .= 'c0,2.25 -3,3 -4,3 ';
+        $spath .= 'c-1,0 -4,-0.75 -4,-4z';
+        $this->svgFillPath(($x - 21.5), ($y + 68), $spath, $this->foregroundRgb);
+        $this->svgFillPath(($x + 13.5), ($y + 68), $spath, $this->foregroundRgb);
+
+        $spath = 'l0,-165 ';
+        $spath .= 'c0,-2.25 3,-3 4,-3 ';
+        $spath .= 'c1,0 4,0.75 4,3 ';
+        $spath .= 'l0,165 ';
+        $spath .= 'c0,2.25 -3,3 -4,3 ';
+        $spath .= 'c-1,0 -4,-0.75 -4,-3z';
+        $this->svgFillPath(($x - 9.833333), ($y + 82.5), $spath, $this->foregroundRgb);
+        $this->svgFillPath(($x + 1.833333), ($y + 82.5), $spath, $this->foregroundRgb);
+
         // horizontal bars
-        $pathString = 'M' . ($x + 68) . ',' . ($y - 21.5) . ' ';
-        $pathString .= 'l-136,0 ';
-        $pathString .= 'c-2.25,0 -3,3 -3,4 ';
-        $pathString .= 'c0,1 0.75,4 3,4 ';
-        $pathString .= 'l136,0 ';
-        $pathString .= 'c2.25,0 3,-3 3,-4 ';
-        $pathString .= 'c 0,-1 -0.75,-4 -3,-4z';
-        
-        $path = $this->dom->createElement('path');
-        $path->setAttribute('stroke', 'none');
-        $path->setAttribute('fill', $this->foregroundRgb);
-        $path->setAttribute('d', $pathString);
-        $this->svg->appendChild($path);
-        
-        $pathString = 'M' . ($x + 68) . ',' . ($y + 13.5) . ' ';
-        $pathString .= 'l-136,0 ';
-        $pathString .= 'c-2.25,0 -3,3 -3,4 ';
-        $pathString .= 'c0,1 0.75,4 3,4 ';
-        $pathString .= 'l136,0 ';
-        $pathString .= 'c2.25,0 3,-3 3,-4 ';
-        $pathString .= 'c 0,-1 -0.75,-4 -3,-4z';
-        
-        $path = $this->dom->createElement('path');
-        $path->setAttribute('stroke', 'none');
-        $path->setAttribute('fill', $this->foregroundRgb);
-        $path->setAttribute('d', $pathString);
-        $this->svg->appendChild($path);
-        
-        $pathString = 'M' . ($x + 82.5) . ',' . ($y - 9.833333) . ' ';
-        $pathString .= 'l-165,0 ';
-        $pathString .= 'c-2.25,0 -3,3 -3,4 ';
-        $pathString .= 'c0,1 0.75,4 3,4 ';
-        $pathString .= 'l165,0 ';
-        $pathString .= 'c2.25,0 3,-3 3,-4 ';
-        $pathString .= 'c 0,-1 -0.75,-4 -3,-4z';
-        
-        $path = $this->dom->createElement('path');
-        $path->setAttribute('stroke', 'none');
-        $path->setAttribute('fill', $this->foregroundRgb);
-        $path->setAttribute('d', $pathString);
-        $this->svg->appendChild($path);
-        
-        $pathString = 'M' . ($x + 82.5) . ',' . ($y + 1.833333) . ' ';
-        $pathString .= 'l-165,0 ';
-        $pathString .= 'c-2.25,0 -3,3 -3,4 ';
-        $pathString .= 'c0,1 0.75,4 3,4 ';
-        $pathString .= 'l165,0 ';
-        $pathString .= 'c2.25,0 3,-3 3,-4 ';
-        $pathString .= 'c 0,-1 -0.75,-4 -3,-4z';
-        
-        $path = $this->dom->createElement('path');
-        $path->setAttribute('stroke', 'none');
-        $path->setAttribute('fill', $this->foregroundRgb);
-        $path->setAttribute('d', $pathString);
-        $this->svg->appendChild($path);
-        
-        $circle = $this->dom->createElement('circle');
-        $circle->setAttribute('cx', (string) $x);
-        $circle->setAttribute('cy', (string) $y);
-        $circle->setAttribute('r', '36');
-        $circle->setAttribute('fill', $this->foregroundRgb);
-        $this->svg->appendChild($circle);
-        
-        $circle = $this->dom->createElement('circle');
-        $circle->setAttribute('cx', (string) $x);
-        $circle->setAttribute('cy', (string) $y);
-        $circle->setAttribute('r', '28');
-        $circle->setAttribute('fill', $this->backgroundRgb);
-        $this->svg->appendChild($circle);
+        $spath = 'l-136,0 ';
+        $spath .= 'c-2.25,0 -3,3 -3,4 ';
+        $spath .= 'c0,1 0.75,4 3,4 ';
+        $spath .= 'l136,0 ';
+        $spath .= 'c2.25,0 3,-3 3,-4 ';
+        $spath .= 'c 0,-1 -0.75,-4 -3,-4z';
+        $this->svgFillPath(($x + 68), ($y - 21.5), $spath, $this->foregroundRgb);
+        $this->svgFillPath(($x + 68), ($y + 13.5), $spath, $this->foregroundRgb);
+
+        $spath = 'l-165,0 ';
+        $spath .= 'c-2.25,0 -3,3 -3,4 ';
+        $spath .= 'c0,1 0.75,4 3,4 ';
+        $spath .= 'l165,0 ';
+        $spath .= 'c2.25,0 3,-3 3,-4 ';
+        $spath .= 'c 0,-1 -0.75,-4 -3,-4z';
+        $this->svgFillPath(($x + 82.5), ($y - 9.833333), $spath, $this->foregroundRgb);
+        $this->svgFillPath(($x + 82.5), ($y + 1.833333), $spath, $this->foregroundRgb);
+
+        $this->svgFilledCircle($x, $y, 36, $this->foregroundRgb);
+        $this->svgFilledCircle($x, $y, 28, $this->backgroundRgb);
     }//end simpleSun()
     
     /**
@@ -745,105 +663,66 @@ class PictoGlyph extends Identicon implements IdenticonIface
      */
     protected function simpleWaugal(int $x, int $y): void
     {
-        //$this->backgroundRgb = $this->setRgbString($this->background[0], $this->background[1], $this->background[2]);
-        //$this->foregroundRgb = $this->setRgbString($this->foreground[0], $this->foreground[1], $this->foreground[2]);
-        
         //body
-        $pathString = 'M' . ($x - 69.75) . ',' . ($y + 70) . ' ';
-        $pathString .= 'c3.75,2.25 21.25,4.625 23.75,4.75 ';
-        $pathString .= 'l55,2.75 ';
-        $pathString .= 'c42.5,2.125 47.5,-4.75 52.5,-9 ';
-        $pathString .= 'c7.5,-6.375 7.5,-19.625 0,-26 ';
-        $pathString .= 'c-2.5,-2.125 -5,-3.31052625 -8.5,-4.25 ';
-        $pathString .= 'l-47.5,-12.75 ';
-        $pathString .= 'c-1.75,-0.46973675 -5.25,-1.5 -5.25,-3 ';
-        $pathString .= 'c0,-1.5 2.25,-2.239130435 5.25,-3.25 ';
-        $pathString .= 'l23,-7.75 ';
-        $pathString .= 'c9.5,-3.201086956 9.5,-19.798913043 0,-23 ';
-        $pathString .= 'c-0.741935484,-0.25 -11.25,-2.5 -10.5,-12.75 ';
-        $pathString .= 'c0.5,-6.833333333 2.25,-17.5 2.5,-27.25 ';
-        $pathString .= 'c0.25,-9.75 -2.25,-12.5 -4,-14.25 ';
-        $pathString .= 'c-2,-2 -5.5,-4.5 -7.75,-5.25 ';
+        $spath = 'c3.75,2.25 21.25,4.625 23.75,4.75 ';
+        $spath .= 'l55,2.75 ';
+        $spath .= 'c42.5,2.125 47.5,-4.75 52.5,-9 ';
+        $spath .= 'c7.5,-6.375 7.5,-19.625 0,-26 ';
+        $spath .= 'c-2.5,-2.125 -5,-3.31052625 -8.5,-4.25 ';
+        $spath .= 'l-47.5,-12.75 ';
+        $spath .= 'c-1.75,-0.46973675 -5.25,-1.5 -5.25,-3 ';
+        $spath .= 'c0,-1.5 2.25,-2.239130435 5.25,-3.25 ';
+        $spath .= 'l23,-7.75 ';
+        $spath .= 'c9.5,-3.201086956 9.5,-19.798913043 0,-23 ';
+        $spath .= 'c-0.741935484,-0.25 -11.25,-2.5 -10.5,-12.75 ';
+        $spath .= 'c0.5,-6.833333333 2.25,-17.5 2.5,-27.25 ';
+        $spath .= 'c0.25,-9.75 -2.25,-12.5 -4,-14.25 ';
+        $spath .= 'c-2,-2 -5.5,-4.5 -7.75,-5.25 ';
         
-        $pathString .= 'l0,-6.5 ';
-        $pathString .= 'l4.25,-4.5 ';
-        $pathString .= 'l-1.75,-1.5 ';
-        $pathString .= 'l-3.75,3.625 ';
-        $pathString .= 'l-3.75,-3.625 ';
-        $pathString .= 'l-1.75,1.5 ';
-        $pathString .= 'l4,4 ';
-        $pathString .= 'l0,7 ';
+        $spath .= 'l0,-6.5 ';
+        $spath .= 'l4.25,-4.5 ';
+        $spath .= 'l-1.75,-1.5 ';
+        $spath .= 'l-3.75,3.625 ';
+        $spath .= 'l-3.75,-3.625 ';
+        $spath .= 'l-1.75,1.5 ';
+        $spath .= 'l4,4 ';
+        $spath .= 'l0,7 ';
         
-        $pathString .= 'c-2.25,0.5 -6.25,2.5 -9,4.75 ';
-        $pathString .= 'c-2.25,1.840909091 -3.5,7.5 -4,10 ';
-        $pathString .= 'c-2.25,11.25 -1.75,24.5 0,32.75 ';
-        $pathString .= 'c1.25,5.892857143 3,7.5 3.75,11.25 ';
-        $pathString .= 'c1,5 -2.5,7 -7.5,8.5 ';
-        $pathString .= 'c-7.5,2.25 -16.25,4.5 -25,10 ';
-        $pathString .= 'c-12.5,7.857142857 -11.25,27.5 3.75,34.5 ';
-        $pathString .= 'c1.875,0.875 5.25,2.0125 7,2.5 ';
-        $pathString .= 'l35,9.75 ';
-        $pathString .= 'c2.5,0.696428572 3.25,1.75 3.25,2.5 ';
-        $pathString .= 'c0,1.75 -1,2.885416667 -3.5,3.25 ';
-        $pathString .= 'l-60,8.75 ';
-        $pathString .= 'c-6.5,0.947916667 -13,2.25 -19.5,2.5z';
+        $spath .= 'c-2.25,0.5 -6.25,2.5 -9,4.75 ';
+        $spath .= 'c-2.25,1.840909091 -3.5,7.5 -4,10 ';
+        $spath .= 'c-2.25,11.25 -1.75,24.5 0,32.75 ';
+        $spath .= 'c1.25,5.892857143 3,7.5 3.75,11.25 ';
+        $spath .= 'c1,5 -2.5,7 -7.5,8.5 ';
+        $spath .= 'c-7.5,2.25 -16.25,4.5 -25,10 ';
+        $spath .= 'c-12.5,7.857142857 -11.25,27.5 3.75,34.5 ';
+        $spath .= 'c1.875,0.875 5.25,2.0125 7,2.5 ';
+        $spath .= 'l35,9.75 ';
+        $spath .= 'c2.5,0.696428572 3.25,1.75 3.25,2.5 ';
+        $spath .= 'c0,1.75 -1,2.885416667 -3.5,3.25 ';
+        $spath .= 'l-60,8.75 ';
+        $spath .= 'c-6.5,0.947916667 -13,2.25 -19.5,2.5z';
         
-        $path = $this->dom->createElement('path');
-        $path->setAttribute('stroke', 'none');
-        $path->setAttribute('fill', $this->foregroundRgb);
-        $path->setAttribute('d', $pathString);
-        $this->svg->appendChild($path);
+        $this->svgFillPath(($x - 69.75), ($y + 70), $spath, $this->foregroundRgb);
         
         // add color to tip of tongue
-        $pathString = 'M' . ($x + 8.041666667) . ',' . ($y - 76.75) . ' ';
-        $pathString .= 'l4.958333333,-5.25 ';
-        $pathString .= 'l-1.75,-1.5 ';
-        $pathString .= 'l-3.75,3.625 ';
-        $pathString .= 'l-3.75,-3.625 ';
-        $pathString .= 'l-1.75,1.5 ';
-        $pathString .= 'l5.25,5.25 ';
-        $pathString .= 'c0.25,0.25 0.5,0.352941177 0.791666667,0z ';
+        $spath = 'l4.958333333,-5.25 ';
+        $spath .= 'l-1.75,-1.5 ';
+        $spath .= 'l-3.75,3.625 ';
+        $spath .= 'l-3.75,-3.625 ';
+        $spath .= 'l-1.75,1.5 ';
+        $spath .= 'l5.25,5.25 ';
+        $spath .= 'c0.25,0.25 0.5,0.352941177 0.791666667,0z ';
         
-        $path = $this->dom->createElement('path');
-        $path->setAttribute('stroke', 'none');
-        $path->setAttribute('fill', $this->backgroundRgb);
-        $path->setAttribute('fill-opacity', '0.7');
-        $path->setAttribute('d', $pathString);
-        $this->svg->appendChild($path);
+        $this->svgFillPath(($x + 8.041666667), ($y - 76.75), $spath, $this->backgroundRgb, 0.7);
         
-        // left nostril
-        $sx = $x + 5;
-        $sy = $y - 66.5;
-        $circle = $this->dom->createElement('circle');
-        $circle->setAttribute('cx', (string) $sx);
-        $circle->setAttribute('cy', (string) $sy);
-        $circle->setAttribute('r', '0.75');
-        $circle->setAttribute('fill', $this->backgroundRgb);
-        $circle->setAttribute('fill-opacity', '0.6');
-        $this->svg->appendChild($circle);
-        // right nostril
-        $sx = $x + 9;
-        $sy = $y - 66.25;
-        $circle = $this->dom->createElement('circle');
-        $circle->setAttribute('cx', (string) $sx);
-        $circle->setAttribute('cy', (string) $sy);
-        $circle->setAttribute('r', '0.75');
-        $circle->setAttribute('fill', $this->backgroundRgb);
-        $circle->setAttribute('fill-opacity', '0.6');
-        $this->svg->appendChild($circle);
+        // nostrils
+        $this->svgFilledCircle(($x + 5), ($y - 66.5), 0.75, $this->backgroundRgb, 0.6);
+        $this->svgFilledCircle(($x + 9), ($y - 66.25), 0.75, $this->backgroundRgb, 0.6);
         
         // left eye
-        $sx = $x - 0.25;
-        $sy = $y - 47.25;
-        $circle = $this->dom->createElement('circle');
-        $circle->setAttribute('cx', (string) $sx);
-        $circle->setAttribute('cy', (string) $sy);
-        $circle->setAttribute('r', '2.5');
-        $circle->setAttribute('fill', $this->backgroundRgb);
-        $this->svg->appendChild($circle);
-        
+        $this->svgFilledCircle(($x - 0.25), ($y - 47.25), 2.5, $this->backgroundRgb);
         for ($i=0; $i<7; $i++) {
-            $scalePath = $this->addScalesToEye($sx, $sy, 2.5, 5.5, 8.5, $i);
+            $scalePath = $this->addScalesToEye(($x - 0.25), ($y - 47.25), 2.5, 5.5, 8.5, $i);
             $path = $this->dom->createElement('path');
             $path->setAttribute('stroke', 'none');
             $path->setAttribute('fill', $this->backgroundRgb);
@@ -852,17 +731,9 @@ class PictoGlyph extends Identicon implements IdenticonIface
             $this->svg->appendChild($path);
         }
         // right eye
-        $sx = $x + 12.5;
-        $sy = $y - 47;
-        $circle = $this->dom->createElement('circle');
-        $circle->setAttribute('cx', (string) $sx);
-        $circle->setAttribute('cy', (string) $sy);
-        $circle->setAttribute('r', '2.5');
-        $circle->setAttribute('fill', $this->backgroundRgb);
-        $this->svg->appendChild($circle);
-        
+        $this->svgFilledCircle(($x + 12.5), ($y - 47), 2.5, $this->backgroundRgb);
         for ($i=0; $i<7; $i++) {
-            $scalePath = $this->addScalesToEye($sx, $sy, 2.5, 5.5, 8.5, $i);
+            $scalePath = $this->addScalesToEye(($x + 12.5), ($y - 47), 2.5, 5.5, 8.5, $i);
             $path = $this->dom->createElement('path');
             $path->setAttribute('stroke', 'none');
             $path->setAttribute('fill', $this->backgroundRgb);
@@ -872,182 +743,131 @@ class PictoGlyph extends Identicon implements IdenticonIface
         }
         
         // first hole
-        $pathString = 'M' . ($x + 2) . ',' . ($y - 12) . ' ';
-        $pathString .= 'l-1.2,-4 ';
-        $pathString .= 'c-0.1875,-0.5 0.5,-0.504032258 0.75,-0.5 ';
-        $pathString .= 'l15.5,0.25 ';
-        $pathString .= 'c1.5,2.75 2,3.5 3.5,4.25 ';
-        $pathString .= 'l-18.25,0z';
-        
-        $path = $this->dom->createElement('path');
-        $path->setAttribute('stroke', 'none');
-        $path->setAttribute('fill', $this->backgroundRgb);
-        $path->setAttribute('fill-opacity', '0.7');
-        $path->setAttribute('d', $pathString);
-        $this->svg->appendChild($path);
+        $spath = 'l-1.2,-4 ';
+        $spath .= 'c-0.1875,-0.5 0.5,-0.504032258 0.75,-0.5 ';
+        $spath .= 'l15.5,0.25 ';
+        $spath .= 'c1.5,2.75 2,3.5 3.5,4.25 ';
+        $spath .= 'l-18.25,0z';
+        $this->svgFillPath(($x + 2), ($y - 12), $spath, $this->backgroundRgb, 0.7);
         
         // second hole
-        $pathString = 'M' . ($x - 39.25) . ',' . ($y + 16.25) . ' ';
-        $pathString .= 'c7.5,-10 12.5,-13.5 23.75,-15.5 ';
-        $pathString .= 'c4.5,-0.8 10.75,-2 13.5,-5 ';
-        $pathString .= 'l5,-5 ';
-        $pathString .= 'l22.5,0 ';
-        $pathString .= 'c4,0 7.25,6.75 7.25,8.75 ';
-        $pathString .= 'c0,7.5 -6.25,10 -9.75,11.25 ';
-        $pathString .= 'l-17,5.5 ';
-        $pathString .= 'a250,250 0 0 1 -45.25,0z';
-        
-        $path = $this->dom->createElement('path');
-        $path->setAttribute('stroke', 'none');
-        $path->setAttribute('fill', $this->backgroundRgb);
-        $path->setAttribute('fill-opacity', '0.7');
-        $path->setAttribute('d', $pathString);
-        $this->svg->appendChild($path);
+        $spath = 'c7.5,-10 12.5,-13.5 23.75,-15.5 ';
+        $spath .= 'c4.5,-0.8 10.75,-2 13.5,-5 ';
+        $spath .= 'l5,-5 ';
+        $spath .= 'l22.5,0 ';
+        $spath .= 'c4,0 7.25,6.75 7.25,8.75 ';
+        $spath .= 'c0,7.5 -6.25,10 -9.75,11.25 ';
+        $spath .= 'l-17,5.5 ';
+        $spath .= 'a250,250 0 0 1 -45.25,0z';
+        $this->svgFillPath(($x - 39.25), ($y + 16.25), $spath, $this->backgroundRgb, 0.7);
         
         // patch mistake in second hole
-        $pathString = 'M' . ($x - 29.75) . ',' . ($y + 6) . ' ';
-        $pathString .= 'c6.25,-2 13.75,-5 22.25,-7 ';
-        $pathString .= 'l-2,-1.75 ';
-        $pathString .= 'l-20,7 ';
-        $pathString .= 'l-0.25,1.75z';
-        
-        $path = $this->dom->createElement('path');
-        $path->setAttribute('stroke', 'none');
-        $path->setAttribute('fill', $this->foregroundRgb);
-        $path->setAttribute('d', $pathString);
-        $this->svg->appendChild($path);
+        //$pathString = 'M' . ($x - 29.75) . ',' . ($y + 6) . ' ';
+        $spath = 'c6.25,-2 13.75,-5 22.25,-7 ';
+        $spath .= 'l-2,-1.75 ';
+        $spath .= 'l-20,7 ';
+        $spath .= 'l-0.25,1.75z';
+        $this->svgFillPath(($x - 29.75), ($y + 6), $spath, $this->foregroundRgb);
         
         // third hole
-        $pathString = 'M' . ($x - 37.75) . ',' . ($y + 19) . ' ';
-        $pathString .= 'l30.75,0.5 ';
-        $pathString .= 'c2.25,0.036585366 1.5,1.75 1.25,2.25 ';
-        $pathString .= 'c-0.75,1.5 -2.25,1.978070175 -3.5,2 ';
-        $pathString .= 'l-28.5,-0.5 ';
-        $pathString .= 'c-0.5,-0.00877193 -1.25,-1.5 -1.25,-2 ';
-        $pathString .= 'c0,0.5 0.25,-2.233739837 1.25,-2.25z';
-        
-        $path = $this->dom->createElement('path');
-        $path->setAttribute('stroke', 'none');
-        $path->setAttribute('fill', $this->backgroundRgb);
-        $path->setAttribute('fill-opacity', '0.7');
-        $path->setAttribute('d', $pathString);
-        $this->svg->appendChild($path);
+        $spath = 'l30.75,0.5 ';
+        $spath .= 'c2.25,0.036585366 1.5,1.75 1.25,2.25 ';
+        $spath .= 'c-0.75,1.5 -2.25,1.978070175 -3.5,2 ';
+        $spath .= 'l-28.5,-0.5 ';
+        $spath .= 'c-0.5,-0.00877193 -1.25,-1.5 -1.25,-2 ';
+        $spath .= 'c0,0.5 0.25,-2.233739837 1.25,-2.25z';
+        $this->svgFillPath(($x - 37.75), ($y + 19), $spath, $this->backgroundRgb, 0.7);
         
         // fourth hole
-        $pathString = 'M' . ($x + 21.25) . ',' . ($y + 50.5) . ' ';
-        
-        $pathString .= 'l 37.5,0.125 ';
-        $pathString .= 'c 1.25,0.004166667 2.25,1.5 2.25,2.25 ';
-        $pathString .= 'c 0,1 -1,2.494604317 -2.5,2.5 ';
-        $pathString .= 'l -34.75,-0.125 ';
-        $pathString .= 'c -1,-0.003597122 -3.25,-1.5 -3.25,-3 ';
-
-        $pathString .= 'c 0,-0.5 0.25,-1.748333333 0.75,-1.75z';
-        
-        $path = $this->dom->createElement('path');
-        $path->setAttribute('stroke', 'none');
-        $path->setAttribute('fill', $this->backgroundRgb);
-        $path->setAttribute('fill-opacity', '0.7');
-        $path->setAttribute('d', $pathString);
-        $this->svg->appendChild($path);
+        $spath = 'l 37.5,0.125 ';
+        $spath .= 'c 1.25,0.004166667 2.25,1.5 2.25,2.25 ';
+        $spath .= 'c 0,1 -1,2.494604317 -2.5,2.5 ';
+        $spath .= 'l -34.75,-0.125 ';
+        $spath .= 'c -1,-0.003597122 -3.25,-1.5 -3.25,-3 ';
+        $spath .= 'c 0,-0.5 0.25,-1.748333333 0.75,-1.75z';
+        $this->svgFillPath(($x + 21.25), ($y + 50.5), $spath, $this->backgroundRgb, 0.7);
         
         // fifth hole
-        $pathString = 'M' . ($x - 51.25) . ',' . ($y + 70.75) . ' ';
-        
-        $pathString .= 'c 25,-5 45,-7.5 63.75,-10 ';
-        $pathString .= 'l 3.25,-3.25 ';
-        $pathString .= 'l 42.5,0.25 ';
-        $pathString .= 'l 3,3 ';
-        $pathString .= 'l -3.25,3.25 ';
-        $pathString .= 'l -0.5,-0.5 ';
-        $pathString .= 'a 50,50 0 0 1 -10.75,10.5 ';
-        $pathString .= 'c -17.5,2.25 -50,1.25 -85,0 ';
-
-        $pathString .= 'l -0.5,0.5 ';
-
-        $pathString .= 'l -12.5,-3.75z';
-        
-        $path = $this->dom->createElement('path');
-        $path->setAttribute('stroke', 'none');
-        $path->setAttribute('fill', $this->backgroundRgb);
-        $path->setAttribute('fill-opacity', '0.7');
-        $path->setAttribute('d', $pathString);
-        $this->svg->appendChild($path);
+        $spath = 'c 25,-5 45,-7.5 63.75,-10 ';
+        $spath .= 'l 3.25,-3.25 ';
+        $spath .= 'l 42.5,0.25 ';
+        $spath .= 'l 3,3 ';
+        $spath .= 'l -3.25,3.25 ';
+        $spath .= 'l -0.5,-0.5 ';
+        $spath .= 'a 50,50 0 0 1 -10.75,10.5 ';
+        $spath .= 'c -17.5,2.25 -50,1.25 -85,0 ';
+        $spath .= 'l -0.5,0.5 ';
+        $spath .= 'l -12.5,-3.75z';
+        $this->svgFillPath(($x - 51.25), ($y + 70.75), $spath, $this->backgroundRgb, 0.7);
 
         // The lines - lots and lots and fucking lots of lines to add
-        $this->svgStrokePath(($x - 42.25), ($y + 17.75), 'l15.75,-15', $this->foregroundRgb, '1');
-        $this->svgStrokePath(($x - 34), ($y + 17.75), 'l20.25,-19', $this->foregroundRgb, '1.5');
-        $this->svgStrokePath(($x - 25.25), ($y + 17.75), 'l29.5,-28', $this->foregroundRgb, '1');
-        $this->svgStrokePath(($x - 17), ($y + 18.25), 'l30.25,-28.75', $this->foregroundRgb, '1.5');
-        $this->svgStrokePath(($x - 7), ($y + 17.75), 'l29.25,-27.75', $this->foregroundRgb, '1');
-        
-        $this->svgStrokePath(($x + 2), ($y + 17.75), 'l27.25,-25.5', $this->foregroundRgb, '1.5');
-        $this->svgStrokePath(($x + 15), ($y + 14), 'l6,-5.625', $this->foregroundRgb, '0.75');
-        $this->svgStrokePath(($x + 21.5), ($y + 8.875), 'l11.375,-11.125', $this->foregroundRgb, '1.5');
-        $this->svgStrokePath(($x - 30.75), ($y + 18), 'l-7.25,-6.75', $this->foregroundRgb, '1.5');
-        $this->svgStrokePath(($x - 22.5), ($y + 18.25), 'l-12,-11.5', $this->foregroundRgb, '1');
-        
-        $this->svgStrokePath(($x - 13.75), ($y + 18.25), 'l-15,-14.25', $this->foregroundRgb, '1.5');
-        $this->svgStrokePath(($x - 5.5), ($y + 18.25), 'l-17.75,-17', $this->foregroundRgb, '1');
-        $this->svgStrokePath(($x + 3), ($y + 18.25), 'l-20.25,-19.25', $this->foregroundRgb, '1.5');
-        $this->svgStrokePath(($x + 10), ($y + 16), 'l-20,-19', $this->foregroundRgb, '1');
-        $this->svgStrokePath(($x + 17), ($y + 13.75), 'l-20,-19', $this->foregroundRgb, '1.5');
-        
-        $this->svgStrokePath(($x + 23.75), ($y + 11.25), 'l-21.5,-20.5', $this->foregroundRgb, '1.5');
-        $this->svgStrokePath(($x + 30), ($y + 8.75), 'l-20,-19', $this->foregroundRgb, '1');
-        $this->svgStrokePath(($x + 33.75), ($y + 3.25), 'l-14.5,-13.75', $this->foregroundRgb, '1.5');
-        $this->svgStrokePath(($x - 29.75), ($y + 75), 'l11.5,-11', $this->foregroundRgb, '1');
-        $this->svgStrokePath(($x - 21.75), ($y + 75.375), 'l12.75,-13', $this->foregroundRgb, '1.5');
+        $this->svgStrokePath(($x - 42.25), ($y + 17.75), 'l15.75,-15', $this->foregroundRgb, 1);
+        $this->svgStrokePath(($x - 34), ($y + 17.75), 'l20.25,-19', $this->foregroundRgb, 1.5);
+        $this->svgStrokePath(($x - 25.25), ($y + 17.75), 'l29.5,-28', $this->foregroundRgb, 1);
+        $this->svgStrokePath(($x - 17), ($y + 18.25), 'l30.25,-28.75', $this->foregroundRgb, 1.5);
+        $this->svgStrokePath(($x - 7), ($y + 17.75), 'l29.25,-27.75', $this->foregroundRgb, 1);
 
-        $this->svgStrokePath(($x - 14), ($y + 75.75), 'l15.75,-15', $this->foregroundRgb, '1');
-        $this->svgStrokePath(($x - 5.5), ($y + 76), 'l16.75,-16.25', $this->foregroundRgb, '1.5');
-        $this->svgStrokePath(($x + 2.75), ($y + 76.25), 'l20.75,-20', $this->foregroundRgb, '1');
-        $this->svgStrokePath(($x + 11.5), ($y + 76.5), 'l20.75,-20', $this->foregroundRgb, '1.5');
-        $this->svgStrokePath(($x + 20.25), ($y + 76.5), 'l20.75,-20', $this->foregroundRgb, '1.5');
-        
-        $this->svgStrokePath(($x + 28.75), ($y + 76.5), 'l20.75,-20', $this->foregroundRgb, '1');
-        $this->svgStrokePath(($x + 37.55), ($y + 76), 'l20.75,-19.5', $this->foregroundRgb, '1.5');
-        $this->svgStrokePath(($x - 15), ($y + 75.5), 'l-11,-10.75', $this->foregroundRgb, '1.5');
-        $this->svgStrokePath(($x - 6.75), ($y + 76), 'l-11.5,-12', $this->foregroundRgb, '1');
-        $this->svgStrokePath(($x + 1.75), ($y + 76.25), 'l-13.5,-13.5', $this->foregroundRgb, '1.5');
-        
-        $this->svgStrokePath(($x + 1.75), ($y + 69), 'l-7,-7.25', $this->foregroundRgb, '1');
-        $this->svgStrokePath(($x + 10.5), ($y + 76.5), 'l-7.75,-8', $this->foregroundRgb, '1');
-        $this->svgStrokePath(($x + 10.5), ($y + 69), 'l-8.25,-8.5', $this->foregroundRgb, '1.5');
-        $this->svgStrokePath(($x + 19.25), ($y + 76.75), 'l-8.25,-8.5', $this->foregroundRgb, '1.5');
-        $this->svgStrokePath(($x + 23.5), ($y + 73.5), 'l-12.5,-13.75', $this->foregroundRgb, '1.5');
-        
-        $this->svgStrokePath(($x + 28), ($y + 76.5), 'l-4,-4.25', $this->foregroundRgb, '1');
-        $this->svgStrokePath(($x + 23.25), ($y + 65.25), 'l-8.25,-8.5', $this->foregroundRgb, '1.5');
-        $this->svgStrokePath(($x + 35.75), ($y + 76), 'l-11.5,-12', $this->foregroundRgb, '1.5');
-        $this->svgStrokePath(($x + 32.25), ($y + 65), 'l-8.25,-8.5', $this->foregroundRgb, '1');
-        $this->svgStrokePath(($x + 43.75), ($y + 75.25), 'l-10.75,-11.25', $this->foregroundRgb, '1');
-        
-        $this->svgStrokePath(($x + 36), ($y + 61.25), 'l-4.5,-4.75', $this->foregroundRgb, '1.5');
-        $this->svgStrokePath(($x + 50), ($y + 73), 'l-12.5,-13', $this->foregroundRgb, '1.5');
-        $this->svgStrokePath(($x + 54.5), ($y + 69.5), 'l-12.5,-13', $this->foregroundRgb, '1');
-        $this->svgStrokePath(($x + 59.5), ($y + 66.25), 'l-9,-9.5', $this->foregroundRgb, '1');
-        $this->svgStrokePath(($x - 34.75), ($y + 72.25), 'l6.75,-6.75', $this->foregroundRgb, '1');
-        
+        $this->svgStrokePath(($x + 2), ($y + 17.75), 'l27.25,-25.5', $this->foregroundRgb, 1.5);
+        $this->svgStrokePath(($x + 15), ($y + 14), 'l6,-5.625', $this->foregroundRgb, 0.75);
+        $this->svgStrokePath(($x + 21.5), ($y + 8.875), 'l11.375,-11.125', $this->foregroundRgb, 1.5);
+        $this->svgStrokePath(($x - 30.75), ($y + 18), 'l-7.25,-6.75', $this->foregroundRgb, 1.5);
+        $this->svgStrokePath(($x - 22.5), ($y + 18.25), 'l-12,-11.5', $this->foregroundRgb, 1);
+
+        $this->svgStrokePath(($x - 13.75), ($y + 18.25), 'l-15,-14.25', $this->foregroundRgb, 1.5);
+        $this->svgStrokePath(($x - 5.5), ($y + 18.25), 'l-17.75,-17', $this->foregroundRgb, 1);
+        $this->svgStrokePath(($x + 3), ($y + 18.25), 'l-20.25,-19.25', $this->foregroundRgb, 1.5);
+        $this->svgStrokePath(($x + 10), ($y + 16), 'l-20,-19', $this->foregroundRgb, 1);
+        $this->svgStrokePath(($x + 17), ($y + 13.75), 'l-20,-19', $this->foregroundRgb, 1.5);
+
+        $this->svgStrokePath(($x + 23.75), ($y + 11.25), 'l-21.5,-20.5', $this->foregroundRgb, 1.5);
+        $this->svgStrokePath(($x + 30), ($y + 8.75), 'l-20,-19', $this->foregroundRgb, 1);
+        $this->svgStrokePath(($x + 33.75), ($y + 3.25), 'l-14.5,-13.75', $this->foregroundRgb, 1.5);
+        $this->svgStrokePath(($x - 29.75), ($y + 75), 'l11.5,-11', $this->foregroundRgb, 1);
+        $this->svgStrokePath(($x - 21.75), ($y + 75.375), 'l12.75,-13', $this->foregroundRgb, 1.5);
+
+        $this->svgStrokePath(($x - 14), ($y + 75.75), 'l15.75,-15', $this->foregroundRgb, 1);
+        $this->svgStrokePath(($x - 5.5), ($y + 76), 'l16.75,-16.25', $this->foregroundRgb, 1.5);
+        $this->svgStrokePath(($x + 2.75), ($y + 76.25), 'l20.75,-20', $this->foregroundRgb, 1);
+        $this->svgStrokePath(($x + 11.5), ($y + 76.5), 'l20.75,-20', $this->foregroundRgb, 1.5);
+        $this->svgStrokePath(($x + 20.25), ($y + 76.5), 'l20.75,-20', $this->foregroundRgb, 1.5);
+
+        $this->svgStrokePath(($x + 28.75), ($y + 76.5), 'l20.75,-20', $this->foregroundRgb, 1);
+        $this->svgStrokePath(($x + 37.55), ($y + 76), 'l20.75,-19.5', $this->foregroundRgb, 1.5);
+        $this->svgStrokePath(($x - 15), ($y + 75.5), 'l-11,-10.75', $this->foregroundRgb, 1.5);
+        $this->svgStrokePath(($x - 6.75), ($y + 76), 'l-11.5,-12', $this->foregroundRgb, 1);
+        $this->svgStrokePath(($x + 1.75), ($y + 76.25), 'l-13.5,-13.5', $this->foregroundRgb, 1.5);
+
+        $this->svgStrokePath(($x + 1.75), ($y + 69), 'l-7,-7.25', $this->foregroundRgb, 1);
+        $this->svgStrokePath(($x + 10.5), ($y + 76.5), 'l-7.75,-8', $this->foregroundRgb, 1);
+        $this->svgStrokePath(($x + 10.5), ($y + 69), 'l-8.25,-8.5', $this->foregroundRgb, 1.5);
+        $this->svgStrokePath(($x + 19.25), ($y + 76.75), 'l-8.25,-8.5', $this->foregroundRgb, 1.5);
+        $this->svgStrokePath(($x + 23.5), ($y + 73.5), 'l-12.5,-13.75', $this->foregroundRgb, 1.5);
+
+        $this->svgStrokePath(($x + 28), ($y + 76.5), 'l-4,-4.25', $this->foregroundRgb, 1);
+        $this->svgStrokePath(($x + 23.25), ($y + 65.25), 'l-8.25,-8.5', $this->foregroundRgb, 1.5);
+        $this->svgStrokePath(($x + 35.75), ($y + 76), 'l-11.5,-12', $this->foregroundRgb, 1.5);
+        $this->svgStrokePath(($x + 32.25), ($y + 65), 'l-8.25,-8.5', $this->foregroundRgb, 1);
+        $this->svgStrokePath(($x + 43.75), ($y + 75.25), 'l-10.75,-11.25', $this->foregroundRgb, 1);
+
+        $this->svgStrokePath(($x + 36), ($y + 61.25), 'l-4.5,-4.75', $this->foregroundRgb, 1.5);
+        $this->svgStrokePath(($x + 50), ($y + 73), 'l-12.5,-13', $this->foregroundRgb, 1.5);
+        $this->svgStrokePath(($x + 54.5), ($y + 69.5), 'l-12.5,-13', $this->foregroundRgb, 1);
+        $this->svgStrokePath(($x + 59.5), ($y + 66.25), 'l-9,-9.5', $this->foregroundRgb, 1);
+        $this->svgStrokePath(($x - 34.75), ($y + 72.25), 'l6.75,-6.75', $this->foregroundRgb, 1);
+
         //only four in this cluster
-        $this->svgStrokePath(($x - 32.275), ($y + 74.725), 'l-7,-7', $this->foregroundRgb, '0.75');
-        $this->svgStrokePath(($x - 35.75), ($y + 71.75), 'l-4.5,-4.5', $this->foregroundRgb, '0.75');
-        $this->svgStrokePath(($x - 22.75), ($y + 75.25), 'l-7.875,-7.375', $this->foregroundRgb, '0.75');
-        $this->svgStrokePath(($x - 27), ($y + 72), 'l-6.5,-6.087301587', $this->foregroundRgb, '1');
-        
+        $this->svgStrokePath(($x - 32.275), ($y + 74.725), 'l-7,-7', $this->foregroundRgb, 0.75);
+        $this->svgStrokePath(($x - 35.75), ($y + 71.75), 'l-4.5,-4.5', $this->foregroundRgb, 0.75);
+        $this->svgStrokePath(($x - 22.75), ($y + 75.25), 'l-7.875,-7.375', $this->foregroundRgb, 0.75);
+        $this->svgStrokePath(($x - 27), ($y + 72), 'l-6.5,-6.087301587', $this->foregroundRgb, 1);
+
         //special path - fill, not stroke
-        $pathString = 'M' . ($x - 40) . ',' . ($y + 74.5) . ' ';
-        $pathString .= 'l3.8125,-3.8125 ';
-        $pathString .= 'l1.25,1.25 ';
-        $pathString .= 'l-2.5625,2.5625 ';
-        $pathString .= 'l-1.25,0.375 ';
-        $pathString .= 'l-1.25,-0.375z';
-        
-        $path = $this->dom->createElement('path');
-        $path->setAttribute('stroke', 'none');
-        $path->setAttribute('fill', $this->foregroundRgb);
-        $path->setAttribute('d', $pathString);
-        $this->svg->appendChild($path);
+        $spath = 'l3.8125,-3.8125 ';
+        $spath .= 'l1.25,1.25 ';
+        $spath .= 'l-2.5625,2.5625 ';
+        $spath .= 'l-1.25,0.375 ';
+        $spath .= 'l-1.25,-0.375z';
+        $this->svgFillPath(($x - 40), ($y + 74.5), $spath, $this->foregroundRgb);
     }//end simpleWaugal()
     
     /**
@@ -1140,8 +960,7 @@ class PictoGlyph extends Identicon implements IdenticonIface
                             break;
                         default:
                             // placeholder for glyphs not yet created
-                            //$this->simpleCircle($x, $y);
-                            $this->simpleCoqui($x, $y);
+                            $this->simpleCircle($x, $y);
                             break;
                     }
                 }
@@ -1153,11 +972,12 @@ class PictoGlyph extends Identicon implements IdenticonIface
 }//end class
 
 // uncomment this block for testing file as standalone program
+/*
 $foo = random_bytes(32);
 $foo = base64_encode($foo);
 //$bar = new PictoGlyph($foo, 120, true);
-$bar = new PictoGlyph($foo, 120, false, false);
+$bar = new PictoGlyph($foo, 120, false, true);
 $bar->sendContent();
 exit;
-
+*/
 ?>

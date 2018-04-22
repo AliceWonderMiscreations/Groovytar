@@ -160,7 +160,7 @@ abstract class Identicon
      * @param int|float $y     The y coordinate to start with.
      * @param string    $spath The d parameter for the path.
      * @param string    $color The stroke color.
-     * @param mixed     $width The stroke width.
+     * @param int|float $width The stroke width.
      *
      * @return void
      */
