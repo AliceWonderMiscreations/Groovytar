@@ -2,9 +2,7 @@
 declare(strict_types=1);
 
 /**
- * Generates a confetti avatar SVG file. This will be the default Groovytar that
- * is served when the server does not understand the requested type of identicon
- * and the user does not have a custom identicon they want to use.
+ * Generates a confetti identicon avatar SVG file.
  *
  * @package AWonderPHP/Groovytar
  * @author  Alice Wonder <paypal@domblogger.net>
@@ -17,45 +15,29 @@ namespace AWonderPHP\Groovytar;
 /**
  * Confetti Generation
  */
-class Confetti
+class Confetti extends Identicon implements IdenticonIface
 {
     /**
-     * The parameters, an array of 16 sets of integers between 0 and 255 inclusive
-     *
-     * @var array
-     */
-    protected $parameters = array();
-    
-    /**
-     * Half a hex bite, determines the order the confetti is splattered on the image.
+     * Half a hex byte, determines the order the confetti is splattered on the image.
      * Set by the hashToParameters method, used by constructor when constructing the
      * SVG.
      */
     protected $order;
     
     /**
-     * The dom object. Created by the constructor.
-     *
-     */
-    protected $dom;
-    
-    /**
-     * The root SVG node. Created by the constructor.
-     *
-     */
-    protected $svg;
-    
-    /**
      * Generate a set of parameters from a given hex hash.
      *
-     * @param string $hash The hex hash to generate parameters from.
+     * @param string $hash    The hex hash to generate parameters from.
+     * @param bool   $example Not currently used.
      *
      * @return void
      */
-    protected function hashToParameters(string $hash): void
+    protected function hashToParameters(string $hash, bool $example = false): void
     {
         if (! ctype_xdigit($hash)) {
-            // like should never happen in use but...
+            $hash = md5($hash);
+        }
+        if (strlen($hash) !== 32) {
             $hash = md5($hash);
         }
         $raw = hex2bin($hash);
@@ -72,27 +54,6 @@ class Confetti
         $secondHash = hash('ripemd128', $raw, false);
         $this->order = substr($secondHash, 8, 1);
     }//end hashToParameters()
-
-    /**
-     * Generates the frame around the image
-     *
-     * @return void
-     */
-    protected function addFrame(): void
-    {
-        $path = $this->dom->createElement('path');
-        $pathString = 'M0,0 l800,0 l0,800 l-7,-7 l0,-786 l-786,0z';
-        $path->setAttribute('d', $pathString);
-        $path->setAttribute('stroke', 'none');
-        $path->setAttribute('fill', 'rgb(123,123,123');
-        $this->svg->appendChild($path);
-        $path = $this->dom->createElement('path');
-        $pathString = 'M0,0 l0,800 l800,0 l-7,-7 l-786,0 l0,-786z';
-        $path->setAttribute('d', $pathString);
-        $path->setAttribute('stroke', 'none');
-        $path->setAttribute('fill', 'rgb(80,80,80');
-        $this->svg->appendChild($path);
-    }//end addFrame()
 
     /**
      * Modular math, adds $incr to $input.
@@ -112,23 +73,19 @@ class Confetti
     }//end wrapAdd()
 
     /**
-     * Generates an SVG RGB string.
+     * Generates an SVG RGB string from parameters.
      *
      * @param int $start The position in the parameters array to use as starting point.
      *
      * @return string The SVG compliant RGB string.
      */
-    protected function setRgbString($start)
+    protected function setRgbFromParameters($start)
     {
-        $string = 'rgb(';
-        $string .= $this->parameters[$this->wrapAdd($start, 4)];
-        $string .= ',';
-        $string .= $this->parameters[$this->wrapAdd($start, 6)];
-        $string .= ',';
-        $string .= $this->parameters[$this->wrapAdd($start, 9)];
-        $string .= ')';
-        return $string;
-    }//end setRgbString()
+        $r = $this->parameters[$this->wrapAdd($start, 4)];
+        $g = $this->parameters[$this->wrapAdd($start, 6)];
+        $b = $this->parameters[$this->wrapAdd($start, 9)];
+        return $this->setRgbString($r, $g, $b);
+    }//end setRgbFromParameters()
 
     /**
      * Generates a circle of specified radius.
@@ -169,9 +126,9 @@ class Confetti
         $circle->setAttribute('r', (string) $radius);
         $circle->setAttribute('stroke-width', (string) $swidth);
         $circle->setAttribute('stroke-opacity', '0.4');
-        $circle->setAttribute('stroke', $this->setRgbString($start));
+        $circle->setAttribute('stroke', $this->setRgbFromParameters($start));
         $circle->setAttribute('fill-opacity', '0.6');
-        $circle->setAttribute('fill', $this->setRgbString(($start + 9)));
+        $circle->setAttribute('fill', $this->setRgbFromParameters(($start + 9)));
         $this->svg->appendChild($circle);
     }//end addCircle()
 
@@ -227,8 +184,8 @@ class Confetti
         $path = $this->dom->createElement('path');
         $path->setAttribute('stroke-width', (string) $swidth);
         $path->setAttribute('stroke-opacity', '0.4');
-        $path->setAttribute('stroke', $this->setRgbString($start));
-        $path->setAttribute('fill', $this->setRgbString(($start + 9)));
+        $path->setAttribute('stroke', $this->setRgbFromParameters($start));
+        $path->setAttribute('fill', $this->setRgbFromParameters(($start + 9)));
         $path->setAttribute('fill-opacity', '0.6');
         $path->setAttribute('d', $pathString);
         $path->setAttribute('transform', 'rotate(' . $degrees . ')');
@@ -304,8 +261,8 @@ class Confetti
         $path = $this->dom->createElement('path');
         $path->setAttribute('stroke-width', (string) $swidth);
         $path->setAttribute('stroke-opacity', '0.4');
-        $path->setAttribute('stroke', $this->setRgbString($start));
-        $path->setAttribute('fill', $this->setRgbString(($start + 2)));
+        $path->setAttribute('stroke', $this->setRgbFromParameters($start));
+        $path->setAttribute('fill', $this->setRgbFromParameters(($start + 2)));
         $path->setAttribute('fill-opacity', '0.6');
         $path->setAttribute('d', $pathString);
         $path->setAttribute('transform', 'rotate(' . $degrees . ')');
@@ -385,53 +342,25 @@ class Confetti
         $path = $this->dom->createElement('path');
         $path->setAttribute('stroke-width', (string) $swidth);
         $path->setAttribute('stroke-opacity', '0.4');
-        $path->setAttribute('stroke', $this->setRgbString($start + 4));
-        $path->setAttribute('fill', $this->setRgbString(($start + 14)));
+        $path->setAttribute('stroke', $this->setRgbFromParameters($start + 4));
+        $path->setAttribute('fill', $this->setRgbFromParameters(($start + 14)));
         $path->setAttribute('fill-opacity', '0.6');
         $path->setAttribute('d', $pathString);
         $this->svg->appendChild($path);
     }//end addRegularPolygon()
 
     /**
-     * Writes the SVG to the specified file.
-     *
-     * @param string $path The path to where the file is to be written.
-     *
-     * @return void
-     */
-    public function writeFile($path): void
-    {
-        $string = $this->dom->saveXML();
-        $fp = fopen($path, 'w');
-        fwrite($fp, $string);
-        fclose($fp);
-    }//end writeFile()
-
-    /**
-     * Sends generated SVG to requesting client.
-     *
-     * @return void
-     */
-    public function sendContent(): void
-    {
-        $tstamp = time();
-        // The next request should get it from the filesystem and use
-        // the filesystem info for expires etc.
-        $expires = $tstamp + (90);
-        header("HTTP/1.1 200 OK");
-        header('Content-Type: image/svg+xml; charset=utf-8');
-        header_remove('X-Powered-By');
-        $content = $this->dom->saveXML();
-        print($content);
-    }//end sendContent()
-
-    /**
      * The constructor function. The intent is for the $hash to be a hexadecimal number
      * representing a 128 bit hash but it actually doesn't matter what it is.
      *
-     * @param string $hash The string to use to create the SVG file.
+     * @param string $hash    The hash (or string) to use to create the SVG file.
+     * @param int    $size    Not used but needed for interface compliance.
+     * @param bool   $devel   Not used but needed for interface compliance.
+     * @param bool   $example Not used but needed for interface compliance.
+     *
+     * @psalm-suppress PossiblyNullPropertyAssignmentValue
      */
-    public function __construct(string $hash = '')
+    public function __construct(string $hash, int $size, bool $devel, bool $example)
     {
         $this->dom = new \DOMDocument("1.0", "UTF-8");
         // @codingStandardsIgnoreLine
@@ -1001,7 +930,8 @@ class Confetti
                 $this->addRegularPolygon(30, 14);
                 $this->addCircle(90, 8);
         }
-        $this->addFrame();
+        $this->addFrame(800, 'rgb(123,123,123)', 'rgb(80,80,80)');
+        $this->addGenerationDateComment();
     }//end __construct()
 }//end class
 
