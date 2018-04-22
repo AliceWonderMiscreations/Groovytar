@@ -162,12 +162,12 @@ abstract class Identicon
      * @param int|float $x     The x coordinate to start with.
      * @param int|float $y     The y coordinate to start with.
      * @param string    $spath The d parameter for the path.
-     * @param mixed     $width The stroke width.
      * @param string    $color The stroke color.
+     * @param mixed     $width The stroke width.
      *
      * @return void
      */
-    protected function svgStrokePath($x, $y, $spath, $width, $color): void
+    protected function svgStrokePath($x, $y, $spath, $color, $width): void
     {
         $stringWidth = (string) $width;
         $pathString = 'M' . $x . ',' . $y . ' ' . $spath;
@@ -178,6 +178,29 @@ abstract class Identicon
         $path->setAttribute('d', $pathString);
         $this->svg->appendChild($path);
     }//end svgStrokePath()
+
+    /**
+     * Creates an SVG path node without stroke and adds it as direct child of the root svg node.
+     *
+     * @param int|float $x       The x coordinate to start with.
+     * @param int|float $y       The y coordinate to start with.
+     * @param string    $spath   The d parameter for the path.
+     * @param string    $color   The color to fill with.
+     * @param float     $opacity The opacity for the the fill.
+     *
+     * @return void
+     */
+    protected function svgFillPath($x, $y, $spath, $color, $opacity): void
+    {
+        $stringOpacity = (string) $opacity;
+        $pathString = 'M' . $x . ',' . $y . ' ' . $spath;
+        $path = $this->dom->createElement('path');
+        $path->setAttribute('stroke', 'none');
+        $path->setAttribute('fill', $color);
+        $path->setAttribute('fill-opacity', $stringOpacity);
+        $path->setAttribute('d', $pathString);
+        $this->svg->appendChild($path);
+    }//end svgFillPath()
 
     /**
      * Adds generation timestamp to the SVG file.

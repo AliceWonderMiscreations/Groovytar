@@ -1710,7 +1710,7 @@ class PictoGlyph
         $this->addFrame();
         $gendate = 'SVG Generated on ' . date('r');
         $comment = $this->dom->createComment($gendate);
-        // make psalm happy
+        // make vimeo/psalm happy
         if (! is_null($this->svg)) {
             $this->svg->appendChild($comment);
         }
