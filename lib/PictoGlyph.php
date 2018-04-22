@@ -12,11 +12,15 @@ declare(strict_types=1);
 
 namespace AWonderPHP\Groovytar;
 
+// fixme w/ autoloader
+require_once(dirname(__FILE__) . '/IdenticonIface.php');
+require_once(dirname(__FILE__) . '/Identicon.php');
+
 /**
  * PictoGlyph Generation.
  * color selection currently often results in poor colors, I'm working on that...
  */
-class PictoGlyph
+class PictoGlyph extends Identicon implements IdenticonIface
 {
     /**
      * Are we running in devel / test mode ???
@@ -24,13 +28,6 @@ class PictoGlyph
      * @var boolean
      */
     protected $devel = false;
-     
-    /**
-     * The parameters, an array of 16 sets of integers between 0 and 255 inclusive
-     *
-     * @var array
-     */
-    protected $parameters = array();
     
     /**
      * The background color
@@ -40,6 +37,13 @@ class PictoGlyph
     protected $background = array(69, 2, 113);
     
     /**
+     * Background color as SVG string
+     *
+     * @var string
+     */
+    protected $backgroundRgb = 'rgb(69, 2, 113)';
+    
+    /**
      * The Foreground color
      *
      * @var array
@@ -47,38 +51,11 @@ class PictoGlyph
     protected $foreground = array(225, 178, 89);
     
     /**
-     * The dom object. Created by the constructor.
+     * Foreground color as SVG string
      *
+     * @var string
      */
-    protected $dom;
-    
-    /**
-     * The root SVG node. Created by the constructor.
-     *
-     */
-    protected $svg;
-    
-    /**
-     * Creates an SVG path node without fill and adds it as direct child of the root svg node.
-     *
-     * @param int|float $x     The x coordinate to start with.
-     * @param int|float $y     The y coordinate to start with.
-     * @param string    $spath The d parameter for the path.
-     * @param mixed     $width The stroke width.
-     * @param string    $color The stroke color.
-     *
-     * @return void
-     */
-    protected function svgStrokePath($x, $y, $spath, $width, $color): void
-    {
-        $pathString = 'M' . $x . ',' . $y . ' ' . $spath;
-        $path = $this->dom->createElement('path');
-        $path->setAttribute('stroke', $color);
-        $path->setAttribute('fill', 'none');
-        $path->setAttribute('stroke-width', (string) $width);
-        $path->setAttribute('d', $pathString);
-        $this->svg->appendChild($path);
-    }//end svgStrokePath()
+    protected $foregroundRgb = 'rgb(225, 178, 89)';
 
     /**
      * Not yet used, will be an array of 128 different color combinations.
@@ -396,60 +373,6 @@ class PictoGlyph
     }//end hashToParameters()
 
     /**
-     * Generates an SVG RGB string.
-     *
-     * @param int $r The red component.
-     * @param int $g The green component.
-     * @param int $b The blue component.
-     *
-     * @return string The SVG compliant RGB string.
-     */
-    protected function setRgbString($r, $g, $b): string
-    {
-        $string = 'rgb(' . $r . ',' . $g . ',' . $b . ')';
-        return $string;
-    }//end setRgbString()
-
-    /**
-     * Generates the frame around the image
-     *
-     * @return void
-     */
-    protected function addFrame(): void
-    {
-        $path = $this->dom->createElement('path');
-        $pathString = 'M0,0 l800,0 l0,800 l-7,-7 l0,-786 l-786,0z';
-        $path->setAttribute('d', $pathString);
-        $path->setAttribute('stroke', 'none');
-        $path->setAttribute('fill-opacity', '0.6');
-        $path->setAttribute('fill', 'rgb(123,123,123');
-        $this->svg->appendChild($path);
-        $path = $this->dom->createElement('path');
-        $pathString = 'M0,0 l0,800 l800,0 l-7,-7 l-786,0 l0,-786z';
-        $path->setAttribute('d', $pathString);
-        $path->setAttribute('stroke', 'none');
-        $path->setAttribute('fill-opacity', '0.6');
-        $path->setAttribute('fill', 'rgb(80,80,80');
-        $this->svg->appendChild($path);
-    }//end addFrame()
-
-    /**
-     * Draw the background canvas
-     *
-     * @return void
-     */
-    protected function drawCanvas(): void
-    {
-        $backgroundRgb = $this->setRgbString($this->background[0], $this->background[1], $this->background[2]);
-        $path = $this->dom->createElement('path');
-        $path->setAttribute('stroke', 'none');
-        $path->setAttribute('fill', $backgroundRgb);
-        $pathString = 'M0,0 l800,0 l0,800 l-800,0 l0,-800z';
-        $path->setAttribute('d', $pathString);
-        $this->svg->appendChild($path);
-    }//end drawCanvas()
-
-    /**
      * Used only in testing, will be nuked when I have 32 pictographs
      *
      * @param int $x The X coordinate for the center of the square the glyph is placed in.
@@ -482,22 +405,11 @@ class PictoGlyph
      */
     protected function simpleTriquetra($x, $y): void
     {
-        $foregroundRgb = $this->setRgbString($this->foreground[0], $this->foreground[1], $this->foreground[2]);
-        $startX = $x - 65;
-        $startY = $y + 54;
-        $pathString = 'M' . $startX . ',' . $startY . ' ';
-        // first arc
-        $pathString = $pathString . 'a 66,66 0 0 1 130,0 ';
-        $pathString = $pathString . 'a 66,66 0 0 1 -65,-113 ';
-        $pathString = $pathString . 'a 66,66 0 0 1 -65,113z';
+        $spath = 'a 66,66 0 0 1 130,0 ';
+        $spath .= 'a 66,66 0 0 1 -65,-113 ';
+        $spath .= 'a 66,66 0 0 1 -65,113z';
         
-        
-        $path = $this->dom->createElement('path');
-        $path->setAttribute('fill', 'none');
-        $path->setAttribute('stroke-width', '11');
-        $path->setAttribute('stroke', $foregroundRgb);
-        $path->setAttribute('d', $pathString);
-        $this->svg->appendChild($path);
+        $this->svgStrokePath(($x - 65), ($y + 54), $spath, $this->foregroundRgb, 11);
     }//end simpleTriquetra()
 
     /**
@@ -510,34 +422,11 @@ class PictoGlyph
      */
     protected function simpleFertility($x, $y): void
     {
-        $foregroundRgb = $this->setRgbString($this->foreground[0], $this->foreground[1], $this->foreground[2]);
-        $xWidth = 60;
-        $yHeight = 166;
-        $startX = $x - ($xWidth / 2);
-        $startY = $y - ($yHeight / 2);
+        $spath = 'l60,83 l-60,83';
+        $this->svgStrokePath(($x - 30), ($y - 83), $spath, $this->foregroundRgb, 9);
         
-        $pathString = 'M' . $startX . ',' . $startY . ' ';
-        $pathString = $pathString . 'l' . $xWidth . ',' . ($yHeight / 2) . ' ';
-        $pathString = $pathString . 'l-' . $xWidth . ',' . ($yHeight / 2);
-        
-        $path = $this->dom->createElement('path');
-        $path->setAttribute('fill', 'none');
-        $path->setAttribute('stroke-width', '9');
-        $path->setAttribute('stroke', $foregroundRgb);
-        $path->setAttribute('d', $pathString);
-        $this->svg->appendChild($path);
-        
-        $startX = $x + ($xWidth / 2);
-        $pathString = 'M' . $startX . ',' . $startY . ' ';
-        $pathString = $pathString . 'l-' . $xWidth . ',' . ($yHeight / 2) . ' ';
-        $pathString = $pathString . 'l' . $xWidth . ',' . ($yHeight / 2);
-        
-        $path = $this->dom->createElement('path');
-        $path->setAttribute('fill', 'none');
-        $path->setAttribute('stroke-width', '11');
-        $path->setAttribute('stroke', $foregroundRgb);
-        $path->setAttribute('d', $pathString);
-        $this->svg->appendChild($path);
+        $spath = 'l-60,83 l60,83';
+        $this->svgStrokePath(($x + 30), ($y - 83), $spath, $this->foregroundRgb, 11);
     }//end simpleFertility()
 
     /**
@@ -551,46 +440,18 @@ class PictoGlyph
      */
     protected function simpleYinYang($x, $y): void
     {
-        $backgroundRgb = $this->setRgbString($this->background[0], $this->background[1], $this->background[2]);
-        $foregroundRgb = $this->setRgbString($this->foreground[0], $this->foreground[1], $this->foreground[2]);
         //Draw the light
-        $pathString = 'M' . $x . ',' . ($y - 74) . ' ';
-        $pathString .= 'a37,37 0 0 1 0,74 a37,37 0 0 0 0,74 a74,74 0 0 1 0,-148z';
-        $path = $this->dom->createElement('path');
-        $path->setAttribute('stroke', 'none');
-        $path->setAttribute('fill', $foregroundRgb);
-        $path->setAttribute('d', $pathString);
-        $this->svg->appendChild($path);
+        $spath = 'a37,37 0 0 1 0,74 a37,37 0 0 0 0,74 a74,74 0 0 1 0,-148z';
+        $this->svgFillPath($x, ($y - 74), $spath, $this->foregroundRgb, 1);
         
         //draw the outer circle
-        $circle = $this->dom->createElement('circle');
-        $circle->setAttribute('cx', (string) $x);
-        $circle->setAttribute('cy', (string) $y);
-        $circle->setAttribute('r', '75');
-        $circle->setAttribute('stroke-width', '3');
-        $circle->setAttribute('stroke', $foregroundRgb);
-        $circle->setAttribute('fill', 'none');
-        $this->svg->appendChild($circle);
+        $spath = 'a 75,75 0 0 0 150,0 a 75,75 0 0 0 -150,0z';
+        $this->svgStrokePath(($x - 75), $y, $spath, $this->foregroundRgb, 4);
         
         // add the dots
-        $yUpper = $y - 37;
-        $yLower = $y + 37;
         
-        $circle = $this->dom->createElement('circle');
-        $circle->setAttribute('cx', (string) $x);
-        $circle->setAttribute('cy', (string) $yUpper);
-        $circle->setAttribute('r', '8');
-        $circle->setAttribute('stroke', 'none');
-        $circle->setAttribute('fill', $backgroundRgb);
-        $this->svg->appendChild($circle);
-        
-        $circle = $this->dom->createElement('circle');
-        $circle->setAttribute('cx', (string) $x);
-        $circle->setAttribute('cy', (string) $yLower);
-        $circle->setAttribute('r', '8');
-        $circle->setAttribute('stroke', 'none');
-        $circle->setAttribute('fill', $foregroundRgb);
-        $this->svg->appendChild($circle);
+        $this->svgFilledCircle($x, ($y - 37), 8, $this->backgroundRgb);
+        $this->svgFilledCircle($x, ($y + 37), 8, $this->foregroundRgb);
     }//end simpleYinYang()
 
     /**
@@ -1526,65 +1387,65 @@ class PictoGlyph
         $this->svg->appendChild($path);
 
         // The lines - lots and lots and fucking lots of lines to add
-        $this->svgStrokePath(($x - 42.25), ($y + 17.75), 'l15.75,-15', '1', $foregroundRgb);
-        $this->svgStrokePath(($x - 34), ($y + 17.75), 'l20.25,-19', '1.5', $foregroundRgb);
-        $this->svgStrokePath(($x - 25.25), ($y + 17.75), 'l29.5,-28', '1', $foregroundRgb);
-        $this->svgStrokePath(($x - 17), ($y + 18.25), 'l30.25,-28.75', '1.5', $foregroundRgb);
-        $this->svgStrokePath(($x - 7), ($y + 17.75), 'l29.25,-27.75', '1', $foregroundRgb);
+        $this->svgStrokePath(($x - 42.25), ($y + 17.75), 'l15.75,-15', $foregroundRgb, '1');
+        $this->svgStrokePath(($x - 34), ($y + 17.75), 'l20.25,-19', $foregroundRgb, '1.5');
+        $this->svgStrokePath(($x - 25.25), ($y + 17.75), 'l29.5,-28', $foregroundRgb, '1');
+        $this->svgStrokePath(($x - 17), ($y + 18.25), 'l30.25,-28.75', $foregroundRgb, '1.5');
+        $this->svgStrokePath(($x - 7), ($y + 17.75), 'l29.25,-27.75', $foregroundRgb, '1');
         
-        $this->svgStrokePath(($x + 2), ($y + 17.75), 'l27.25,-25.5', '1.5', $foregroundRgb);
-        $this->svgStrokePath(($x + 15), ($y + 14), 'l6,-5.625', '0.75', $foregroundRgb);
-        $this->svgStrokePath(($x + 21.5), ($y + 8.875), 'l11.375,-11.125', '1.5', $foregroundRgb);
-        $this->svgStrokePath(($x - 30.75), ($y + 18), 'l-7.25,-6.75', '1.5', $foregroundRgb);
-        $this->svgStrokePath(($x - 22.5), ($y + 18.25), 'l-12,-11.5', '1', $foregroundRgb);
+        $this->svgStrokePath(($x + 2), ($y + 17.75), 'l27.25,-25.5', $foregroundRgb, '1.5');
+        $this->svgStrokePath(($x + 15), ($y + 14), 'l6,-5.625', $foregroundRgb, '0.75');
+        $this->svgStrokePath(($x + 21.5), ($y + 8.875), 'l11.375,-11.125', $foregroundRgb, '1.5');
+        $this->svgStrokePath(($x - 30.75), ($y + 18), 'l-7.25,-6.75', $foregroundRgb, '1.5');
+        $this->svgStrokePath(($x - 22.5), ($y + 18.25), 'l-12,-11.5', $foregroundRgb, '1');
         
-        $this->svgStrokePath(($x - 13.75), ($y + 18.25), 'l-15,-14.25', '1.5', $foregroundRgb);
-        $this->svgStrokePath(($x - 5.5), ($y + 18.25), 'l-17.75,-17', '1', $foregroundRgb);
-        $this->svgStrokePath(($x + 3), ($y + 18.25), 'l-20.25,-19.25', '1.5', $foregroundRgb);
-        $this->svgStrokePath(($x + 10), ($y + 16), 'l-20,-19', '1', $foregroundRgb);
-        $this->svgStrokePath(($x + 17), ($y + 13.75), 'l-20,-19', '1.5', $foregroundRgb);
+        $this->svgStrokePath(($x - 13.75), ($y + 18.25), 'l-15,-14.25', $foregroundRgb, '1.5');
+        $this->svgStrokePath(($x - 5.5), ($y + 18.25), 'l-17.75,-17', $foregroundRgb, '1');
+        $this->svgStrokePath(($x + 3), ($y + 18.25), 'l-20.25,-19.25', $foregroundRgb, '1.5');
+        $this->svgStrokePath(($x + 10), ($y + 16), 'l-20,-19', $foregroundRgb, '1');
+        $this->svgStrokePath(($x + 17), ($y + 13.75), 'l-20,-19', $foregroundRgb, '1.5');
         
-        $this->svgStrokePath(($x + 23.75), ($y + 11.25), 'l-21.5,-20.5', '1.5', $foregroundRgb);
-        $this->svgStrokePath(($x + 30), ($y + 8.75), 'l-20,-19', '1', $foregroundRgb);
-        $this->svgStrokePath(($x + 33.75), ($y + 3.25), 'l-14.5,-13.75', '1.5', $foregroundRgb);
-        $this->svgStrokePath(($x - 29.75), ($y + 75), 'l11.5,-11', '1', $foregroundRgb);
-        $this->svgStrokePath(($x - 21.75), ($y + 75.375), 'l12.75,-13', '1.5', $foregroundRgb);
+        $this->svgStrokePath(($x + 23.75), ($y + 11.25), 'l-21.5,-20.5', $foregroundRgb, '1.5');
+        $this->svgStrokePath(($x + 30), ($y + 8.75), 'l-20,-19', $foregroundRgb, '1');
+        $this->svgStrokePath(($x + 33.75), ($y + 3.25), 'l-14.5,-13.75', $foregroundRgb, '1.5');
+        $this->svgStrokePath(($x - 29.75), ($y + 75), 'l11.5,-11', $foregroundRgb, '1');
+        $this->svgStrokePath(($x - 21.75), ($y + 75.375), 'l12.75,-13', $foregroundRgb, '1.5');
 
-        $this->svgStrokePath(($x - 14), ($y + 75.75), 'l15.75,-15', '1', $foregroundRgb);
-        $this->svgStrokePath(($x - 5.5), ($y + 76), 'l16.75,-16.25', '1.5', $foregroundRgb);
-        $this->svgStrokePath(($x + 2.75), ($y + 76.25), 'l20.75,-20', '1', $foregroundRgb);
-        $this->svgStrokePath(($x + 11.5), ($y + 76.5), 'l20.75,-20', '1.5', $foregroundRgb);
-        $this->svgStrokePath(($x + 20.25), ($y + 76.5), 'l20.75,-20', '1.5', $foregroundRgb);
+        $this->svgStrokePath(($x - 14), ($y + 75.75), 'l15.75,-15', $foregroundRgb, '1');
+        $this->svgStrokePath(($x - 5.5), ($y + 76), 'l16.75,-16.25', $foregroundRgb, '1.5');
+        $this->svgStrokePath(($x + 2.75), ($y + 76.25), 'l20.75,-20', $foregroundRgb, '1');
+        $this->svgStrokePath(($x + 11.5), ($y + 76.5), 'l20.75,-20', $foregroundRgb, '1.5');
+        $this->svgStrokePath(($x + 20.25), ($y + 76.5), 'l20.75,-20', $foregroundRgb, '1.5');
         
-        $this->svgStrokePath(($x + 28.75), ($y + 76.5), 'l20.75,-20', '1', $foregroundRgb);
-        $this->svgStrokePath(($x + 37.55), ($y + 76), 'l20.75,-19.5', '1.5', $foregroundRgb);
-        $this->svgStrokePath(($x - 15), ($y + 75.5), 'l-11,-10.75', '1.5', $foregroundRgb);
-        $this->svgStrokePath(($x - 6.75), ($y + 76), 'l-11.5,-12', '1', $foregroundRgb);
-        $this->svgStrokePath(($x + 1.75), ($y + 76.25), 'l-13.5,-13.5', '1.5', $foregroundRgb);
+        $this->svgStrokePath(($x + 28.75), ($y + 76.5), 'l20.75,-20', $foregroundRgb, '1');
+        $this->svgStrokePath(($x + 37.55), ($y + 76), 'l20.75,-19.5', $foregroundRgb, '1.5');
+        $this->svgStrokePath(($x - 15), ($y + 75.5), 'l-11,-10.75', $foregroundRgb, '1.5');
+        $this->svgStrokePath(($x - 6.75), ($y + 76), 'l-11.5,-12', $foregroundRgb, '1');
+        $this->svgStrokePath(($x + 1.75), ($y + 76.25), 'l-13.5,-13.5', $foregroundRgb, '1.5');
         
-        $this->svgStrokePath(($x + 1.75), ($y + 69), 'l-7,-7.25', '1', $foregroundRgb);
-        $this->svgStrokePath(($x + 10.5), ($y + 76.5), 'l-7.75,-8', '1', $foregroundRgb);
-        $this->svgStrokePath(($x + 10.5), ($y + 69), 'l-8.25,-8.5', '1.5', $foregroundRgb);
-        $this->svgStrokePath(($x + 19.25), ($y + 76.75), 'l-8.25,-8.5', '1.5', $foregroundRgb);
-        $this->svgStrokePath(($x + 23.5), ($y + 73.5), 'l-12.5,-13.75', '1.5', $foregroundRgb);
+        $this->svgStrokePath(($x + 1.75), ($y + 69), 'l-7,-7.25', $foregroundRgb, '1');
+        $this->svgStrokePath(($x + 10.5), ($y + 76.5), 'l-7.75,-8', $foregroundRgb, '1');
+        $this->svgStrokePath(($x + 10.5), ($y + 69), 'l-8.25,-8.5', $foregroundRgb, '1.5');
+        $this->svgStrokePath(($x + 19.25), ($y + 76.75), 'l-8.25,-8.5', $foregroundRgb, '1.5');
+        $this->svgStrokePath(($x + 23.5), ($y + 73.5), 'l-12.5,-13.75', $foregroundRgb, '1.5');
         
-        $this->svgStrokePath(($x + 28), ($y + 76.5), 'l-4,-4.25', '1', $foregroundRgb);
-        $this->svgStrokePath(($x + 23.25), ($y + 65.25), 'l-8.25,-8.5', '1.5', $foregroundRgb);
-        $this->svgStrokePath(($x + 35.75), ($y + 76), 'l-11.5,-12', '1.5', $foregroundRgb);
-        $this->svgStrokePath(($x + 32.25), ($y + 65), 'l-8.25,-8.5', '1', $foregroundRgb);
-        $this->svgStrokePath(($x + 43.75), ($y + 75.25), 'l-10.75,-11.25', '1', $foregroundRgb);
+        $this->svgStrokePath(($x + 28), ($y + 76.5), 'l-4,-4.25', $foregroundRgb, '1');
+        $this->svgStrokePath(($x + 23.25), ($y + 65.25), 'l-8.25,-8.5', $foregroundRgb, '1.5');
+        $this->svgStrokePath(($x + 35.75), ($y + 76), 'l-11.5,-12', $foregroundRgb, '1.5');
+        $this->svgStrokePath(($x + 32.25), ($y + 65), 'l-8.25,-8.5', $foregroundRgb, '1');
+        $this->svgStrokePath(($x + 43.75), ($y + 75.25), 'l-10.75,-11.25', $foregroundRgb, '1');
         
-        $this->svgStrokePath(($x + 36), ($y + 61.25), 'l-4.5,-4.75', '1.5', $foregroundRgb);
-        $this->svgStrokePath(($x + 50), ($y + 73), 'l-12.5,-13', '1.5', $foregroundRgb);
-        $this->svgStrokePath(($x + 54.5), ($y + 69.5), 'l-12.5,-13', '1', $foregroundRgb);
-        $this->svgStrokePath(($x + 59.5), ($y + 66.25), 'l-9,-9.5', '1', $foregroundRgb);
-        $this->svgStrokePath(($x - 34.75), ($y + 72.25), 'l6.75,-6.75', '1', $foregroundRgb);
+        $this->svgStrokePath(($x + 36), ($y + 61.25), 'l-4.5,-4.75', $foregroundRgb, '1.5');
+        $this->svgStrokePath(($x + 50), ($y + 73), 'l-12.5,-13', $foregroundRgb, '1.5');
+        $this->svgStrokePath(($x + 54.5), ($y + 69.5), 'l-12.5,-13', $foregroundRgb, '1');
+        $this->svgStrokePath(($x + 59.5), ($y + 66.25), 'l-9,-9.5', $foregroundRgb, '1');
+        $this->svgStrokePath(($x - 34.75), ($y + 72.25), 'l6.75,-6.75', $foregroundRgb, '1');
         
         //only four in this cluster
-        $this->svgStrokePath(($x - 32.275), ($y + 74.725), 'l-7,-7', '0.75', $foregroundRgb);
-        $this->svgStrokePath(($x - 35.75), ($y + 71.75), 'l-4.5,-4.5', '0.75', $foregroundRgb);
-        $this->svgStrokePath(($x - 22.75), ($y + 75.25), 'l-7.875,-7.375', '0.75', $foregroundRgb);
-        $this->svgStrokePath(($x - 27), ($y + 72), 'l-6.5,-6.087301587', '1', $foregroundRgb);
+        $this->svgStrokePath(($x - 32.275), ($y + 74.725), 'l-7,-7', $foregroundRgb, '0.75');
+        $this->svgStrokePath(($x - 35.75), ($y + 71.75), 'l-4.5,-4.5', $foregroundRgb, '0.75');
+        $this->svgStrokePath(($x - 22.75), ($y + 75.25), 'l-7.875,-7.375', $foregroundRgb, '0.75');
+        $this->svgStrokePath(($x - 27), ($y + 72), 'l-6.5,-6.087301587', $foregroundRgb, '1');
         
         //special path - fill, not stroke
         $pathString = 'M' . ($x - 40) . ',' . ($y + 74.5) . ' ';
@@ -1600,62 +1461,47 @@ class PictoGlyph
         $path->setAttribute('d', $pathString);
         $this->svg->appendChild($path);
     }//end simpleWaugal()
-
-    /**
-     * Writes the SVG to the specified file.
-     *
-     * @param string $path The path to where the file is to be written.
-     *
-     * @return void
-     */
-    public function writeFile($path): void
-    {
-        $string = $this->dom->saveXML();
-        $fp = fopen($path, 'w');
-        fwrite($fp, $string);
-        fclose($fp);
-    }//end writeFile()
-
-    /**
-     * Sends generated SVG to requesting client.
-     *
-     * @return void
-     */
-    public function sendContent(): void
-    {
-        $tstamp = time();
-        // The next request should get it from the filesystem and use
-        // the filesystem info for expires etc.
-        $expires = $tstamp + (90);
-        header("HTTP/1.1 200 OK");
-        header('Content-Type: image/svg+xml; charset=utf-8');
-        header_remove('X-Powered-By');
-        $content = $this->dom->saveXML();
-        print($content);
-    }//end sendContent()
     
     /**
      * The Constructor. Creates the SVG that is to be served.
      *
      * @param string $hash    Intended to be a hex representation of a 128-bit hash but any string will do.
+     * @param int    $size    The requested CSS pixel width/height for display. If less than 120 it gets
+     *                        redefined as 600 svg pixels here, otherwise redefined as 800 svg pixels here.
      * @param bool   $devel   For testing purposes.
      * @param bool   $example When true, $hash is ignored and the 16 parameters are randomly generated
      *                        but to never repeat the same mod 32 result (so no glyphs repeat).
+     *
+     * @psalm-suppress PossiblyNullPropertyAssignmentValue
      */
-    public function __construct($hash, bool $devel = false, bool $example = false)
+    public function __construct(string $hash, int $size, bool $devel = false, bool $example = false)
     {
+        if ($size < 120) {
+            $size = 600;
+        } else {
+            $size = 800;
+        }
         if ($devel) {
             $this->devel = true;
         }
         $this->dom = new \DOMDocument("1.0", "UTF-8");
         //$this->dom->formatOutput = true;
-        // @codingStandardsIgnoreLine
-        $docstring = '<?xml version="1.0"?><!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd"><svg xmlns="http://www.w3.org/2000/svg" version="1.1" width="800" height="800" viewBox="0 0 800 800"/>';
+        if ($size === 600) {
+            // @codingStandardsIgnoreLine
+            $docstring = '<?xml version="1.0"?><!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd"><svg xmlns="http://www.w3.org/2000/svg" version="1.1" width="600" height="600" viewBox="0 0 600 600"/>';
+        } else {
+            // @codingStandardsIgnoreLine
+            $docstring = '<?xml version="1.0"?><!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd"><svg xmlns="http://www.w3.org/2000/svg" version="1.1" width="800" height="800" viewBox="0 0 800 800"/>';
+        }
         $this->dom->loadXML($docstring);
         $this->svg = $this->dom->getElementsByTagName('svg')->item(0);
         
         $this->hashToParameters($hash, $example);
-        $this->drawCanvas();
+        
+        $this->backgroundRgb = $this->setRgbString($this->background[0], $this->background[1], $this->background[2]);
+        $this->foregroundRgb = $this->setRgbString($this->foreground[0], $this->foreground[1], $this->foreground[2]);
+        
+        $this->drawCanvas(800, $this->background[0], $this->background[1], $this->background[2]);
         
         // The sixteen squares
         for ($i=0; $i<4; $i++) {
@@ -1669,62 +1515,64 @@ class PictoGlyph
                     // we only have ten glyphs at present
                     $mod = $byte % 10;
                 }
-                switch ($mod) {
-                    case 0:
-                        $this->simpleTriquetra($x, $y);
-                        break;
-                    case 1:
-                        $this->simpleFertility($x, $y);
-                        break;
-                    case 2:
-                        $this->simpleYinYang($x, $y);
-                        break;
-                    case 3:
-                        $this->simpleAsaseYeDuru($x, $y);
-                        break;
-                    case 4:
-                        $this->simpleElvinStar($x, $y);
-                        break;
-                    case 5:
-                        $this->simpleTurtle($x, $y);
-                        break;
-                    case 6:
-                        $this->simpleBoaMeNaMeMmoaWo($x, $y);
-                        break;
-                    case 7:
-                        $this->simpleCoqui($x, $y);
-                        break;
-                    case 8:
-                        $this->simpleSun($x, $y);
-                        break;
-                    case 9:
-                        $this->simpleWaugal($x, $y);
-                        break;
-                    default:
-                        // placeholder for glyphs not yet created
-                        $this->simpleCircle($x, $y);
-                        break;
+                $addGlyph = true;
+                if ($size === 600) {
+                    if (($i === 3) || ($j === 3)) {
+                        $addGlyph = false;
+                    }
+                }
+                if ($addGlyph) {
+                    switch ($mod) {
+                        case 0:
+                            $this->simpleTriquetra($x, $y);
+                            break;
+                        case 1:
+                            $this->simpleFertility($x, $y);
+                            break;
+                        case 2:
+                            $this->simpleYinYang($x, $y);
+                            break;
+                        case 3:
+                            $this->simpleAsaseYeDuru($x, $y);
+                            break;
+                        case 4:
+                            $this->simpleElvinStar($x, $y);
+                            break;
+                        case 5:
+                            $this->simpleTurtle($x, $y);
+                            break;
+                        case 6:
+                            $this->simpleBoaMeNaMeMmoaWo($x, $y);
+                            break;
+                        case 7:
+                            $this->simpleCoqui($x, $y);
+                            break;
+                        case 8:
+                            $this->simpleSun($x, $y);
+                            break;
+                        case 9:
+                            $this->simpleWaugal($x, $y);
+                            break;
+                        default:
+                            // placeholder for glyphs not yet created
+                            //$this->simpleCircle($x, $y);
+                            $this->simpleYinYang($x, $y);
+                            break;
+                    }
                 }
             }
         }
-        $this->addFrame();
-        $gendate = 'SVG Generated on ' . date('r');
-        $comment = $this->dom->createComment($gendate);
-        // make vimeo/psalm happy
-        if (! is_null($this->svg)) {
-            $this->svg->appendChild($comment);
-        }
+        $this->addFrame($size, 'rgb(123,123,123)', 'rgb(80,80,80)');
+        $this->addGenerationDateComment();
     }//end __construct()
 }//end class
 
 // uncomment this block for testing file as standalone program
-/*
 $foo = random_bytes(32);
 $foo = base64_encode($foo);
-//$bar = new PictoGlyph($foo, true);
-$bar = new PictoGlyph($foo, false, true);
+//$bar = new PictoGlyph($foo, 120, true);
+$bar = new PictoGlyph($foo, 120, false, false);
 $bar->sendContent();
 exit;
-*/
 
 ?>

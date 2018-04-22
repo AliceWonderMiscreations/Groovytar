@@ -186,21 +186,54 @@ abstract class Identicon
      * @param int|float $y       The y coordinate to start with.
      * @param string    $spath   The d parameter for the path.
      * @param string    $color   The color to fill with.
-     * @param float     $opacity The opacity for the the fill.
+     * @param int|float $opacity The opacity for the the fill.
      *
      * @return void
      */
-    protected function svgFillPath($x, $y, $spath, $color, $opacity): void
+    protected function svgFillPath($x, $y, $spath, $color, $opacity = 1): void
     {
         $stringOpacity = (string) $opacity;
         $pathString = 'M' . $x . ',' . $y . ' ' . $spath;
         $path = $this->dom->createElement('path');
         $path->setAttribute('stroke', 'none');
         $path->setAttribute('fill', $color);
-        $path->setAttribute('fill-opacity', $stringOpacity);
+        if ($stringOpacity !== '1') {
+            $path->setAttribute('fill-opacity', $stringOpacity);
+        }
         $path->setAttribute('d', $pathString);
         $this->svg->appendChild($path);
     }//end svgFillPath()
+    
+    /**
+     * Creates a filled SVG circle node without stroke and adds it as direct child of the root svg node.
+     *
+     * @param int|float $cx The center x coordinate.
+     * @param int|float $cy The center y coordinate.
+     * @param int|float $r The radius of the circle.
+     * @param string    $color The color to fill with.
+     * @param int|float $opacity The opacity for the the fill.
+     *
+     * @return void
+     */
+    protected function svgFilledCircle($cx, $cy, $r, $color, $opacity = 1): void
+    {
+        $stringCx = (string) $cx;
+        $stringCy = (string) $cy;
+        $stringRadius = (string) $r;
+        $stringOpacity = (string) $opacity;
+        
+        $circle = $this->dom->createElement('circle');
+        $circle->setAttribute('cx', $stringCx);
+        $circle->setAttribute('cy', $stringCy);
+        $circle->setAttribute('r', $stringRadius);
+        $circle->setAttribute('stroke', 'none');
+        $circle->setAttribute('fill', $color);
+        if ($stringOpacity !== '1') {
+            $circle->setAttribute('fill-opacity', $stringOpacity);
+        }
+        $this->svg->appendChild($circle);
+    }//end svgFilledCircle()
+     
 
     /**
      * Adds generation timestamp to the SVG file.
