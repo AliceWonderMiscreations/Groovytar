@@ -181,6 +181,10 @@ Currently the following pictographs exist:
   I am not sure what tribe or tribes used this glyph, but it is a simplistic
   yet very beautiful depiction of the Sun, from which all life draws energy.
 
+* __Noongar Waugal__  
+  In Noongar Dreamtime Mythology, it was a Waugal that created the major rivers
+  in their part of Australia.
+
 There will eventually be 32 glyphs.
 
 ### Small Size Variant
