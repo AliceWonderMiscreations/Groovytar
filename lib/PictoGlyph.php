@@ -449,7 +449,6 @@ class PictoGlyph extends Identicon implements IdenticonIface
         $this->svgStrokePath(($x - 75), $y, $spath, $this->foregroundRgb, 4);
         
         // add the dots
-        
         $this->svgFilledCircle($x, ($y - 37), 8, $this->backgroundRgb);
         $this->svgFilledCircle($x, ($y + 37), 8, $this->foregroundRgb);
     }//end simpleYinYang()
@@ -467,118 +466,79 @@ class PictoGlyph extends Identicon implements IdenticonIface
      */
     protected function simpleAsaseYeDuru($x, $y): void
     {
-        $backgroundRgb = $this->setRgbString($this->background[0], $this->background[1], $this->background[2]);
-        $foregroundRgb = $this->setRgbString($this->foreground[0], $this->foreground[1], $this->foreground[2]);
-        $startX = $x;
-        $startY = $y + 75;
+        $spath = 'q-16.5,-9.75 -30,-22.5 ';
+        $spath .= 'q-9.75,-8.25 -18,-24 ';
+        $spath .= 'a20.25,21.75 0 0 1 9.75,-27 ';
+        $spath .= 'a20.25,20.25 0 0 1 -8,-27 ';
+        $spath .= 'q3,-8.25 16.5,-24 ';
+        $spath .= 'q16.5,-16.5 30,-25.5 ';
+        $spath .= 'q21,13.5 33,25.5 ';
+        $spath .= 'q6,5.25 13.5,18.75 ';
+        $spath .= 'a21.75,21.75 0 0 1 -8.25,30 ';
+        $spath .= 'a20.25,21 0 0 1 7.5,30 ';
+        $spath .= 'q-11.25,18.75 -24,30 ';
+        $spath .= 'q-11.25,9.75 -21,15.75z';
+        $this->svgFillPath($x, ($y + 75), $spath, $this->foregroundRgb);
+
+        $spath = 'q21.75,15 33.75,30 ';
+        $spath .= 'q6.75,7.5 8.25,18 ';
+        $spath .= 'a15,14.25 0 0 1 -11.25,14.25 ';
+        $spath .= 'q-12,1.5 -17.25,-3.75 ';
+        $spath .= 'q-5.25,-5.25 -5.25,-8.25 ';
+        $spath .= 'q0.75,-5.25 7.5,-6 ';
+        $spath .= 'q3,-0.75 5.25,0.75 ';
+        $spath .= 'q1.5,2.25 2.25,6 ';
+        $spath .= 'a4.5,4.5 0 0 0 7.875,-1.5 ';
+        $spath .= 'a7.5,7.5 0 0 0 -1.125,-8.25 ';
+        $spath .= 'q-2.25,-3.75 -8.25,-6 ';
+        $spath .= 'a14.25,14.25 0 0 0 -8.25,1.5 ';
+        $spath .= 'q-7.5,3 -12,7.5 ';
+        $spath .= 'a18.75,18.75 0 0 0 -16.5,-9.75 ';
+        $spath .= 'q-6,-0.375 -14.25,8.625 ';
+        $spath .= 'q-2.25,3.75 -2.25,6.75 ';
+        $spath .= 'a3,3 0 0 0 3.75,2.25 ';
+        $spath .= 'q3,0 4.875,-2.625 ';
+        $spath .= 'a7.5,9 0 0 1 8.25,-6 ';
+        $spath .= 'a9,9.75 0 0 1 8.25,7.5 ';
+        $spath .= 'q0,10.5 -15,10.5 ';
+        $spath .= 'a15.75,15 0 0 1 -16.5,-12 ';
+        $spath .= 'q-0.375,-3.375 1.5,-7.5 ';
+        $spath .= 'q4.5,-11.25 15,-22.5 ';
+        $spath .= 'q16.875,-18 21.375,-19.5z';
+        $this->svgFillPath(($x - 1), ($y - 65), $spath, $this->backgroundRgb);
+
+        $spath = 'q-21.75,-15 -33.75,-30 ';
+        $spath .= 'q-6.75,-7.5 -8.25,-18 ';
+        $spath .= 'a-15,-14.25 0 0 1 11.25,-14.25 ';
+        $spath .= 'q12,-1.5 17.25,3.75 ';
+        $spath .= 'q5.25,5.25 5.25,8.25 ';
+        $spath .= 'q-0.75,5.25 -7.5,6 ';
+        $spath .= 'q-3,0.75 -5.25,-0.75 ';
+        $spath .= 'q-1.5,-2.25 -2.25,-6 ';
+        $spath .= 'a-4.5,-4.5 0 0 0 -7.875,1.5 ';
+        $spath .= 'a-7.5,-7.5 0 0 0 1.125,8.25 ';
+        $spath .= 'q2.25,3.75 8.25,6 ';
+        $spath .= 'a-14.25,-14.25 0 0 0 8.25,-1.5 ';
+        $spath .= 'q7.5,-3 12,-7.5 ';
+        $spath .= 'a-18.75,-18.75 0 0 0 16.5,9.75 ';
+        $spath .= 'q6,0.375 14.25,-8.625 ';
+        $spath .= 'q2.25,-3.75 2.25,-6.75 ';
+        $spath .= 'a-3,-3 0 0 0 -3.75,-2.25 ';
+        $spath .= 'q-3,0 -4.875,2.625 ';
+        $spath .= 'a-7.5,-9 0 0 1 -8.25,6 ';
+        $spath .= 'a-9,-9.75 0 0 1 -8.25,-7.5 ';
+        $spath .= 'q0,-10.5 15,-10.5 ';
+        $spath .= 'a-15.75,-15 0 0 1 16.5,12 ';
+        $spath .= 'q0.375,3.375 -1.5,7.5 ';
+        $spath .= 'q-4.5,11.25 -15,22.5 ';
+        $spath .= 'q-16.875,18 -21.375,19.5z';
+        $this->svgFillPath(($x + 1), ($y + 66), $spath, $this->backgroundRgb);
         
-        $pathString = 'M' . $x . ',' . $startY . ' ';
-        $pathString .= 'q-16.5,-9.75 -30,-22.5 ';
-        $pathString .= 'q-9.75,-8.25 -18,-24 ';
-        $pathString .= 'a20.25,21.75 0 0 1 9.75,-27 ';
-        $pathString .= 'a20.25,20.25 0 0 1 -8,-27 ';
-        $pathString .= 'q3,-8.25 16.5,-24 ';
-        $pathString .= 'q16.5,-16.5 30,-25.5 ';
-        $pathString .= 'q21,13.5 33,25.5 ';
-        $pathString .= 'q6,5.25 13.5,18.75 ';
-        $pathString .= 'a21.75,21.75 0 0 1 -8.25,30 ';
-        $pathString .= 'a20.25,21 0 0 1 7.5,30 ';
-        $pathString .= 'q-11.25,18.75 -24,30 ';
-        $pathString .= 'q-11.25,9.75 -21,15.75z';
-        
-        $path = $this->dom->createElement('path');
-        $path->setAttribute('stroke', 'none');
-        $path->setAttribute('fill', $foregroundRgb);
-        $path->setAttribute('d', $pathString);
-        $this->svg->appendChild($path);
-        
-        $startX = $x -1;
-        $startY = $y -65;
-        
-        $pathString = 'M' . $startX. ',' . $startY . ' ';
-        $pathString .= 'q21.75,15 33.75,30 ';
-        $pathString .= 'q6.75,7.5 8.25,18 ';
-        $pathString .= 'a15,14.25 0 0 1 -11.25,14.25 ';
-        $pathString .= 'q-12,1.5 -17.25,-3.75 ';
-        $pathString .= 'q-5.25,-5.25 -5.25,-8.25 ';
-        $pathString .= 'q0.75,-5.25 7.5,-6 ';
-        $pathString .= 'q3,-0.75 5.25,0.75 ';
-        $pathString .= 'q1.5,2.25 2.25,6 ';
-        $pathString .= 'a4.5,4.5 0 0 0 7.875,-1.5 ';
-        $pathString .= 'a7.5,7.5 0 0 0 -1.125,-8.25 ';
-        $pathString .= 'q-2.25,-3.75 -8.25,-6 ';
-        $pathString .= 'a14.25,14.25 0 0 0 -8.25,1.5 ';
-        $pathString .= 'q-7.5,3 -12,7.5 ';
-        $pathString .= 'a18.75,18.75 0 0 0 -16.5,-9.75 ';
-        $pathString .= 'q-6,-0.375 -14.25,8.625 ';
-        $pathString .= 'q-2.25,3.75 -2.25,6.75 ';
-        $pathString .= 'a3,3 0 0 0 3.75,2.25 ';
-        $pathString .= 'q3,0 4.875,-2.625 ';
-        $pathString .= 'a7.5,9 0 0 1 8.25,-6 ';
-        $pathString .= 'a9,9.75 0 0 1 8.25,7.5 ';
-        $pathString .= 'q0,10.5 -15,10.5 ';
-        $pathString .= 'a15.75,15 0 0 1 -16.5,-12 ';
-        $pathString .= 'q-0.375,-3.375 1.5,-7.5 ';
-        $pathString .= 'q4.5,-11.25 15,-22.5 ';
-        $pathString .= 'q16.875,-18 21.375,-19.5z';
-        
-        $path = $this->dom->createElement('path');
-        $path->setAttribute('stroke', 'none');
-        $path->setAttribute('fill', $backgroundRgb);
-        $path->setAttribute('d', $pathString);
-        $this->svg->appendChild($path);
-        
-        $startX = $x +1;
-        $startY = $y +66;
-        
-        $pathString = 'M' . $startX. ',' . $startY . ' ';
-        $pathString .= 'q-21.75,-15 -33.75,-30 ';
-        $pathString .= 'q-6.75,-7.5 -8.25,-18 ';
-        $pathString .= 'a-15,-14.25 0 0 1 11.25,-14.25 ';
-        $pathString .= 'q12,-1.5 17.25,3.75 ';
-        $pathString .= 'q5.25,5.25 5.25,8.25 ';
-        $pathString .= 'q-0.75,5.25 -7.5,6 ';
-        $pathString .= 'q-3,0.75 -5.25,-0.75 ';
-        $pathString .= 'q-1.5,-2.25 -2.25,-6 ';
-        $pathString .= 'a-4.5,-4.5 0 0 0 -7.875,1.5 ';
-        $pathString .= 'a-7.5,-7.5 0 0 0 1.125,8.25 ';
-        $pathString .= 'q2.25,3.75 8.25,6 ';
-        $pathString .= 'a-14.25,-14.25 0 0 0 8.25,-1.5 ';
-        $pathString .= 'q7.5,-3 12,-7.5 ';
-        $pathString .= 'a-18.75,-18.75 0 0 0 16.5,9.75 ';
-        $pathString .= 'q6,0.375 14.25,-8.625 ';
-        $pathString .= 'q2.25,-3.75 2.25,-6.75 ';
-        $pathString .= 'a-3,-3 0 0 0 -3.75,-2.25 ';
-        $pathString .= 'q-3,0 -4.875,2.625 ';
-        $pathString .= 'a-7.5,-9 0 0 1 -8.25,6 ';
-        $pathString .= 'a-9,-9.75 0 0 1 -8.25,-7.5 ';
-        $pathString .= 'q0,-10.5 15,-10.5 ';
-        $pathString .= 'a-15.75,-15 0 0 1 16.5,12 ';
-        $pathString .= 'q0.375,3.375 -1.5,7.5 ';
-        $pathString .= 'q-4.5,11.25 -15,22.5 ';
-        $pathString .= 'q-16.875,18 -21.375,19.5z';
-        
-        $path = $this->dom->createElement('path');
-        $path->setAttribute('stroke', 'none');
-        $path->setAttribute('fill', $backgroundRgb);
-        $path->setAttribute('d', $pathString);
-        $this->svg->appendChild($path);
-        
-        $startX = $x -7;
-        $startY = $y -0;
-        
-        $pathString = 'M' . $startX. ',' . $startY . ' ';
-        
-        $pathString .= 'a21,21 0 0 0 6.5,-6 ';
-        $pathString .= 'a18,18 0 0 0 8,7.5 ';
-        $pathString .= 'a21,21 0 0 0 -6.5,6 ';
-        $pathString .= 'a18,18 0 0 0 -8,-7.5z';
-        
-        $path = $this->dom->createElement('path');
-        $path->setAttribute('stroke', 'none');
-        $path->setAttribute('fill', $backgroundRgb);
-        $path->setAttribute('d', $pathString);
-        $this->svg->appendChild($path);
+        $spath = 'a21,21 0 0 0 6.5,-6 ';
+        $spath .= 'a18,18 0 0 0 8,7.5 ';
+        $spath .= 'a21,21 0 0 0 -6.5,6 ';
+        $spath .= 'a18,18 0 0 0 -8,-7.5z';
+        $this->svgFillPath(($x - 7), $y, $spath, $this->backgroundRgb);
     }//end simpleAsaseYeDuru()
     
     /**
@@ -591,7 +551,6 @@ class PictoGlyph extends Identicon implements IdenticonIface
      */
     protected function simpleElvinStar($x, $y): void
     {
-        $foregroundRgb = $this->setRgbString($this->foreground[0], $this->foreground[1], $this->foreground[2]);
         // 51.428571429 degrees = 360/7 = 0.897597901 radians
         // 25.714285714 degrees = 360/14 = 0.448798951 radians
         
@@ -618,21 +577,15 @@ class PictoGlyph extends Identicon implements IdenticonIface
         $Gx = $x - ($r * (sin($rad14 + (18 * $rad07))));
         $Gy = $y + ($r * (cos($rad14 + (18 * $rad07))));
       
-        $pathString = 'M' . $Ax . ',' . $Ay . ' ';
-        $pathString = $pathString . 'l' . ($Bx - $Ax) . ',' . ($By - $Ay) . ' ';
-        $pathString = $pathString . 'l' . ($Cx - $Bx) . ',' . ($Cy - $By) . ' ';
-        $pathString = $pathString . 'l' . ($Dx - $Cx) . ',' . ($Dy - $Cy) . ' ';
-        $pathString = $pathString . 'l' . ($Ex - $Dx) . ',' . ($Ey - $Dy) . ' ';
-        $pathString = $pathString . 'l' . ($Fx - $Ex) . ',' . ($Fy - $Ey) . ' ';
-        $pathString = $pathString . 'l' . ($Gx - $Fx) . ',' . ($Gy - $Fy) . ' ';
-        $pathString = $pathString . 'l' . ($Ax - $Gx) . ',' . ($Ay - $Gy) . 'z';
+        $spath = 'l' . ($Bx - $Ax) . ',' . ($By - $Ay) . ' ';
+        $spath = $spath . 'l' . ($Cx - $Bx) . ',' . ($Cy - $By) . ' ';
+        $spath = $spath . 'l' . ($Dx - $Cx) . ',' . ($Dy - $Cy) . ' ';
+        $spath = $spath . 'l' . ($Ex - $Dx) . ',' . ($Ey - $Dy) . ' ';
+        $spath = $spath . 'l' . ($Fx - $Ex) . ',' . ($Fy - $Ey) . ' ';
+        $spath = $spath . 'l' . ($Gx - $Fx) . ',' . ($Gy - $Fy) . ' ';
+        $spath = $spath . 'l' . ($Ax - $Gx) . ',' . ($Ay - $Gy) . 'z';
         
-        $path = $this->dom->createElement('path');
-        $path->setAttribute('fill', 'none');
-        $path->setAttribute('stroke', $foregroundRgb);
-        $path->setAttribute('stroke-width', '5');
-        $path->setAttribute('d', $pathString);
-        $this->svg->appendChild($path);
+        $this->svgStrokePath($Ax, $Ay, $spath, $this->foregroundRgb, 5);
     }//end simpleElvinStar()
 
     /**
@@ -1556,7 +1509,7 @@ class PictoGlyph extends Identicon implements IdenticonIface
                         default:
                             // placeholder for glyphs not yet created
                             //$this->simpleCircle($x, $y);
-                            $this->simpleYinYang($x, $y);
+                            $this->simpleElvinStar($x, $y);
                             break;
                     }
                 }
