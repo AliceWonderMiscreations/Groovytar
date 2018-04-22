@@ -97,22 +97,19 @@ abstract class Identicon
      * svg node. As no opacity is set, it will cover everything before it completely
      * so if called it should be the first argument.
      *
-     * @param int $size The size of the canvas (will be square).
-     * @param int $r    The red component of the color, 0-255.
-     * @param int $g    The green component of the color, 0-255.
-     * @param int $b    The blue component of the color, 0-255.
+     * @param int    $size  The size of the canvas (will be square).
+     * @param string $color The color to use for North and East part of frame. String in
+     *                      the format of rgb(r,g,b).
      *
      * @return void
      */
-    protected function drawCanvas(int $size, int $r, int $g, int $b): void
+    protected function drawCanvas(int $size, string $color): void
     {
-        $backgroundRgb = $this->setRgbString($r, $g, $b);
         $pathString = 'M0,0 l' . $size . ',0 l0,' . $size . 'l-' . $size . ',0 l0,-' . $size . 'z';
         
         $path = $this->dom->createElement('path');
         $path->setAttribute('stroke', 'none');
-        $path->setAttribute('fill', $backgroundRgb);
-        //$pathString = 'M0,0 l800,0 l0,800 l-800,0 l0,-800z';
+        $path->setAttribute('fill', $color);
         $path->setAttribute('d', $pathString);
         $this->svg->appendChild($path);
     }//end drawCanvas()

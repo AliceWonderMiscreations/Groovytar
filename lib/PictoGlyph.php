@@ -15,6 +15,9 @@ namespace AWonderPHP\Groovytar;
 // fixme w/ autoloader
 require_once(dirname(__FILE__) . '/IdenticonIface.php');
 require_once(dirname(__FILE__) . '/Identicon.php');
+require_once(dirname(__FILE__) . '/WcagColor.php');
+
+use \AWonderPHP\Groovytar\WcagColor as WcagColor;
 
 /**
  * PictoGlyph Generation.
@@ -58,199 +61,6 @@ class PictoGlyph extends Identicon implements IdenticonIface
     protected $foregroundRgb = 'rgb(225, 178, 89)';
 
     /**
-     * Not yet used, will be an array of 128 different color combinations.
-     * TODO: check for color combos that are too similar
-     *
-     * @param int $input A number between 0 and 255.
-     *
-     * @return void
-     */
-    protected function selectColorCombos(int $input): void
-    {
-        // WCAG Large Text Tests
-        $colorCombos = array();
-        /*
-        // 1-16
-        $colorCombos[] = array('861d57', '9fc464'); // WCAG PASS AAA
-        $colorCombos[] = array('132052', '939689'); // WCAG PASS AAA
-        $colorCombos[] = array('8d343a', 'a1e35f'); // WCAG PASS AAA
-        $colorCombos[] = array('2303c8', 'a4ad58'); // WCAG PASS AAA
-        $colorCombos[] = array('0e10ca', 'd3a21f'); // WCAG PASS AAA
-        $colorCombos[] = array('c3155e', '87fffa'); // WCAG PASS AAA
-        $colorCombos[] = array('98161a', '4bd8e2'); // WCAG PASS AA FAIL AAA
-        $colorCombos[] = array('691f4b', 'ed9439'); // WCAG PASS AAA
-        $colorCombos[] = array('00505c', 'ecaf5f'); // WCAG PASS AAA
-        $colorCombos[] = array('4c4da4', '8efb7f'); // WCAG PASS AAA
-        $colorCombos[] = array('202c17', '3aaefc'); // WCAG PASS AAA
-        $colorCombos[] = array('421225', 'eded0f'); // WCAG PASS AAA
-        $colorCombos[] = array('85345f', '97d912'); // WCAG PASS AAA
-        $colorCombos[] = array('961d07', 'b8c5fa'); // WCAG PASS AAA
-        $colorCombos[] = array('0f0f3d', 'c8a12a'); // WCAG PASS AAA
-        $colorCombos[] = array('082f4f', 'ec4ff8'); // WCAG PASS AAA
-        // 17-32
-        $colorCombos[] = array('b1336d', 'd1fde2'); // WCAG PASS AAA
-        $colorCombos[] = array('a80b10', 'a7d57b'); // WCAG PASS AAA
-        $colorCombos[] = array('96381d', 'b5f803'); // WCAG PASS AAA
-        $colorCombos[] = array('025f53', 'd4cc82'); // WCAG PASS AAA
-        $colorCombos[] = array('1b5535', 'bcfd86'); // WCAG PASS AAA
-        $colorCombos[] = array('3f2e22', 'd8c8b0'); // WCAG PASS AAA
-        $colorCombos[] = array('0c3113', 'f8a0c9'); // WCAG PASS AAA
-        $colorCombos[] = array('245e21', 'f6f5ed'); // WCAG PASS AAA
-        $colorCombos[] = array('663838', 'c2f65a'); // WCAG PASS AAA
-        $colorCombos[] = array('8a310a', 'd5f99a'); // WCAG PASS AAA
-        $colorCombos[] = array('640c4d', '6dd8f8'); // WCAG PASS AAA
-        $colorCombos[] = array('193e19', 'eeb8ef'); // WCAG PASS AAA
-        $colorCombos[] = array('0c402e', 'fcc373'); // WCAG PASS AAA
-        $colorCombos[] = array('5b4429', 'd0ece6'); // WCAG PASS AAA
-        $colorCombos[] = array('2a4735', 'b7a3dc'); // WCAG PASS AAA
-        $colorCombos[] = array('ae0f2c', 'b3e3a8'); // WCAG PASS AAA
-        // 33-48
-        $colorCombos[] = array('9a4c4d', 'efe880'); // WCAG PASS AAA
-        $colorCombos[] = array('67527a', '8be3c3'); // WCAG PASS AAA
-        $colorCombos[] = array('590d60', 'd1ef85'); // WCAG PASS AAA
-        $colorCombos[] = array('d89f36', '35355f'); // WCAG PASS AAA
-        $colorCombos[] = array('590e2c', '8eb829'); // WCAG PASS AAA
-        $colorCombos[] = array('6f5006', 'f2c57d'); // WCAG PASS AAA
-        $colorCombos[] = array('144b5c', 'ecbc7b'); // WCAG PASS AAA
-        $colorCombos[] = array('4b5f0d', '95f24f'); // WCAG PASS AAA
-        $colorCombos[] = array('0c5f3b', 'b5dda6'); // WCAG PASS AAA
-        $colorCombos[] = array('634f56', 'f9c56c'); // WCAG PASS AAA
-        $colorCombos[] = array('6d2a1c', 'afa4f4'); // WCAG PASS AAA
-        $colorCombos[] = array('7b033c', '4fcd8f'); // WCAG PASS AAA
-        $colorCombos[] = array('2733af', '65fdf8'); // WCAG PASS AAA
-        $colorCombos[] = array('3700e9', '8fe474'); // WCAG PASS AAA
-        $colorCombos[] = array('751a5b', 'd5b67b'); // WCAG PASS AAA
-        $colorCombos[] = array('103c88', 'f3ed69'); // WCAG PASS AAA
-        // 49-64
-        $colorCombos[] = array('a24320', 'a9fc4a'); // WCAG PASS AAA
-        $colorCombos[] = array('1d3987', 'd494f9'); // WCAG PASS AAA
-        $colorCombos[] = array('1c2410', 'b49183'); // WCAG PASS AAA
-        $colorCombos[] = array('834458', '8ce800'); // WCAG PASS AAA
-        $colorCombos[] = array('96305a', '97e0e8'); // WCAG PASS AAA
-        $colorCombos[] = array('c44703', 'f5f5f5'); // WCAG PASS AAA
-        $colorCombos[] = array('5cd417', '70149f'); // WCAG PASS AAA
-        $colorCombos[] = array('453513', 'bd91de'); // WCAG PASS AAA
-        $colorCombos[] = array('294216', '95bd1e'); // WCAG PASS AAA
-        $colorCombos[] = array('8a0261', 'f5bdb8'); // WCAG PASS AAA
-        $colorCombos[] = array('814d04', '84e5a3'); // WCAG PASS AAA
-        $colorCombos[] = array('674410', 'b8b7f0'); // WCAG PASS AAA
-        $colorCombos[] = array('7b016b', 'b8b432'); // WCAG PASS AAA
-        $colorCombos[] = array('b92736', 'e7ee96'); // WCAG PASS AAA
-        $colorCombos[] = array('39062a', 'a36fce'); // WCAG PASS AAA
-        $colorCombos[] = array('2efa44', '97279a'); // WCAG PASS AAA
-        */
-        
-        // sorted color combos
-        
-        //Pink:
-        $colorCombos[] = array('c3155e', '87fffa'); // MediumVioletRed || Aquamarine
-        $colorCombos[] = array('b1336d', 'd1fde2'); // MediumVioletRed || LightCyan
-        
-        //Red:
-        $colorCombos[] = array('961d07', 'b8c5fa'); // DarkRed         || LightSteelBlue
-        
-        $colorCombos[] = array('98161a', '4bd8e2'); // FireBrick       || MediumTurquoise
-        
-          // These three very similar
-        //$colorCombos[] = array('a80b10', 'a7d57b'); // FireBrick       || DarkKhaki
-        //$colorCombos[] = array('b92736', 'e7ee96'); // FireBrick       || Khaki
-        //$colorCombos[] = array('ae0f2c', 'b3e3a8'); // FireBrick       || PaleGoldenrod
-                
-        //Orange:
-        $colorCombos[] = array('c44703', 'f5f5f5'); // OrangeRed       || WhiteSmoke
-        
-        //Brown:
-        $colorCombos[] = array('691f4b', 'ed9439'); // Brown           || Peru
-        $colorCombos[] = array('96305a', '97e0e8'); // Brown           || PowderBlue
-        $colorCombos[] = array('8d343a', 'a1e35f'); // Brown           || YellowGreen
-        $colorCombos[] = array('7b033c', '4fcd8f'); // Maroon          || MediumAquamarine
-        $colorCombos[] = array('421225', 'eded0f'); // Maroon          || Yellow
-        $colorCombos[] = array('590e2c', '8eb829'); // Maroon          || YellowGreen
-        $colorCombos[] = array('d89f36', '35355f'); // Peru            || DarkSlateGray
-
-        /* These all differ enough */
-        $colorCombos[] = array('96381d', 'b5f803'); // SaddleBrown     || GreenYellow
-        $colorCombos[] = array('834458', '8ce800'); // SaddleBrown     || LawnGreen || Maroon SaddleBrown
-        $colorCombos[] = array('814d04', '84e5a3'); // SaddleBrown     || LightGreen
-        $colorCombos[] = array('674410', 'b8b7f0'); // SaddleBrown     || LightSteelBlue
-        $colorCombos[] = array('6d2a1c', 'afa4f4'); // SaddleBrown     || LightSteelBlue || Maroon SaddleBrown
-        $colorCombos[] = array('8a310a', 'd5f99a'); // SaddleBrown     || PaleGoldenrod
-        $colorCombos[] = array('6f5006', 'f2c57d'); // SaddleBrown     || Tan
-        $colorCombos[] = array('9a4c4d', 'efe880'); // Sienna          || Khaki
-        $colorCombos[] = array('a24320', 'a9fc4a'); // Sienna          || GreenYellow
-        
-        
-        //Green:
-        $colorCombos[] = array('202c17', '3aaefc'); // Dark Green      || DodgerBlue
-        $colorCombos[] = array('0c3113', 'f8a0c9'); // Dark Green      || LightPink
-        $colorCombos[] = array('1c2410', 'b49183'); // Dark Green      || RosyBrown
-        $colorCombos[] = array('193e19', 'eeb8ef'); // Dark Green      || Thistle
-        $colorCombos[] = array('5b4429', 'd0ece6'); // DarkOliveGreen  || Gainsboro       ||Browner
-        $colorCombos[] = array('4b5f0d', '95f24f'); // DarkOliveGreen  || GreenYellow     ||Greener
-        $colorCombos[] = array('663838', 'c2f65a'); // DarkOliveGreen  || GreenYellow     ||Redder
-        $colorCombos[] = array('245e21', 'f6f5ed'); // ForestGreen     || WhiteSmoke
-        /* These two are very similar */
-//        $colorCombos[] = array('5cd417', '70149f'); // LimeGreen       || DarkMagenta
-//        $colorCombos[] = array('2efa44', '97279a'); // LimeGreen       || DarkOrchid
-        
-        //Blue:
-        $colorCombos[] = array('3700e9', '8fe474'); // Blue            || LightGreen
-        $colorCombos[] = array('2303c8', 'a4ad58'); // MediumBlue      || DarkKhaki
-        $colorCombos[] = array('0e10ca', 'd3a21f'); // MediumBlue      || Peru
-        $colorCombos[] = array('132052', '939689'); // MidnightBlue    || DarkSeaGreen
-        $colorCombos[] = array('082f4f', 'ec4ff8'); // MidnightBlue    || Orchid
-        $colorCombos[] = array('0f0f3d', 'c8a12a'); // MidnightBlue    || Peru
-        
-        //Purple:
-        $colorCombos[] = array('2733af', '65fdf8'); // DarkSlateBlue   || Aquamarine
-        $colorCombos[] = array('103c88', 'f3ed69'); // DarkSlateBlue   || Khaki
-        $colorCombos[] = array('4c4da4', '8efb7f'); // DarkSlateBlue   || LightGreen
-        $colorCombos[] = array('1d3987', 'd494f9'); // DarkSlateBlue   || Plum
-        $colorCombos[] = array('590d60', 'd1ef85'); // Indigo          || Khaki
-        $colorCombos[] = array('640c4d', '6dd8f8'); // Indigo          || LightSkyBlue
-        $colorCombos[] = array('861d57', '9fc464'); // Purple          || DarkKhaki
-        $colorCombos[] = array('8a0261', 'f5bdb8'); // Purple          || LightPink
-        $colorCombos[] = array('751a5b', 'd5b67b'); // Purple          || Tan
-        $colorCombos[] = array('7b016b', 'b8b432'); // Purple          || YellowGreen
-        
-        //Gray:
-        $colorCombos[] = array('39062a', 'a36fce'); // Black           || MediumPurple
-        $colorCombos[] = array('0c402e', 'fcc373'); // DarkSlateGray   || LightSalmon
-        $colorCombos[] = array('2a4735', 'b7a3dc'); // DarkSlateGray   || LightSteelBlue
-        $colorCombos[] = array('1b5535', 'bcfd86'); // DarkSlateGray   || PaleGreen
-        $colorCombos[] = array('453513', 'bd91de'); // DarkSlateGray   || Plum
-        $colorCombos[] = array('00505c', 'ecaf5f'); // DarkSlateGray   || SandyBrown
-        $colorCombos[] = array('3f2e22', 'd8c8b0'); // DarkSlateGray   || Silver
-        $colorCombos[] = array('0c5f3b', 'b5dda6'); // DarkSlateGray   || Silver
-        $colorCombos[] = array('025f53', 'd4cc82'); // DarkSlateGray   || Tan
-        $colorCombos[] = array('144b5c', 'ecbc7b'); // DarkSlateGray   || Tan
-        $colorCombos[] = array('294216', '95bd1e'); // DarkSlateGray   || YellowGreen
-        $colorCombos[] = array('67527a', '8be3c3'); // DimGray         || Aquamarine
-        $colorCombos[] = array('634f56', 'f9c56c'); // DimGray         || SandyBrown
-        $colorCombos[] = array('85345f', '97d912'); // DimGray         || YellowGreen
-        
-        
-        // not yet wcag evaluated
-        $colorCombos[] = array('0c3113', 'f8a0c9');
-        
-        
-        
-        $mod = count($colorCombos); //eventually will be 128 but counting is good
-        $n = $input % $mod;
-        
-        // backgrounc color
-        $backgroundHex = $colorCombos[$n][0];
-        $this->background[0] = hexdec(substr($backgroundHex, 0, 2));
-        $this->background[1] = hexdec(substr($backgroundHex, 2, 2));
-        $this->background[2] = hexdec(substr($backgroundHex, 4, 2));
-        // pictograph color
-        $foregroundHex = $colorCombos[$n][1];
-        $this->foreground[0] = hexdec(substr($foregroundHex, 0, 2));
-        $this->foreground[1] = hexdec(substr($foregroundHex, 2, 2));
-        $this->foreground[2] = hexdec(substr($foregroundHex, 4, 2));
-    }//end selectColorCombos()
-
-    /**
      * Generate a set of parameters from a given hex hash.
      *
      * @param string $hash    The hex hash to generate parameters from.
@@ -289,87 +99,14 @@ class PictoGlyph extends Identicon implements IdenticonIface
                 }
             }
         }
-        if ($this->devel) {
-            // Background Red Index
-            $oneLight = false;
-            if ($this->parameters[0] > 115) {
-                $oneLight = true;
-            }
-            $this->background[0] = $this->parameters[0];
-            // Background Green Index
-            if ($this->parameters[1] <= 115) {
-                $this->background[1] = $this->parameters[1];
-            } else {
-                if ($oneLight) {
-                    $value = $this->parameters[1];
-                    while ($value > 110) {
-                        $value = $value - 27;
-                    }
-                    $this->background[1] = $value;
-                } else {
-                    $oneLight = true;
-                    $this->background[1] = $this->parameters[1];
-                }
-            }
-            // Background Blue Index
-            if ($this->parameters[2] <= 115) {
-                $this->background[2] = $this->parameters[2];
-            } else {
-                if ($oneLight) {
-                    $value = $this->parameters[2];
-                    while ($value > 110) {
-                        $value = $value - 23;
-                    }
-                    $this->background[2] = $value;
-                } else {
-                    $this->background[2] = $this->parameters[2];
-                }
-            }
-            // Foreground Blue Index
-            $oneDark = false;
-            if ($this->parameters[3] < 140) {
-                $oneDark = true;
-            }
-            $this->foreground[2] = $this->parameters[3];
-            // Foreground Green Index
-            if ($this->parameters[4] >= 140) {
-                $this->foreground[1] = $this->parameters[4];
-            } else {
-                if ($oneDark) {
-                    $value = $this->parameters[4];
-                    while ($value < 140) {
-                        $value = $value + 37;
-                    }
-                    $this->foreground[1] = $value;
-                } else {
-                    $oneDark = true;
-                    $this->foreground[1] = $this->parameters[4];
-                }
-            }
-            // Foreground Red Index
-            if ($this->parameters[5] >= 140) {
-                $this->foreground[0] = $this->parameters[5];
-            } else {
-                if ($oneDark) {
-                    $value = $this->parameters[5];
-                    while ($value < 140) {
-                        $value = $value + 13;
-                    }
-                    $this->foreground[0] = $value;
-                } else {
-                    $this->foreground[0] = $this->parameters[5];
-                }
-            }
-        } else {
-            // This is production color scheme picker - from WCAG AA/AAA approved combinations
-            //  that look decent to me
-            $sum = 17; //because I like 17
-            for ($i=0; $i<16; $i++) {
-                $sum = $sum + $this->parameters[$i];
-            }
-            $n = $sum % 256;
-            $this->selectColorCombos($n);
+        $sum = 17; //because I like 17
+        for ($i=0; $i<16; $i++) {
+            $sum = $sum + $this->parameters[$i];
         }
+        $n = $sum % 256;
+        $colorScheme = WcagColor::selectColorCombo($n);
+        $this->backgroundRgb = $this->setRgbString($colorScheme['background'][0], $colorScheme['background'][1], $colorScheme['background'][2]);
+        $this->foregroundRgb = $this->setRgbString($colorScheme['foreground'][0], $colorScheme['foreground'][1], $colorScheme['foreground'][2]);
     }//end hashToParameters()
 
     /**
@@ -1421,10 +1158,10 @@ class PictoGlyph extends Identicon implements IdenticonIface
         
         $this->hashToParameters($hash, $example);
         
-        $this->backgroundRgb = $this->setRgbString($this->background[0], $this->background[1], $this->background[2]);
-        $this->foregroundRgb = $this->setRgbString($this->foreground[0], $this->foreground[1], $this->foreground[2]);
+        //$this->backgroundRgb = $this->setRgbString($this->background[0], $this->background[1], $this->background[2]);
+        //$this->foregroundRgb = $this->setRgbString($this->foreground[0], $this->foreground[1], $this->foreground[2]);
         
-        $this->drawCanvas(800, $this->background[0], $this->background[1], $this->background[2]);
+        $this->drawCanvas($size, $this->backgroundRgb);
         
         // The sixteen squares
         for ($i=0; $i<4; $i++) {
@@ -1494,7 +1231,7 @@ class PictoGlyph extends Identicon implements IdenticonIface
 $foo = random_bytes(32);
 $foo = base64_encode($foo);
 //$bar = new PictoGlyph($foo, 120, true);
-$bar = new PictoGlyph($foo, 120, false, false);
+$bar = new PictoGlyph($foo, 120, false, true);
 $bar->sendContent();
 exit;
 
