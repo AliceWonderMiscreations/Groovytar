@@ -392,96 +392,42 @@ class PictoGlyph extends Identicon implements IdenticonIface
      */
     protected function simpleBoaMeNaMeMmoaWo(int $x, int $y): void
     {
-        //$this->backgroundRgb = $this->setRgbString($this->background[0], $this->background[1], $this->background[2]);
-        //$this->foregroundRgb = $this->setRgbString($this->foreground[0], $this->foreground[1], $this->foreground[2]);
-        
-        $pathString = 'M' . ($x - 34) . ',' . ($y + 50) . ' ';
-        $pathString .= 'a390,150 0 0 1 0,-100 ';
-        $pathString .= 'l 11,14 ';
-        $pathString .= 'a 700,175 0 0 0 0,72 ';
-        $pathString .= 'l -11,14z';
-        
-        $path = $this->dom->createElement('path');
-        $path->setAttribute('stroke', 'none');
-        $path->setAttribute('fill', $this->foregroundRgb);
-        $path->setAttribute('d', $pathString);
-        $this->svg->appendChild($path);
-        
-        $pathString = 'M' . ($x + 34) . ',' . ($y + 50) . ' ';
-        $pathString .= 'a 390,150 0 0 0 0,-100 ';
-        $pathString .= 'l -11,14 ';
-        $pathString .= 'a 700,175 0 0 1 0,72 ';
-        $pathString .= 'l 11,14z';
-        
-        $path = $this->dom->createElement('path');
-        $path->setAttribute('stroke', 'none');
-        $path->setAttribute('fill', $this->foregroundRgb);
-        $path->setAttribute('d', $pathString);
-        $this->svg->appendChild($path);
-        
-        $pathString = 'M' . $x . ',' . $y . ' ';
-        $pathString .= 'l -47.5,61.5 ';
-        $pathString .= 'l 95,0 ';
-        $pathString .= 'l -47.5,-61.5z';
-        
-        $path = $this->dom->createElement('path');
-        $path->setAttribute('stroke', 'none');
-        $path->setAttribute('fill', $this->foregroundRgb);
-        $path->setAttribute('d', $pathString);
-        $this->svg->appendChild($path);
-        
-        $pathString = 'M' . $x . ',' . $y . ' ';
-        $pathString .= 'l -47.5,-61.5 ';
-        $pathString .= 'l 95,0 ';
-        $pathString .= 'l -47.5,61.5z';
-        
-        $path = $this->dom->createElement('path');
-        $path->setAttribute('stroke', 'none');
-        $path->setAttribute('fill', $this->foregroundRgb);
-        $path->setAttribute('d', $pathString);
-        $this->svg->appendChild($path);
-        
-        $pathString = 'M' . ($x - 14) . ',' . ($y + 59) . ' ';
-        $pathString .= 'l 0,28 ';
-        $pathString .= 'l 28,0 ';
-        $pathString .= 'l 0,-28';
-        $pathString .= 'l -28,0z';
-        
-        $path = $this->dom->createElement('path');
-        $path->setAttribute('stroke', 'none');
-        $path->setAttribute('fill', $this->foregroundRgb);
-        $path->setAttribute('d', $pathString);
-        $this->svg->appendChild($path);
-        
-        $circle = $this->dom->createElement('circle');
-        $circle->setAttribute('stroke', 'none');
-        $circle->setAttribute('fill', $this->foregroundRgb);
-        $circle->setAttribute('cx', (string) $x);
-        $cy = ($y - 71.5);
-        $circle->setAttribute('cy', (string) $cy);
-        $circle->setAttribute('r', '16');
-        $this->svg->appendChild($circle);
-        
-        $circle = $this->dom->createElement('circle');
-        $circle->setAttribute('stroke', 'none');
-        $circle->setAttribute('fill', $this->backgroundRgb);
-        $circle->setAttribute('cx', (string) $x);
-        $cy = ($y + 38.5);
-        $circle->setAttribute('cy', (string) $cy);
-        $circle->setAttribute('r', '13');
-        $this->svg->appendChild($circle);
-        
-        $pathString = 'M' . ($x - 11.5) . ',' . ($y - 50) . ' ';
-        $pathString .= 'l 0,23 ';
-        $pathString .= 'l 23,0 ';
-        $pathString .= 'l 0,-23 ';
-        $pathString .= 'l -23,0z';
-        
-        $path = $this->dom->createElement('path');
-        $path->setAttribute('stroke', 'none');
-        $path->setAttribute('fill', $this->backgroundRgb);
-        $path->setAttribute('d', $pathString);
-        $this->svg->appendChild($path);
+        $spath = 'a390,150 0 0 1 0,-100 ';
+        $spath .= 'l 11,14 ';
+        $spath .= 'a 700,175 0 0 0 0,72 ';
+        $spath .= 'l -11,14z';
+        $this->svgFillPath(($x - 34), ($y + 50), $spath, $this->foregroundRgb);
+
+        $spath = 'a 390,150 0 0 0 0,-100 ';
+        $spath .= 'l -11,14 ';
+        $spath .= 'a 700,175 0 0 1 0,72 ';
+        $spath .= 'l 11,14z';
+        $this->svgFillPath(($x + 34), ($y + 50), $spath, $this->foregroundRgb);
+
+        $spath = 'l -47.5,61.5 ';
+        $spath .= 'l 95,0 ';
+        $spath .= 'l -47.5,-61.5z';
+        $this->svgFillPath($x, $y, $spath, $this->foregroundRgb);
+
+        $spath = 'l -47.5,-61.5 ';
+        $spath .= 'l 95,0 ';
+        $spath .= 'l -47.5,61.5z';
+        $this->svgFillPath($x, $y, $spath, $this->foregroundRgb);
+
+        $spath = 'l 0,28 ';
+        $spath .= 'l 28,0 ';
+        $spath .= 'l 0,-28';
+        $spath .= 'l -28,0z';
+        $this->svgFillPath(($x - 14), ($y + 59), $spath, $this->foregroundRgb);
+
+        $this->svgFilledCircle($x, ($y - 71.5), 16, $this->foregroundRgb);
+        $this->svgFilledCircle($x, ($y + 38.5), 13, $this->backgroundRgb);
+
+        $spath = 'l 0,23 ';
+        $spath .= 'l 23,0 ';
+        $spath .= 'l 0,-23 ';
+        $spath .= 'l -23,0z';
+        $this->svgFillPath(($x - 11.5), ($y - 50), $spath, $this->backgroundRgb);
     }//end simpleBoaMeNaMeMmoaWo()
     
     /**
@@ -508,87 +454,74 @@ class PictoGlyph extends Identicon implements IdenticonIface
      */
     protected function simpleCoqui(int $x, int $y): void
     {
-        //$this->foregroundRgb = $this->setRgbString($this->foreground[0], $this->foreground[1], $this->foreground[2]);
-        $adjustX = 0;
-        $adjustY = 0;
+        $startLeftEyeX = ($x - 45);
+        $startLeftEyeY = ($y - 55);
         
-        $startMainX = ($x - 15.5) + $adjustX;
-        $startLeftEyeX = ($x - 45) + $adjustX;
-        $startRightEyeX = ($x + 25.25) + $adjustX;
-        $startMainY = ($y + 23) + $adjustY;
-        $startLeftEyeY = ($y - 55) + $adjustY;
-        $startRightEyeY = ($y - 63) + $adjustY;
+        $spath = 'l5.5,-42 ';
+        $spath .= 'a80,90 0 0 1 -53.75,-34.5 ';
+        $spath .= 'l-5,1.5 ';
+        $spath .= 'c-7.5,2.25 -13.5,1.5 -8,-8 ';
+        $spath .= 'c3.25,-5.613635 2.5,-8.5 1.25,-11.5 ';
+        $spath .= 'c-2.5,-6 0,-8 0.5,-8.75 ';
+        $spath .= 'c2,-3 3,-3.5 6.5,-1.75 ';
+        $spath .= 'c3.5,1.75 5,4 7,5.5 ';
+        $spath .= 'c1,0.75 2,1 4,-0.5 ';
+        $spath .= 'c5,-3.75 11.5,-3.5 6.5,10 ';
         
-        $pathString = 'M' . $startMainX . ',' . $startMainY . ' ';
-        $pathString .= 'l5.5,-42 ';
-        $pathString .= 'a80,90 0 0 1 -53.75,-34.5 ';
-        $pathString .= 'l-5,1.5 ';
-        $pathString .= 'c-7.5,2.25 -13.5,1.5 -8,-8 ';
-        $pathString .= 'c3.25,-5.613635 2.5,-8.5 1.25,-11.5 ';
-        $pathString .= 'c-2.5,-6 0,-8 0.5,-8.75 ';
-        $pathString .= 'c2,-3 3,-3.5 6.5,-1.75 ';
-        $pathString .= 'c3.5,1.75 5,4 7,5.5 ';
-        $pathString .= 'c1,0.75 2,1 4,-0.5 ';
-        $pathString .= 'c5,-3.75 11.5,-3.5 6.5,10 ';
+        $spath .= 'c-1.5,5 -2,8 -1.75,8.25 ';
+        $spath .= 'c15,16.25 31.25,22.5 42.5,22.25 ';
+        $spath .= 'c1,-0.75 3.75,-12.5 4,-15 ';
+        $spath .= 'c0.25,-2.5 2.25,-11.75 2.5,-12.5 ';
+        $spath .= 'c1.75,-5.25 5,-9 7.25,-9 ';
+        $spath .= 'c4,0 5.25,5 6,6.75 ';
+        $spath .= 'c1,2.333333 1.75,8.75 1.5,11 ';
+        $spath .= 'c-0.5,8.666667 -1,15 -1.5,18.75 ';
+        $spath .= 'c-0.25,5.041667 4.25,4.5 5,4.75 ';
+        $spath .= 'c3.75,1.25 38.25,-5 42.5,-11.75 ';
         
-        $pathString .= 'c-1.5,5 -2,8 -1.75,8.25 ';
-        $pathString .= 'c15,16.25 31.25,22.5 42.5,22.25 ';
-        $pathString .= 'c1,-0.75 3.75,-12.5 4,-15 ';
-        $pathString .= 'c0.25,-2.5 2.25,-11.75 2.5,-12.5 ';
-        $pathString .= 'c1.75,-5.25 5,-9 7.25,-9 ';
-        $pathString .= 'c4,0 5.25,5 6,6.75 ';
-        $pathString .= 'c1,2.333333 1.75,8.75 1.5,11 ';
-        $pathString .= 'c-0.5,8.666667 -1,15 -1.5,18.75 ';
-        $pathString .= 'c-0.25,5.041667 4.25,4.5 5,4.75 ';
-        $pathString .= 'c3.75,1.25 38.25,-5 42.5,-11.75 ';
+        $spath .= 'c0.75,-4 1,-8 1.25,-10.5 ';
+        $spath .= 'c0.5,-5 3.75,-6.5 6.75,-3 ';
+        $spath .= 'c1.75,3.5 4.25,3.75 6.75,0.5 ';
+        $spath .= 'c1.25,-1.625 2,-2.25 5.75,-0.75 ';
+        $spath .= 'c3.25,2.383333 4.5,2 4.75,4.5 ';
+        $spath .= 'c0.25,2.5 -3,5.5 -4.5,6 ';
+        $spath .= 'c-4.5,1.5 -4.75,4.75 1.25,6 ';
+        $spath .= 'c1.25,0.260418 3.25,0.75 3.5,3.75 ';
+        $spath .= 'c0.25,3 -1.5,3.25 -2.25,4 ';
+        $spath .= 'c-0.5,0.5 -1.25,2 -4.25,1.25 ';
         
-        $pathString .= 'c0.75,-4 1,-8 1.25,-10.5 ';
-        $pathString .= 'c0.5,-5 3.75,-6.5 6.75,-3 ';
-        $pathString .= 'c1.75,3.5 4.25,3.75 6.75,0.5 ';
-        $pathString .= 'c1.25,-1.625 2,-2.25 5.75,-0.75 ';
-        $pathString .= 'c3.25,2.383333 4.5,2 4.75,4.5 ';
-        $pathString .= 'c0.25,2.5 -3,5.5 -4.5,6 ';
-        $pathString .= 'c-4.5,1.5 -4.75,4.75 1.25,6 ';
-        $pathString .= 'c1.25,0.260418 3.25,0.75 3.5,3.75 ';
-        $pathString .= 'c0.25,3 -1.5,3.25 -2.25,4 ';
-        $pathString .= 'c-0.5,0.5 -1.25,2 -4.25,1.25 ';
+        $spath .= 'c-3,-0.75 -6,-0.75 -7.25,0 ';
+        $spath .= 'c-20.25,7 -35,13 -62,16 ';
+        $spath .= 'l-3.5,32.5 ';
+        $spath .= 'c-0.375,3.482143 1.75,5.75 5,5 ';
+        $spath .= 'c28.75,-6.634615 62.5,7.5 27.5,55 ';
+        $spath .= 'c-1.25,1.696428 -3,2 -3.75,4.5 ';
+        $spath .= 'c-0.75,2.5 -5,5.25 -8.75,5.5 ';
+        $spath .= 'c-5,-0.333333 -6.75,-2 -6.75,-12.5 ';
+        $spath .= 'c0,-4.5 -4.25,-3.75 -5,-3.25 ';
+        $spath .= 'c-3.75,2.5 -6,-2.5 -0.5,-6.5 ';
         
-        $pathString .= 'c-3,-0.75 -6,-0.75 -7.25,0 ';
-        $pathString .= 'c-20.25,7 -35,13 -62,16 ';
-        $pathString .= 'l-3.5,32.5 ';
-        $pathString .= 'c-0.375,3.482143 1.75,5.75 5,5 ';
-        $pathString .= 'c28.75,-6.634615 62.5,7.5 27.5,55 ';
-        $pathString .= 'c-1.25,1.696428 -3,2 -3.75,4.5 ';
-        $pathString .= 'c-0.75,2.5 -5,5.25 -8.75,5.5 ';
-        $pathString .= 'c-5,-0.333333 -6.75,-2 -6.75,-12.5 ';
-        $pathString .= 'c0,-4.5 -4.25,-3.75 -5,-3.25 ';
-        $pathString .= 'c-3.75,2.5 -6,-2.5 -0.5,-6.5 ';
+        $spath .= 'c3.5,-2.545455 8.75,-5 10.5,-10 ';
+        $spath .= 'c0.625,-1.785715 4,-2.5 5,-5.5 ';
+        $spath .= 'c2.25,-3 3.5,-14.5 -7.5,-14.5 ';
+        $spath .= 'c-7.5,0 -17.5,7.5 -28.75,25 ';
+        $spath .= 'c-6.75,10.5 -12,3.75 -12.5,-2.5 ';
+        $spath .= 'c-1,-12.5 -2.75,-12.5 -3.75,-13.75 ';
+        $spath .= 'c-3,-3.75 -15,0 -21.75,10 ';
+        $spath .= 'c-1.5,2.222222 -2.5,4.5 -3.5,5 ';
+        $spath .= 'c-1,0.5 -2.75,3 -3,5 ';
+        $spath .= 'c-0.25,2 -1,4.5 -2,5 ';
         
-        $pathString .= 'c3.5,-2.545455 8.75,-5 10.5,-10 ';
-        $pathString .= 'c0.625,-1.785715 4,-2.5 5,-5.5 ';
-        $pathString .= 'c2.25,-3 3.5,-14.5 -7.5,-14.5 ';
-        $pathString .= 'c-7.5,0 -17.5,7.5 -28.75,25 ';
-        $pathString .= 'c-6.75,10.5 -12,3.75 -12.5,-2.5 ';
-        $pathString .= 'c-1,-12.5 -2.75,-12.5 -3.75,-13.75 ';
-        $pathString .= 'c-3,-3.75 -15,0 -21.75,10 ';
-        $pathString .= 'c-1.5,2.222222 -2.5,4.5 -3.5,5 ';
-        $pathString .= 'c-1,0.5 -2.75,3 -3,5 ';
-        $pathString .= 'c-0.25,2 -1,4.5 -2,5 ';
+        $spath .= 'c-0.5,1 -0.55,2 -0.5,4 ';
+        $spath .= 'c-0.25,1.25 -0.5,5 -1.25,6 ';
+        $spath .= 'c-2,2.6666667 -2.75,3.25 -7.5,0 ';
+        $spath .= 'c-2.5,-1.710528 -5,-1.75 -10,0 ';
+        $spath .= 'c-1.75,0.6125 -3.5,1.5 -5.25,1.5 ';
+        $spath .= 'c-1.5,0 -4,-1 -3.25,-3.5 ';
+        $spath .= 'c11.25,-37.5 45,-52.5 68.5,-53.25z';
         
-        $pathString .= 'c-0.5,1 -0.55,2 -0.5,4 ';
-        $pathString .= 'c-0.25,1.25 -0.5,5 -1.25,6 ';
-        $pathString .= 'c-2,2.6666667 -2.75,3.25 -7.5,0 ';
-        $pathString .= 'c-2.5,-1.710528 -5,-1.75 -10,0 ';
-        $pathString .= 'c-1.75,0.6125 -3.5,1.5 -5.25,1.5 ';
-        $pathString .= 'c-1.5,0 -4,-1 -3.25,-3.5 ';
-        $pathString .= 'c11.25,-37.5 45,-52.5 68.5,-53.25z';
+        $this->svgFillPath(($x - 15.5), ($y + 23), $spath, $this->foregroundRgb);
 
-        $path = $this->dom->createElement('path');
-        $path->setAttribute('stroke', 'none');
-        $path->setAttribute('fill', $this->foregroundRgb);
-        $path->setAttribute('d', $pathString);
-        $this->svg->appendChild($path);
-        
         $ellipse = $this->dom->createElement('ellipse');
         $ellipse->setAttribute('cx', (string) $startLeftEyeX);
         $ellipse->setAttribute('cy', (string) $startLeftEyeY);
@@ -598,12 +531,7 @@ class PictoGlyph extends Identicon implements IdenticonIface
         $ellipse->setAttribute('transform', 'rotate(24 ' . $x . ' ' . $y . ')');
         $this->svg->appendChild($ellipse);
         
-        $circle = $this->dom->createElement('circle');
-        $circle->setAttribute('cx', (string) $startRightEyeX);
-        $circle->setAttribute('cy', (string) $startRightEyeY);
-        $circle->setAttribute('r', '5.25');
-        $circle->setAttribute('fill', $this->foregroundRgb);
-        $this->svg->appendChild($circle);
+        $this->svgFilledCircle(($x + 25.25), ($y - 63), 5.25, $this->foregroundRgb);
     }//end simpleCoqui()
 
     /**
@@ -1213,7 +1141,7 @@ class PictoGlyph extends Identicon implements IdenticonIface
                         default:
                             // placeholder for glyphs not yet created
                             //$this->simpleCircle($x, $y);
-                            $this->simpleTurtle($x, $y);
+                            $this->simpleCoqui($x, $y);
                             break;
                     }
                 }
@@ -1228,7 +1156,7 @@ class PictoGlyph extends Identicon implements IdenticonIface
 $foo = random_bytes(32);
 $foo = base64_encode($foo);
 //$bar = new PictoGlyph($foo, 120, true);
-$bar = new PictoGlyph($foo, 120, false, true);
+$bar = new PictoGlyph($foo, 120, false, false);
 $bar->sendContent();
 exit;
 
