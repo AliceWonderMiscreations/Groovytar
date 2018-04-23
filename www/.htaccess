@@ -1,4 +1,4 @@
 RewriteEngine on
 RewriteBase /
 #avatars
-RewriteRule ^avatar/[A-Fa-f0-9]+$ generate.php [QSD,L]
+RewriteRule ^avatar/[A-Fa-f0-9]+$ generate.php [QSA,L]
