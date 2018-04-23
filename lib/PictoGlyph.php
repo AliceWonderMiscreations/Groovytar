@@ -12,13 +12,6 @@ declare(strict_types=1);
 
 namespace AWonderPHP\Groovytar;
 
-// fixme w/ autoloader
-require_once(dirname(__FILE__) . '/IdenticonIface.php');
-require_once(dirname(__FILE__) . '/Identicon.php');
-require_once(dirname(__FILE__) . '/WcagColor.php');
-
-use \AWonderPHP\Groovytar\WcagColor as WcagColor;
-
 /**
  * PictoGlyph Generation.
  * color selection currently often results in poor colors, I'm working on that...
@@ -104,7 +97,7 @@ class PictoGlyph extends Identicon implements IdenticonIface
             $sum = $sum + $this->parameters[$i];
         }
         $n = $sum % 256;
-        $colorScheme = WcagColor::selectColorCombo($n);
+        $colorScheme = \AWonderPHP\Groovytar\WcagColor::selectColorCombo($n);
         $this->backgroundRgb = $this->setRgbString(
             $colorScheme['background'][0],
             $colorScheme['background'][1],
