@@ -147,6 +147,8 @@ if(isset($smallArray[$variant])) {
 var_dump($size);
 var_dump($smallLimit);
 
+exit;
+
 $topdir = dirname(dirname(__FILE__)) . '/generated/' . $variant;
 //var_dump($topdir); exit;
 
