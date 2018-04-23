@@ -902,7 +902,7 @@ class PictoGlyph extends Identicon implements IdenticonIface
         
         $spath = 'l-8.25,102.25 ';
         $spath .= 'l16.5,0 ';
-        $spath .= 'l-8.25,-102.25z'
+        $spath .= 'l-8.25,-102.25z';
         $this->svgFillPath($x, ($y - 46), $spath, $this->foregroundRgb);
         
         $spath = 'l27,90 ';
