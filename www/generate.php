@@ -139,7 +139,7 @@ $smallArray = array(
 );
 
 $smallLimit = 0;
-if(isset($smallArray[$variant])) {
+if (isset($smallArray[$variant])) {
     $smallLimit = $smallArray[$variant];
 }
 
@@ -151,7 +151,7 @@ if (strlen($hash) === 32) {
     if (! $dir_exists) {
         $dir_exists = mkdir($topdir, 0755, false);
     }
-    if($dir_exists) {
+    if ($dir_exists) {
         $sizeModifier = '';
         if ($size < $smallLimit) {
             $sizeModifier = '-small';
