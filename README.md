@@ -3,6 +3,8 @@ Groovytar
 
 A pipe dream privacy centric replacement for Gravatar.
 
+Live Demo: [https://trippyid.com/](https://trippyid.com/)
+
 * [The Plan](#the-plan)
 * [PictoGlyph](#pictoglyph)
 * [Lots To Do](#lots-to-do)
