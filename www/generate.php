@@ -55,18 +55,23 @@ if (isset($_GET['r'])) {
     }
 }
 
+$requested = strtolower($_SERVER['REQUEST_URI']);
+$arr = explode('/', $requested);
+$ghash = end($arr);
+$arr = explode('?', $ghash);
+$ghash = $arr[0];
 
-if (isset($_GET['hash'])) {
-    $ghash = $_GET['hash'];
-    $ghash = trim(strtolower($ghash));
-    if (ctype_xdigit($ghash)) {
-        if (strlen($ghash) === 32) {
-            $hash = $ghash;
-        }
+if (ctype_xdigit($ghash)) {
+    if (strlen($ghash) === 32) {
+        $hash = $ghash;
+    } else {
+        var_dump($ghash);
+        exit;
     }
 }
 
 if (isset($hash)) {
+    echo "success!"; exit;
     $a = 'b';
     // TODO - look for link of hash to registered user
     // $sql = 'SELECT userlink FROM hashdsb WHERE hash=?'
@@ -132,22 +137,42 @@ if (! in_array($variant, $finished)) {
     $variant = 'pictoglyph';
 }
 
+// for identicon generators that do things differently for small CSS pixel size
+$smallArray = array(
+    'pictoglyph' => 120;
+);
+
+$smallLimit = 0;
+if(isset($smallArray[$variant])) {
+    $smallLimit = $smallArray[$variant];
+}
+
 $topdir = dirname(dirname(__FILE__)) . '/generated/' . $variant;
 //var_dump($topdir); exit;
 
 if (strlen($hash) === 32) {
-    $sizeModifier = '';
-    if ($size < 120) {
-        $sizeModifier = '-small';
+    $dir_exists = file_exists($topdir);
+    if (! $dir_exists) {
+        $dir_exists = mkdir($topdir, 0755, false);
     }
-    $svgfile = $topdir . '/' . $hash . $sizeModifier . '.svg';
-    if (file_exists($svgfile)) {
-        // serve the file
-        $obj = new FileWrapper($svgfile, null, 'image/svg+xml', 1209600);
-        $obj->sendfile();
-        exit;
+    if($dir_exists) {
+        $sizeModifier = '';
+        if ($size < $smallLimit) {
+            $sizeModifier = '-small';
+        }
+        $svgfile = $topdir . '/' . $hash . $sizeModifier . '.svg';
+        if (file_exists($svgfile)) {
+            // todo - verify file is valid SVG before serving, important since
+            //  web server has write access
+            
+            // serve the file
+            $obj = new FileWrapper($svgfile, null, 'image/svg+xml', 1209600);
+            $obj->sendfile();
+            exit;
+        }
     }
 }
+// we didn't have a cached copy on the filesystem to serve, so generate and serve
 switch ($variant) {
     case 'confetti':
         $groovy = new \AWonderPHP\Groovytar\Confetti($hash, $size, $develMode, $exampleMode);
