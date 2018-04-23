@@ -68,7 +68,6 @@ if (ctype_xdigit($ghash)) {
 }
 
 if (isset($hash)) {
-    echo "success!"; exit;
     $a = 'b';
     // TODO - look for link of hash to registered user
     // $sql = 'SELECT userlink FROM hashdsb WHERE hash=?'
