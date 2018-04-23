@@ -187,6 +187,12 @@ Currently the following pictographs exist:
   In Noongar Dreamtime Mythology, it was a Waugal that created the major rivers
   in their part of Australia.
 
+* __Neo-Druid Awen__  
+  Awen is a Celtic symbol showing three rays. The Neo-Druid version of this
+  symbol often has three circles on the outside containing three dots and three
+  rays, and is frequently used to represent masculine energy, feminine energy,
+  and the balance between them.
+
 There will eventually be 32 glyphs.
 
 ### Small Size Variant
