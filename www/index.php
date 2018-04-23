@@ -6,7 +6,7 @@
 <h1>Groovytar Identicon Example Page</h1>
 <p>Excuse the poor web design, I will make something better later.</p>
 <?php
-$foo = random_bytes(10);
+$foo = random_bytes(1);
 $hash = md5($foo, false);
 ?>
 <p>The hash being used for this example: <code><?php echo $hash;?></code></p>
