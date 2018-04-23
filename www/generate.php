@@ -30,7 +30,7 @@ use \AWonderPHP\FileWrapper\FileWrapper as FileWrapper;
 // should be false in production
 $develMode = false;
 // should be false in production
-$exampleMode = false;
+$exampleMode = true;
 
 // CSS pixels
 $size = 240;
