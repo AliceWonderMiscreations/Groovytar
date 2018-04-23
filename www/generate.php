@@ -64,9 +64,6 @@ $ghash = $arr[0];
 if (ctype_xdigit($ghash)) {
     if (strlen($ghash) === 32) {
         $hash = $ghash;
-    } else {
-        var_dump($ghash);
-        exit;
     }
 }
 
