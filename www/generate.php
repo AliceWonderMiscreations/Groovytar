@@ -133,7 +133,7 @@ if (! in_array($variant, $finished)) {
 }
 
 $topdir = dirname(dirname(__FILE__)) . '/generated/' . $variant;
-var_dump($topdir); exit;
+//var_dump($topdir); exit;
 
 if (strlen($hash) === 32) {
     $sizeModifier = '';
