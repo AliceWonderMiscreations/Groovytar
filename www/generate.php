@@ -135,7 +135,7 @@ if (! in_array($variant, $finished)) {
 
 // for identicon generators that do things differently for small CSS pixel size
 $smallArray = array(
-    'pictoglyph' => 120
+    'pictoglyph' => 129
 );
 
 $smallLimit = 0;

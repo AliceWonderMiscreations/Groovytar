@@ -877,7 +877,7 @@ class PictoGlyph extends Identicon implements IdenticonIface
      */
     public function __construct(string $hash, int $size, bool $devel = false, bool $example = false)
     {
-        if ($size < 120) {
+        if ($size < 129) {
             $size = 600;
         } else {
             $size = 800;
