@@ -161,18 +161,23 @@ abstract class Identicon
      * @param string    $spath The d parameter for the path.
      * @param string    $color The stroke color.
      * @param int|float $width The stroke width.
+     * @param int|float $opacity The opacity for the the stroke.
      *
      * @return void
      */
-    protected function svgStrokePath($x, $y, $spath, $color, $width): void
+    protected function svgStrokePath($x, $y, $spath, $color, $width, $opacity = 1): void
     {
         $stringWidth = (string) $width;
+        $stringOpacity = (string) $opacity;
         $pathString = 'M' . $x . ',' . $y . ' ' . $spath;
         $path = $this->dom->createElement('path');
         $path->setAttribute('stroke', $color);
         $path->setAttribute('fill', 'none');
         $path->setAttribute('stroke-width', $stringWidth);
         $path->setAttribute('d', $pathString);
+        if ($stringOpacity !== '1') {
+            $path->setAttribute('stroke-opacity', $stringOpacity);
+        }
         $this->svg->appendChild($path);
     }//end svgStrokePath()
 

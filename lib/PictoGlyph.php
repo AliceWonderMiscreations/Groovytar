@@ -864,6 +864,35 @@ class PictoGlyph extends Identicon implements IdenticonIface
     }//end simpleWaugal()
     
     /**
+     * Neo-Druid Awen - Awen is a Celtic symbol showing three rays. The Neo-Druid version of
+     * this symbol often has three circles on the outside containing three dots and three
+     * rays, and is frequently used to represent masculine energy, feminine energy, and the
+     * balance between them.
+     *
+     * It is also used to represent other triplets such as earth, sky, and sea, etc.
+     *
+     * @param int $x The X coordinate for the center of the square the glyph is placed in.
+     * @param int $y The Y coordinate for the center of the square the glyph is placed in.
+     *
+     * @return void
+     */
+    protected function simpleAwen(int $x, int $y): void
+    {
+        // The three circles
+        $spath = 'a 75,75 0 0 0 150,0 ';
+        $spath .= 'a 75,75 0 0 0 -150,0z';
+        $this->svgStrokePath(($x - 75), $y, $spath, $this->foregroundRgb, 1.75, 0.65);
+        
+        $spath = 'a 70.75,70.75 0 0 0 141.5,0 ';
+        $spath .= 'a 70.75,70.75 0 0 0 -141.5,0z';
+        $this->svgStrokePath(($x - 70.75), $y, $spath, $this->foregroundRgb, 3.5);
+        
+        $spath = 'a 66.25,66.25 0 0 0 132.5,0 ';
+        $spath .= 'a 66.25,66.25 0 0 0 -132.5,0z';
+        $this->svgStrokePath(($x - 66.25), $y, $spath, $this->foregroundRgb, 1.75, 0.65);
+    }//end simpleAwen()
+
+    /**
      * The Constructor. Creates the SVG that is to be served.
      *
      * @param string $hash    Intended to be a hex representation of a 128-bit hash but any string will do.
@@ -953,7 +982,8 @@ class PictoGlyph extends Identicon implements IdenticonIface
                             break;
                         default:
                             // placeholder for glyphs not yet created
-                            $this->simpleCircle($x, $y);
+                            //$this->simpleCircle($x, $y);
+                            $this->simpleAwen($x, $y);
                             break;
                     }
                 }
