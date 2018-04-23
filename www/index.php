@@ -1,0 +1,4 @@
+<?php
+// placeholder
+phpinfo();
+?>
