@@ -909,7 +909,7 @@ class PictoGlyph extends Identicon implements IdenticonIface
                 $x = (200 * $i) + 100;
                 $y = (200 * $j) + 100;
                 $mod = $byte % 32;
-                if ($example) {
+                if ($devel) {
                     // we only have ten glyphs at present
                     $mod = $byte % 10;
                 }
@@ -964,13 +964,4 @@ class PictoGlyph extends Identicon implements IdenticonIface
     }//end __construct()
 }//end class
 
-// uncomment this block for testing file as standalone program
-/*
-$foo = random_bytes(32);
-$foo = base64_encode($foo);
-//$bar = new PictoGlyph($foo, 120, true);
-$bar = new PictoGlyph($foo, 120, false, true);
-$bar->sendContent();
-exit;
-*/
 ?>

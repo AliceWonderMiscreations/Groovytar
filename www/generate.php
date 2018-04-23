@@ -28,9 +28,9 @@ require_once(dirname(dirname(__FILE__)) . '/lib/PictoGlyph.php');
 use \AWonderPHP\FileWrapper\FileWrapper as FileWrapper;
 
 // should be false in production
-$develMode = false;
+$develMode = true;
 // should be false in production
-$exampleMode = true;
+$exampleMode = false;
 
 // CSS pixels
 $size = 240;
