@@ -929,7 +929,8 @@ class PictoGlyph extends Identicon implements IdenticonIface
         /*    
     c -2-60,          10,-72              14,    -78
         */
-        $this->svgFillPath(($x - 50), ($y + 51), $spath, $this->foregroundRgb);
+        $this->svgStrokePath(($x - 50), ($y + 51), $spath, $this->foregroundRgb, 2);
+//        $this->svgFillPath(($x - 50), ($y + 51), $spath, $this->foregroundRgb);
     }
 
     /**
