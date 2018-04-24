@@ -910,6 +910,27 @@ class PictoGlyph extends Identicon implements IdenticonIface
         $spath .= 'l-36.5,-79.5z';
         $this->svgFillPath(($x + 5.75), ($y - 47.5), $spath, $this->foregroundRgb);
     }//end simpleAwen()
+    
+    protected function simpleBear($x, $y)
+    {
+        //body
+        $spath = 'c1.75,-2.5 1,-12.5 4.5,-16.5 ';
+        $spath .= 'c7.5,18.75 2.5,27.5 10.25,38.5 ';
+        $spath .= 'c6.25,3.25 8,3.25 10,3.25 ';
+        $spath .= 'c3.5,0 4.25,-0.95 4.75,-1 ';
+        $spath .= 'c0.75,5.5 -4.25,-7.75 -5,-7.75 ';
+        
+        $spath .= 'c2.5,-11.25 12.5,-20.5 20.5,-20.5 ';
+        $spath .= 'c15,0  21.75,15 21.25,27.5 ';
+        $spath .= 'c5.75,2.5 8.75,3.5 14.75,1.5 ';
+        $spath .= 'c3.5,-3.25 -4.25,-7.25 -5.25,-7.5 ';
+        $spath .= 'c-0.5,-15 2.5,-18 3.5,15.6 ';
+        
+        /*    
+    c -2-60,          10,-72              14,    -78
+        */
+        $this->svgFillPath(($x - 50), ($y + 51), $spath, $this->foregroundRgb);
+    }
 
     /**
      * The Constructor. Creates the SVG that is to be served.
@@ -1004,7 +1025,8 @@ class PictoGlyph extends Identicon implements IdenticonIface
                             break;
                         default:
                             // placeholder for glyphs not yet created
-                            $this->simpleCircle($x, $y);
+                            //$this->simpleCircle($x, $y);
+                            $this->simpleBear($x, $y);
                             break;
                     }
                 }

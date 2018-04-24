@@ -20,9 +20,9 @@ use \AWonderPHP\FileWrapper\FileWrapper as FileWrapper;
 $apcu = new SimpleCache('groovytar');
 
 // should be false in production
-$develMode = true;
+$develMode = false;
 // should be false in production
-$exampleMode = false;
+$exampleMode = true;
 
 // CSS pixels
 $size = 240;
