@@ -911,7 +911,7 @@ class PictoGlyph extends Identicon implements IdenticonIface
         $this->svgFillPath(($x + 5.75), ($y - 47.5), $spath, $this->foregroundRgb);
     }//end simpleAwen()
     
-    protected function simpleBear($x, $y)
+    protected function simpleBear(int $x, int $y): void
     {
         //body
         $spath = 'c1.75,-2.5 1,-12.5 4.5,-16.5 ';
