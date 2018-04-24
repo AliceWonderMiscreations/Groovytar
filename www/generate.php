@@ -181,8 +181,8 @@ switch ($variant) {
         break;
     case 'pictoglyph':
         $groovy = new \AWonderPHP\Groovytar\PictoGlyph($hash, $size, $develMode, $exampleMode);
-        if (isset($svgfile)) {
-            if ($writeFileBool) {
+        if ($writeFileBool) {
+            if (isset($svgfile)) {        
                 $groovy->writeFile($svgfile);
             }
         }
