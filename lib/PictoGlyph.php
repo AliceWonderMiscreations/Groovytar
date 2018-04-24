@@ -924,7 +924,7 @@ class PictoGlyph extends Identicon implements IdenticonIface
         $spath .= 'c15,0  21.75,15 21.25,27.5 ';
         $spath .= 'c5.75,2.5 8.75,3.5 14.75,1.5 ';
         $spath .= 'c3.5,-3.25 -4.25,-7.25 -5.25,-7.5 ';
-        $spath .= 'c-0.5,-15 2.5,-18 3.5,15.6 ';
+        $spath .= 'c-0.5,-15 2.5,-18 3.5,-15.6 ';
         
         /*    
     c -2-60,          10,-72              14,    -78
