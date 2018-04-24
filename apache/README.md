@@ -16,10 +16,10 @@ up to allow you to just clone it onto your server and run it.
 2. [Non Composer Install](#non-composer-install)
 3. [Generated File Cache Directory](#generated-file-cache-directory)
 4. [Transport Layer Security](#transport-layer-security)
-  1. [Custom Lets Encrypt Shell Script](#custom-lets-encrypt-shell-script)
-  2. [Certificate Update Strategy](#certificate-update-strategy)
-  3. [DANE Rotation](#dane-rotation)
-  4. [HPKP Rotation](#hpkp-rotation)
+   1. [Custom Lets Encrypt Shell Script](#custom-lets-encrypt-shell-script)
+   2. [Certificate Update Strategy](#certificate-update-strategy)
+   3. [DANE Rotation](#dane-rotation)
+   4. [HPKP Rotation](#hpkp-rotation)
 5. [Apache Log Configuration](#apache-log-configuration)
 
 
