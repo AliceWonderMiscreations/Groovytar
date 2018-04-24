@@ -151,7 +151,7 @@ if (strlen($hash) === 32) {
         }
         $svgfile = $topdir . '/' . $hash . $sizeModifier . '.svg';
         $test = $apcu->get($svgfile);
-        if(is_null($test)) {
+        if (is_null($test)) {
             if (file_exists($svgfile)) {
                 // todo - verify file is valid SVG before serving, important since
                 //  web server has write access
@@ -180,14 +180,14 @@ switch ($variant) {
         break;
 }
 
-if(! isset($groovy)) {
+if (! isset($groovy)) {
     //something went wrong
     http_response_code(500);
     exit;
 }
 
 if ($writeFileBool) {
-    if (isset($svgfile)) {        
+    if (isset($svgfile)) {
         $groovy->writeFile($svgfile);
     }
 }
