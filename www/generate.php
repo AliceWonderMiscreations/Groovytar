@@ -150,7 +150,7 @@ if (strlen($hash) === 32) {
             $sizeModifier = '-small';
         }
         $svgfile = $topdir . '/' . $hash . $sizeModifier . '.svg';
-        $test = $apcu->get($svgfile);
+        $test = $apcu->get($hash . $sizeModifier);
         if (is_null($test)) {
             if (file_exists($svgfile)) {
                 // todo - verify file is valid SVG before serving, important since
@@ -162,7 +162,7 @@ if (strlen($hash) === 32) {
                 exit;
             } else {
                 // prevent it from being served from file for five seconds
-                $apcu->set($svgfile, 1, 5);
+                $apcu->set($hash . $sizeModifier, 1, 5);
             }
         } else {
             //another process is already writing it
