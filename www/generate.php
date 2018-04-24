@@ -22,7 +22,7 @@ $apcu = new SimpleCache('groovytar');
 // should be false in production
 $develMode = false;
 // should be false in production
-$exampleMode = true;
+$exampleMode = false;
 
 // CSS pixels
 $size = 240;
