@@ -932,14 +932,20 @@ class PictoGlyph extends Identicon implements IdenticonIface
         $spath .= 'c-3.25,1.5 -7.5,2.75 -8.5,2.75 ';
         $spath .= 'c-3.75,0 -6,-4.75 -7,-6.25 ';
         
+        $spath .= 'c-4,-6 -6,-8 -11.25,-2 ';
+        $spath .= 'c-3,3.6 -7,3.75 -11.25,0 ';
+        $spath .= 'c-3.75,-4.25 -8.5,-9 -12,-12.75 ';
+        $spath .= 'c-5,-5.357142857 -10,-1.5 -12.5 ';
+        $spath .= 'c-5,3 -9.25,6.25 -11.25,10.5 ';
+        
         /*    
-c 6,-9 12,-14                25,    -22
-c 35,-12 45,-3               89,    -15
-c 0,-20 -32,-22             -45,    -18
-c -13,6 -30,11              -34,     11
-  c -15,0 -24,-19             -28,    -25
+c -16,-24 -24,-32           -45,     -8
+c -12,14.4 -28,15           -45,      0
+c -15,-17 -34,-36           -48,    -51
+c -20,-21.428571429 -40,-6  -50,      0
+  c -20,12 -37,25             -45,     42
         */
-        $this->svgStrokePath(($x - 50), ($y + 51), $spath, $this->foregroundRgb, 4);
+        $this->svgStrokePath(($x - 50), ($y + 51), $spath, $this->foregroundRgb, 3);
 //        $this->svgFillPath(($x - 50), ($y + 51), $spath, $this->foregroundRgb);
     }
 
