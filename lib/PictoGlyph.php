@@ -864,6 +864,54 @@ class PictoGlyph extends Identicon implements IdenticonIface
     }//end simpleWaugal()
     
     /**
+     * Neo-Druid Awen - Awen is a Celtic symbol showing three rays. The Neo-Druid version of
+     * this symbol often has three circles on the outside containing three dots and three
+     * rays, and is frequently used to represent masculine energy, feminine energy, and the
+     * balance between them.
+     *
+     * It is also used to represent other triplets such as earth, sky, and sea, etc.
+     *
+     * @param int $x The X coordinate for the center of the square the glyph is placed in.
+     * @param int $y The Y coordinate for the center of the square the glyph is placed in.
+     *
+     * @return void
+     */
+    protected function simpleAwen(int $x, int $y): void
+    {
+        // The three circles
+        $spath = 'a75,75 0 0 0 150,0 ';
+        $spath .= 'a75,75 0 0 0 -150,0z';
+        $this->svgStrokePath(($x - 75), $y, $spath, $this->foregroundRgb, 1.75, 0.65);
+
+        $spath = 'a70.75,70.75 0 0 0 141.5,0 ';
+        $spath .= 'a70.75,70.75 0 0 0 -141.5,0z';
+        $this->svgStrokePath(($x - 70.75), $y, $spath, $this->foregroundRgb, 3.5);
+
+        $spath = 'a66.25,66.25 0 0 0 132.5,0 ';
+        $spath .= 'a66.25,66.25 0 0 0 -132.5,0z';
+        $this->svgStrokePath(($x - 66.25), $y, $spath, $this->foregroundRgb, 1.75, 0.65);
+
+        $this->svgFilledCircle(($x - 9.5), ($y - 55), 3, $this->foregroundRgb);
+        $this->svgFilledCircle($x, ($y - 57.5), 3, $this->foregroundRgb);
+        $this->svgFilledCircle(($x + 9.5), ($y - 55), 3, $this->foregroundRgb);
+
+        $spath = 'l-27,90 ';
+        $spath .= 'l-9.5,-10.5 ';
+        $spath .= 'l36.5,-79.5z';
+        $this->svgFillPath(($x - 5.75), ($y - 47.5), $spath, $this->foregroundRgb);
+
+        $spath = 'l-8.25,102.25 ';
+        $spath .= 'l16.5,0 ';
+        $spath .= 'l-8.25,-102.25z';
+        $this->svgFillPath($x, ($y - 46), $spath, $this->foregroundRgb);
+
+        $spath = 'l27,90 ';
+        $spath .= 'l9.5,-10.5 ';
+        $spath .= 'l-36.5,-79.5z';
+        $this->svgFillPath(($x + 5.75), ($y - 47.5), $spath, $this->foregroundRgb);
+    }//end simpleAwen()
+
+    /**
      * The Constructor. Creates the SVG that is to be served.
      *
      * @param string $hash    Intended to be a hex representation of a 128-bit hash but any string will do.
@@ -910,8 +958,8 @@ class PictoGlyph extends Identicon implements IdenticonIface
                 $y = (200 * $j) + 100;
                 $mod = $byte % 32;
                 if ($devel) {
-                    // we only have ten glyphs at present
-                    $mod = $byte % 10;
+                    // we only have 11 glyphs at present
+                    $mod = $byte % 11;
                 }
                 $addGlyph = true;
                 if ($size === 600) {
@@ -950,6 +998,9 @@ class PictoGlyph extends Identicon implements IdenticonIface
                             break;
                         case 9:
                             $this->simpleWaugal($x, $y);
+                            break;
+                        case 10:
+                            $this->simpleAwen($x, $y);
                             break;
                         default:
                             // placeholder for glyphs not yet created

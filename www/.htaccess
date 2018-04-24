@@ -2,3 +2,6 @@ RewriteEngine on
 RewriteBase /
 #avatars
 RewriteRule ^avatar/[A-Fa-f0-9]+$ generate.php [QSA,L]
+
+# no need for client access
+RewriteRule ^LOADER\.php$ - [F,L]

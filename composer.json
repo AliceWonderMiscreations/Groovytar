@@ -13,7 +13,8 @@
     ],
     "require": {
         "php": "~7.1.0 || ~7.2.0",
-        "awonderphp/filewrapper": "^1.1"
+        "awonderphp/filewrapper": "^1.1",
+        "awonderphp/simplecacheapcu": "^1.2"
     },
     "require-dev": {
         "squizlabs/php_codesniffer": "3.*",
