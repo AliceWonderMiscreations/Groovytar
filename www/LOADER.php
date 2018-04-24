@@ -2,7 +2,7 @@
 declare(strict_types=1);
 
 /**
- * This file can be replaced by a PS-R autoloader.
+ * This file can be replaced by a PSR-4 autoloader.
  *
  * @package AWonderPHP/Groovytar
  * @author  Alice Wonder <paypal@domblogger.net>
