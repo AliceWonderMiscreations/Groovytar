@@ -340,19 +340,17 @@ The IP address needs to be logged to deal with defending against cyber attacks,
 but the user agent and referer do not need to be logged by third party servers
 except to abuse the data.
 
+In you main Apache configuration, add the following:
+
+    LogFormat "%h %t \"%r\" %>s %b" notrack
+
 In your virtual host configuration, add the following:
-    
-    LogFormat "%h %l %u %t \"%r\" %>s %b" notrack
+
     CustomLog "logs/access_log" notrack
-
-What that does is define a log format called `notrack` that is exactly the same
-as the `common` log format, and then it tells your virtual host to use that
-log format.
-
-The reason why it is good to define the `notrack` format even though it is
-identical to how Apache usually defines `common` is just in case you ever move
-the virtual host configuration to a different server that has changed how the
-`common` format is defined. I have seen it before.
+    
+What that does is define a log format called `notrack` that is very similar to
+the `common` log format but without anything that can identify the requesting
+entity *except* for the IP address.
 
 When the government demands your server logs, or an employee at your hosting
 facility steals them, the tracking data will not be in them other than the IP
