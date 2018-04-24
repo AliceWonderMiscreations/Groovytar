@@ -12,9 +12,19 @@ your own github account where you can make your customizations.
 For those who just want to run what is in master, the github repository is set
 up to allow you to just clone it onto your server and run it.
 
+1. [Composer Install](#composer-install)
+2. [Non Composer Install](#non-composer-install)
+3. [Generated File Cache Directory](#generated-file-cache-directory)
+4. [Transport Layer Security](#transport-layer-security)
+  1. [Custom Lets Encrypt Shell Script](#custom-lets-encrypt-shell-script)
+  2. [Certificate Update Strategy](#certificate-update-strategy)
+  3. [DANE Rotation](#dane-rotation)
+  4. [HPKP Rotation](#hpkp-rotation)
+5. [Apache Log Configuration](#apache-log-configuration)
 
-Composer
---------
+
+Composer Install
+----------------
 
 There are some dependencies that are installable via composer. Just run
 
@@ -27,8 +37,8 @@ help keep the quality of the code high. You can use the `--no-dev` flag to save
 space.
 
 
-Non Composer
-------------
+Non Composer Install
+--------------------
 
 You will need to make sure the `lib/' directory is where a PSR-4 autoloader can
 find what is needed, and make sure the dependencies are where a PSR-4
@@ -49,10 +59,13 @@ is used to read the files and serve them to the user.
 Transport Layer Security
 ------------------------
 
-I highly recommend you only use TLS to serve the identicons.
+I highly recommend you only use TLS to serve the identicons. In fact there
+really are very few reasons to ever *not* use TLS.
 
 You can use [Let's Encrypt](https://letsencrypt.org/) to get a free TLS
 certificate.
+
+### Custom Lets Encrypt Shell Script
 
 If like me, you do not like an automated bot that makes connections to third
 party resource updating your server daemon configuration files - I have this
@@ -133,7 +146,7 @@ When you use a key pinning method, you need to rotate the new private key into
 service and so it is much easier to only need to do that about once a year or
 so.
 
-### Certificate Updating Strategy
+### Certificate Update Strategy
 
 With the shell script provided here, the apache daemon has to be shut down in
 order to update the certificate. Unfortunately `certbot` does not allow you to
