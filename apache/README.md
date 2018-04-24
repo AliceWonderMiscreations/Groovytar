@@ -263,5 +263,98 @@ don't bother with it.
 Apache Log Configuration
 ------------------------
 
-To be written. This will have instructions on how to set up apache to never log
-tracking information.
+Your Apache configuration *probably* configures logging this way:
+
+    <IfModule log_config_module>
+        #
+        # The following directives define some format nicknames for use with
+        # a CustomLog directive (see below).
+        #
+        LogFormat "%h %l %u %t \"%r\" %>s %b \"%{Referer}i\" \"%{User-Agent}i\"" combined
+        LogFormat "%h %l %u %t \"%r\" %>s %b" common
+
+        <IfModule logio_module>
+          # You need to enable mod_logio.c to use %I and %O
+          LogFormat "%h %l %u %t \"%r\" %>s %b \"%{Referer}i\" \"%{User-Agent}i\" %I %O" combinedio
+        </IfModule>
+
+        #
+        # The location and format of the access logfile (Common Logfile Format).
+        # If you do not define any access logfiles within a <VirtualHost>
+        # container, they will be logged here.  Contrariwise, if you *do*
+        # define per-<VirtualHost> access logfiles, transactions will be
+        # logged therein and *not* in this file.
+        #
+        #CustomLog "logs/access_log" common
+
+        #
+        # If you prefer a logfile with access, agent, and referer information
+        # (Combined Logfile Format) you can use the following directive.
+        #
+        CustomLog "logs/access_log" combined
+    </IfModule>
+    
+By default, that record the IP address of the remote host (`%h`), the wen site
+that referred the user (the `\"%{Referer}i\"`) and the user agent the client
+(the `\"%{User-Agent}i\"`)
+
+That is appropriate when your server is the main server the user is visiting.
+
+However many, myself included, do not feel it is appropriate when the purpose
+of your server is to supply third party resources that other websites happen to
+reference.
+
+The reason has to do with transparency and consent.
+
+When I directly visit [Electronic Frontier Foundation](https://www.eff.org/) or
+[Boing Boing](https://boingboing.net/) I am *choosing* to share that
+information with them *and I know* they likely have it.
+
+However when a website includes an image, script, font, or other resource in
+their web design I am NOT aware of what those resources are before I follow the
+link to the web site, nor have I made any choice to share information with
+them.
+
+The problem happens when that third party server has images, scripts, fonts.
+and other resources embedded in websites all over the Internet.
+
+These servers can then use the combination of IP address and user agent to
+identify me as a problem unique person, and build a profile about me based upon
+the information on the HTTP Referer header that told them what site I was at
+when my browser requested the resource.
+
+This can often be tied to a human identity *even without tracking cookies* and
+sold. It is even easier when there is a tracking cookie.
+
+Hosts that exist for the purpose of provide third party resources are a very
+important component of how the web works, but the information they collect is
+very often extensive and abused.
+
+By configuring Apache not to even log the user agent and referrer, the data
+then can not be abused because it has not been collected.
+
+A responsible web master of a server that exists to serve resources for third
+party websites to use will configure Apache to not even log those things.
+
+The IP address needs to be logged to deal with defending against cyber attacks,
+but the user agent and referer do not need to be logged by third party servers
+except to abuse the data.
+
+In your virtual host configuration, add the following:
+    
+    LogFormat "%h %l %u %t \"%r\" %>s %b" notrack
+    CustomLog "logs/access_log" notrack
+
+What that does is define a log format called `notrack` that is exactly the same
+as the `common` log format, and then it tells your virtual host to use that
+log format.
+
+The reason why it is good to define the `notrack` format even though it is
+identical to how Apache usually defines `common` is just in case you ever move
+the virtual host configuration to a different server that has changed how the
+`common` format is defined. I have seen it before.
+
+When the government demands your server logs, or an employee at your hosting
+facility steals them, the tracking data will not be in them other than the IP
+address. Data on what browser was used and what site the resource was embedded
+in simply will not be there.
