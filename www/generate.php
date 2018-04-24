@@ -174,26 +174,24 @@ if (strlen($hash) === 32) {
 switch ($variant) {
     case 'confetti':
         $groovy = new \AWonderPHP\Groovytar\Confetti($hash, $size, $develMode, $exampleMode);
-        if (isset($svgfile)) {
-            $groovy->writeFile($svgfile);
-        }
-        $groovy->sendContent();
         break;
     case 'pictoglyph':
         $groovy = new \AWonderPHP\Groovytar\PictoGlyph($hash, $size, $develMode, $exampleMode);
-        if ($writeFileBool) {
-            if (isset($svgfile)) {        
-                $groovy->writeFile($svgfile);
-            }
-        }
-        $groovy->sendContent();
-        break;
-    default:
-        //something went wrong
-        http_response_code(500);
         break;
 }
+
+if(! isset($groovy)) {
+    //something went wrong
+    http_response_code(500);
+    exit;
+}
+
+if ($writeFileBool) {
+    if (isset($svgfile)) {        
+        $groovy->writeFile($svgfile);
+    }
+}
+$groovy->sendContent();
+
 exit;
-
-
 ?>
