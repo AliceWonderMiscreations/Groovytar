@@ -988,6 +988,7 @@ class PictoGlyph extends Identicon implements IdenticonIface
                         $addGlyph = false;
                     }
                 }
+                var_dump($mod);
                 if ($addGlyph) {
                     switch ($mod) {
                         case 0:
@@ -1034,6 +1035,7 @@ class PictoGlyph extends Identicon implements IdenticonIface
         }
         $this->addFrame($size, 'rgb(123,123,123)', 'rgb(80,80,80)');
         $this->addGenerationDateComment();
+        die();
     }//end __construct()
 }//end class
 
