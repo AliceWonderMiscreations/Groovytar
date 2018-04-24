@@ -12,20 +12,12 @@ declare(strict_types=1);
  */
 
 // fixme w/ autoloader
-require_once(dirname(dirname(__FILE__)) . '/vendor/awonderphp/filewrapper/lib/InvalidArgumentException.php');
-require_once(dirname(dirname(__FILE__)) . '/vendor/awonderphp/filewrapper/lib/NullPropertyException.php');
-require_once(dirname(dirname(__FILE__)) . '/vendor/awonderphp/filewrapper/lib/TypeErrorException.php');
-require_once(dirname(dirname(__FILE__)) . '/vendor/awonderphp/filewrapper/lib/FileWrapper.php');
-// The Identicon Supporting classes
-require_once(dirname(dirname(__FILE__)) . '/lib/IdenticonIface.php');
-require_once(dirname(dirname(__FILE__)) . '/lib/Identicon.php');
-require_once(dirname(dirname(__FILE__)) . '/lib/WcagColor.php');
-// The identicons
-require_once(dirname(dirname(__FILE__)) . '/lib/Confetti.php');
-require_once(dirname(dirname(__FILE__)) . '/lib/PictoGlyph.php');
-// end fixme w/ autoloader
+require_once(dirname(__FILE__) . '/LOADER.php');
 
+use \AWonderPHP\SimpleCacheAPCu\SimpleCacheAPCu as SimpleCache;
 use \AWonderPHP\FileWrapper\FileWrapper as FileWrapper;
+
+$apcu = new SimpleCache('groovytar');
 
 // should be false in production
 $develMode = false;
@@ -146,6 +138,7 @@ if (isset($smallArray[$variant])) {
 $topdir = dirname(dirname(__FILE__)) . '/generated/' . $variant;
 //var_dump($topdir); exit;
 
+$writeFileBool = true;
 if (strlen($hash) === 32) {
     $dir_exists = file_exists($topdir);
     if (! $dir_exists) {
@@ -157,14 +150,23 @@ if (strlen($hash) === 32) {
             $sizeModifier = '-small';
         }
         $svgfile = $topdir . '/' . $hash . $sizeModifier . '.svg';
-        if (file_exists($svgfile)) {
-            // todo - verify file is valid SVG before serving, important since
-            //  web server has write access
+        $test = $apcu->get($svgfile);
+        if(is_null($test)) {
+            if (file_exists($svgfile)) {
+                // todo - verify file is valid SVG before serving, important since
+                //  web server has write access
             
-            // serve the file
-            $obj = new FileWrapper($svgfile, null, 'image/svg+xml', 1209600);
-            $obj->sendfile();
-            exit;
+                // serve the file
+                $obj = new FileWrapper($svgfile, null, 'image/svg+xml', 1209600);
+                $obj->sendfile();
+                exit;
+            } else {
+                // prevent it from being served from file for five seconds
+                $apcu->set($svgfile, 1, 5);
+            }
+        } else {
+            //another process is already writing it
+            $writeFileBool = false;
         }
     }
 }
@@ -180,7 +182,9 @@ switch ($variant) {
     case 'pictoglyph':
         $groovy = new \AWonderPHP\Groovytar\PictoGlyph($hash, $size, $develMode, $exampleMode);
         if (isset($svgfile)) {
-            $groovy->writeFile($svgfile);
+            if ($writeFileBool) {
+                $groovy->writeFile($svgfile);
+            }
         }
         $groovy->sendContent();
         break;
