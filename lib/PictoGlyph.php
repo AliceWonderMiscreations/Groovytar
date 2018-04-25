@@ -978,7 +978,7 @@ class PictoGlyph extends Identicon implements IdenticonIface
         $spath .= 'c-2,-1.5 -4,-2.5 -6.75,-2.5 ';
         $spath .= 'c-5.5,0 -9.5,7.5 -10.5,13.5 ';
         $spath .= 'c9.5,4.25 6.25,8 5.75,12z';
-        $this->svgFillPath(($x - 11.25), ($y + 79), $spath, $this->foregroundRgb);
+        //$this->svgFillPath(($x - 11.25), ($y + 79), $spath, $this->foregroundRgb);
         
         //rock illusion 2
         $spath = 'l-15,0.25 ';
@@ -988,7 +988,7 @@ class PictoGlyph extends Identicon implements IdenticonIface
         $spath .= 'c0.75,0.75 2.125,2.5 2.25,3.5 ';
         $spath .= 'c0.5,2.5 1.75,2.25 2.75,0 ';
         $spath .= 'c7.5,-16.875 17,-19.75 17.75,-21.75z';
-        $this->svgFillPath(($x + 58), ($y + 47), $spath, $this->foregroundRgb);
+        //$this->svgFillPath(($x + 58), ($y + 47), $spath, $this->foregroundRgb);
         
         //claw 1
         $spath = 'c-6,6.25 -12.5,16.75 -15,21.5 ';
