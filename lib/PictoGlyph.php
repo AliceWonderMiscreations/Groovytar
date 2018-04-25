@@ -911,6 +911,16 @@ class PictoGlyph extends Identicon implements IdenticonIface
         $this->svgFillPath(($x + 5.75), ($y - 47.5), $spath, $this->foregroundRgb);
     }//end simpleAwen()
     
+    /**
+     * Zuni Bear - the Bear fetish is the Guardian of the West and has the power to heal and transform human
+     * passions into true wisdom. Bear reminds us that one of the great powers we have is the power of turning
+     * to solitude and introspection through which we integrate new experience and change.
+     *
+     * @param int $x The X coordinate for the center of the square the glyph is placed in.
+     * @param int $y The Y coordinate for the center of the square the glyph is placed in.
+     *
+     * @return void
+     */
     protected function simpleBear(int $x, int $y): void
     {
         //body
@@ -1035,7 +1045,8 @@ class PictoGlyph extends Identicon implements IdenticonIface
         $spath .= 'c1,-1.25 4.25,-10 4.25,-15 ';
         $spath .= 'c0,-12.5 -13.75,-36.25 -29.75,-37.5z';
         $this->svgFillPath(($x + 37.5), ($y - 53), $spath, $this->foregroundRgb);
-    }
+    }//end simpleBear()
+
 
     /**
      * The Constructor. Creates the SVG that is to be served.
@@ -1084,8 +1095,8 @@ class PictoGlyph extends Identicon implements IdenticonIface
                 $y = (200 * $j) + 100;
                 $mod = $byte % 32;
                 if ($devel) {
-                    // we only have 11 glyphs at present
-                    $mod = $byte % 11;
+                    // we only have 12 glyphs at present
+                    $mod = $byte % 12;
                 }
                 $addGlyph = true;
                 if ($size === 600) {
@@ -1128,10 +1139,12 @@ class PictoGlyph extends Identicon implements IdenticonIface
                         case 10:
                             $this->simpleAwen($x, $y);
                             break;
+                        case 11:
+                            $this->simpleBear($x, $y);
+                            break;
                         default:
                             // placeholder for glyphs not yet created
-                            //$this->simpleCircle($x, $y);
-                            $this->simpleBear($x, $y);
+                            $this->simpleCircle($x, $y);
                             break;
                     }
                 }
