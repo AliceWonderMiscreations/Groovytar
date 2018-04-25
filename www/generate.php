@@ -109,7 +109,12 @@ switch ($getd) {
         $variant = 'automaton';
         break;
     case 'mm':
-        $variant = 'pixabay1824144';
+        $servemeSVG = dirname(dirname(__FILE__)) . '/staticsvg/person-1824144.svg';
+        $variant = 'staticsvg';
+        break;
+    case 'blank':
+        $servemeSVG = dirname(dirname(__FILE__)) . '/staticsvg/social-2470875.svg';
+        $variant = 'staticsvg';
         break;
     case 'pictoglyph':
         $variant = 'pictoglyph';
@@ -118,10 +123,9 @@ switch ($getd) {
         $variant = 'pictoglyph';
 }
 
-if ($variant === 'pixabay1824144') {
-    $serveme = dirname(dirname(__FILE__)) . '/staticsvg/person-1824144.svg';
-    if (file_exists($serveme)) {
-        $obj = new FileWrapper($serveme, null, 'image/svg+xml', 1209600);
+if (isset($servemeSVG)) {
+    if (file_exists($servemeSVG)) {
+        $obj = new FileWrapper($servemeSVG, null, 'image/svg+xml', 1209600);
         $obj->sendfile();
         exit;
     }

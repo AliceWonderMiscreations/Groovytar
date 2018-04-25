@@ -215,13 +215,25 @@ combinations, but it still makes collisions extremely unlikely.
 Generic Person
 --------------
 
-For a generic person, the equivalent of the Gravatar 'Mystery Man' avatar, I am
-using the following image from Pixabay:
+For a generic person, the equivalent of the Gravatar 'Mystery Person' avatar, I
+am using the following image from Pixabay:
 
 [https://pixabay.com/en/person-individually-alone-icon-1824144/](https://pixabay.com/en/person-individually-alone-icon-1824144/)
 
 That image is licensed [CC0](https://pixabay.com/en/service/terms/#usage) which
 is compatible with the MIT license for this project.
+
+For the equivalent of the Gravatar 'Blank' avatar, I am using the following
+image from Pixabay:
+
+[https://pixabay.com/en/social-network-share-contact-blog-2470875/](https://pixabay.com/en/social-network-share-contact-blog-2470875/)
+
+That image is licensed [CC0](https://pixabay.com/en/service/terms/#usage) which
+is compatible with the MIT license for this project. Since it depicts an image
+that is associated with WordPress, it is *possible* there are trademark issues
+and that it will need to be changed in the future. However it is only served
+when an avatar is requested with the `d=blank` GET parameter which *should*
+only happen from WordPress blogs.
 
 
 Lots To Do
