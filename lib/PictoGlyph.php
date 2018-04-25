@@ -910,6 +910,143 @@ class PictoGlyph extends Identicon implements IdenticonIface
         $spath .= 'l-36.5,-79.5z';
         $this->svgFillPath(($x + 5.75), ($y - 47.5), $spath, $this->foregroundRgb);
     }//end simpleAwen()
+    
+    /**
+     * Zuni Bear - the Bear fetish is the Guardian of the West and has the power to heal and transform human
+     * passions into true wisdom. Bear reminds us that one of the great powers we have is the power of turning
+     * to solitude and introspection through which we integrate new experience and change.
+     *
+     * @param int $x The X coordinate for the center of the square the glyph is placed in.
+     * @param int $y The Y coordinate for the center of the square the glyph is placed in.
+     *
+     * @return void
+     */
+    protected function simpleBear(int $x, int $y): void
+    {
+        //body
+        $spath = 'c1.75,-2.5 1,-12.5 4.5,-16.5 ';
+        $spath .= 'c7.5,18.75 2.5,27.5 10.25,38.5 ';
+        $spath .= 'c6.25,3.25 8,3.25 10,3.25 ';
+        $spath .= 'c3.5,0 4.25,-0.95 4.75,-1 ';
+        $spath .= 'c0.75,-5.5 -4.25,-7.75 -5,-7.75 ';
+        
+        $spath .= 'c2.5,-11.25 12.5,-20.5 20.5,-20.5 ';
+        $spath .= 'c15,0  21.75,15 21.25,27.5 ';
+        $spath .= 'c5.75,2.5 8.75,3.5 14.75,1.5 ';
+        $spath .= 'c3.5,-3.25 -4.25,-7.25 -5.25,-7.5 ';
+        $spath .= 'c-0.5,-15 2.5,-18 3.5,-19.5 ';
+        
+        $spath .= 'c1.5,-2.25 3,-3.5 6.25,-5.5 ';
+        $spath .= 'c8.75,-3 11.25,-0.75  22.25,-3.75 ';
+        $spath .= 'c0,-5 -8,-5.5 -11.25,-4.5 ';
+        $spath .= 'c-3.25,1.5 -7.5,2.75 -8.5,2.75 ';
+        $spath .= 'c-3.75,0 -6,-4.75 -7,-6.25 ';
+        
+        $spath .= 'c-4,-6 -6,-8 -11.25,-2 ';
+        $spath .= 'c-3,3.6 -7,3.75 -11.25,0 ';
+        $spath .= 'c-3.75,-4.25 -8.5,-9 -12,-12.75 ';
+        $spath .= 'c-5,-5.357142857 -10,-1.5 -12.5,0 ';
+        $spath .= 'c-5,3 -9.25,6.25 -11.25,10.5 ';
+        
+        $spath .= 'a17.5,17.5 0 0 0 5.5,3.5 ';
+        $spath .= 'a45,47.5 0 0 1 -13.75,8.75 ';
+        $spath .= 'a38.75,43.75 0 0 1 -2,-18 ';
+        $spath .= 'a17.5,17.5 0 0 0 5.5,3 ';
+        $spath .= 'c7.5,-7.5 17.5,-16 23.5,-16 ';
+        
+        $spath .= 'c5.5,0 12,5.5 14.25,8 ';
+        $spath .= 'c2.5,2.25 6,7 10,7 ';
+        $spath .= 'c3,0 7,-3.75 8,-5 ';
+        $spath .= 'c4,-5 9,0.5 9.25,2.5 ';
+        $spath .= 'c0.75,6 3.5,10 6.25,10 ';
+        
+        $spath .= 'c3,0 7.5,-2.75 11.25,-2.75 ';
+        $spath .= 'c3.75,0 12,5.5 12.75,6.75 ';
+        $spath .= 'c0.75,0.535714286 1.5,0.75 2,0 ';
+        $spath .= 'c1.5,-1 0.75,-5 0,-6.5 ';
+        $spath .= 'c-0.75,-1.5 -1.75,-4.5 -3,-6 ';
+        
+        $spath .= 'c-1,-1.2 -3.25,-5 -3.25,-7.5 ';
+        $spath .= 'c0,-1.25 -0.75,-3.5 -1,-5 ';
+        $spath .= 'c-0.5,-3 -2,-3 -3,-2.25 ';
+        $spath .= 'c-2,1.5 -4.75,4.25 -6.75,4.25 ';
+        $spath .= 'c-5,0 -11,-5 -13.5,-7 ';
+        
+        $spath .= 'c-7.5,-6 -15,-9.25 -20,-10.5 ';
+        $spath .= 'c-5,-1.25 -12.5,-1.75 -17.5,-1.75 ';
+        $spath .= 'c-17.5,0 -27.5,5.5 -35,10.5 ';
+        $spath .= 'c-12.5,8.333333333 -15,20 -15.5,22.5 ';
+        $spath .= 'c-2,10 -0.5,22.5 3.25,25z';
+        
+        $this->svgFillPath(($x - 50), ($y + 51), $spath, $this->foregroundRgb);
+        
+        //rock illusion 1
+        $spath = 'l18.25,-0.25 ';
+        $spath .= 'c0.75,-0.010273972 1.5,-0.5 1.65,-1.5 ';
+        $spath .= 'c0.25,-1 -0.25,-3.75 -1,-6.75 ';
+        $spath .= 'c-2.5,-10 -5.5,-13 -7.5,-14.5 ';
+        $spath .= 'c-2,-1.5 -4,-2.5 -6.75,-2.5 ';
+        $spath .= 'c-5.5,0 -9.5,7.5 -10.5,13.5 ';
+        $spath .= 'c9.5,4.25 6.25,8 5.75,12z';
+        $this->svgFillPath(($x - 11.25), ($y + 79), $spath, $this->foregroundRgb);
+        
+        //rock illusion 2
+        $spath = 'l-15,0.25 ';
+        $spath .= 'c-7.5,0.125 -9.25,5 -9.25,9.25 ';
+        $spath .= 'c0,3.5 -0.75,5.25 -0.25,6.75 ';
+        $spath .= 'c0.5,1.5 1.5,1.75 1.75,2 ';
+        $spath .= 'c0.75,0.75 2.125,2.5 2.25,3.5 ';
+        $spath .= 'c0.5,2.5 1.75,2.25 2.75,0 ';
+        $spath .= 'c7.5,-16.875 17,-19.75 17.75,-21.75z';
+        $this->svgFillPath(($x + 58), ($y + 47), $spath, $this->foregroundRgb);
+        
+        //claw 1
+        $spath = 'c-6,6.25 -12.5,16.75 -15,21.5 ';
+        $spath .= 'c-2.5,4.5 -8.75,20 -3.5,37.5 ';
+        $spath .= 'c1.125,3.75 3.75,3.25 6.75,3.25 ';
+        $spath .= 'c2.5,0 7,-2.5 8.25,-3.5 ';
+        $spath .= 'c2,-2.5 0.75,-5 0,-9 ';
+        $spath .= 'c-0.75,-4 -2,-10 -2.75,-20 ';
+        $spath .= 'c-0.75,-10 2,-22.5 6.25,-29.5z';
+        $this->svgFillPath(($x - 42.75), ($y - 64.25), $spath, $this->foregroundRgb);
+        
+        //claw2
+        $spath = 'c-25,13.75 -26.25,37.5 -26.25,43.75 ';
+        $spath .= 'c0,15 5.5,20.75 10.5,20.75 ';
+        $spath .= 'c3.5,0 5.5,-2.5 6,-3 ';
+        $spath .= 'c3.25,-3.25 2.25,-8.75 1.5,-11.25 ';
+        $spath .= 'c-2.25,-7.5 -7.5,-32.5 8.25,-50.25z';
+        $this->svgFillPath(($x - 12), ($y - 80.25), $spath, $this->foregroundRgb);
+        
+        //claw3
+        $spath = 'c-4.75,2.5 -8,3.75 -11.25,7.5 ';
+        $spath .= 'c-5,5.769230769 -8,12.5 -10,17 ';
+        $spath .= 'c-4,11.25 -2.75,27.5 2.5,32 ';
+        $spath .= 'c3.5,3 5.25,4 8,4 ';
+        $spath .= 'a22.5,22.5 0 0 0 8,-4.25 ';
+        $spath .= 'c-3.75,-12.5 -6,-22.5 -6,-29.5 ';
+        $spath .= 'c0,-10 6.25,-25 8.75,-26.75z';
+        $this->svgFillPath(($x + 10.5), ($y - 78.5), $spath, $this->foregroundRgb);
+        
+        //claw4
+        $spath = 'c-6.25,5 -8.75,7.5 -10.5,11.5 ';
+        $spath .= 'c-1.5,3.428571428 -5.5,17.5 -4,25 ';
+        $spath .= 'c1,5 6,17.5 10.5,21 ';
+        $spath .= 'c4.5,3.5 7.5,3 9.25,3 ';
+        $spath .= 'c3,0 6.75,-2.25 7.5,-2.75 ';
+        $spath .= 'l-0.75,-4 ';
+        $spath .= 'c-18.75,-25 -17,-40 -12,-53.75z';
+        $this->svgFillPath(($x + 27.5), ($y - 74.5), $spath, $this->foregroundRgb);
+        
+        //claw5
+        $spath = 'c18.5,20 16.5,42.5 15.5,47.5 ';
+        $spath .= 'c-0.375,1.875 1.25,5.25 2.5,5.5 ';
+        $spath .= 'c1.25,0.25 5,1.5 7.5,-0.5 ';
+        $spath .= 'c1,-1.25 4.25,-10 4.25,-15 ';
+        $spath .= 'c0,-12.5 -13.75,-36.25 -29.75,-37.5z';
+        $this->svgFillPath(($x + 37.5), ($y - 53), $spath, $this->foregroundRgb);
+    }//end simpleBear()
+
 
     /**
      * The Constructor. Creates the SVG that is to be served.
@@ -958,8 +1095,8 @@ class PictoGlyph extends Identicon implements IdenticonIface
                 $y = (200 * $j) + 100;
                 $mod = $byte % 32;
                 if ($devel) {
-                    // we only have 11 glyphs at present
-                    $mod = $byte % 11;
+                    // we only have 12 glyphs at present
+                    $mod = $byte % 12;
                 }
                 $addGlyph = true;
                 if ($size === 600) {
@@ -1001,6 +1138,9 @@ class PictoGlyph extends Identicon implements IdenticonIface
                             break;
                         case 10:
                             $this->simpleAwen($x, $y);
+                            break;
+                        case 11:
+                            $this->simpleBear($x, $y);
                             break;
                         default:
                             // placeholder for glyphs not yet created

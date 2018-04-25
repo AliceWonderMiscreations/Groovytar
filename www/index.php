@@ -15,7 +15,7 @@ $hash = md5($foo, false);
 <p>That is an issue I will attempt to resolve though in real world it will rarely be an issue.</p>
 <p>What I might do is if it isn't cached to file, put a quickly expiring APCu lock on the hash so that that it doesn't try to serve it from file cache until the cache lock expires. But anyway...</p>
 <h2>PictoGlyph Identicon</h2>
-<p>This identicon is not yet finished, right now only ten different glyphs have been generated (there will be 32) and only about 60 color combinations have chosen, some of which will be rejected (there will be 128).</p>
+<p>This identicon is not yet finished, right now only twelve different glyphs have been generated (there will be 32) and only about 60 color combinations have chosen, some of which will be rejected (there will be 128).</p>
 <p>For small display, there are three rows of three. For large display, there are four rows of four.</p>
 <p>The following PictoGlyph identicon is generated from the defined hash, shown displayed at various sizes:</p>
 <p>96 CSS pixels wide:</p>
