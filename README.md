@@ -193,6 +193,12 @@ Currently the following pictographs exist:
   rays, and is frequently used to represent masculine energy, feminine energy,
   and the balance between them.
 
+* __Zuni Bear Fetish__  
+  The Bear fetish is the Guardian of the West and has the power to heal and
+  transform human passions into true wisdom. Bear reminds us that one of the
+  great powers we have is the power of turning to solitude and introspection
+  through which we integrate new experience and change.
+
 There will eventually be 32 glyphs.
 
 ### Small Size Variant
