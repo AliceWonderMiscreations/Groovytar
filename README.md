@@ -212,6 +212,18 @@ That only will provide 36^9 (just over 100,000,000,000,000) different unique
 combinations, but it still makes collisions extremely unlikely.
 
 
+Generic Person
+--------------
+
+For a generic person, the equivalent of the Gravatar 'Mystery Man' avatar, I am
+using the following image from Pixabay:
+
+[https://pixabay.com/en/person-individually-alone-icon-1824144/](https://pixabay.com/en/person-individually-alone-icon-1824144/)
+
+That image is licensed [CC0](https://pixabay.com/en/service/terms/#usage) which
+is compatible with the MIT license for this project.
+
+
 Lots To Do
 ----------
 

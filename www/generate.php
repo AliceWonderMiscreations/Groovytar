@@ -109,13 +109,22 @@ switch ($getd) {
         $variant = 'automaton';
         break;
     case 'mm':
-        $variant = 'pictoglyph';
+        $variant = 'pixabay1824144';
         break;
     case 'pictoglyph':
         $variant = 'pictoglyph';
         break;
     default:
         $variant = 'pictoglyph';
+}
+
+if ($variant === 'pixabay1824144') {
+    $serveme = dirname(dirname(__FILE__)) . '/staticsvg/person-1824144.svg';
+    if (file_exists($serveme)) {
+        $obj = new FileWrapper($serveme, null, 'image/svg+xml', 1209600);
+        $obj->sendfile();
+        exit;
+    }
 }
 
 // okay not really finished but usable..
