@@ -1031,6 +1031,8 @@ class PictoGlyph extends Identicon implements IdenticonIface
         //claw5
         $spath = 'c18.5,20 16.5,42.5 15.5,47.5 ';
         $spath .= 'c-0.375,1.875 1.25,5.25 2.5,5.5 ';
+        $spath .= 'c1.25,0.25 5,1.5 7.5,-0.5 ';
+        $spath .= 'c1,-1.25 4.25,-10 4.25,-15 ';
         
         /* 
   c 74,80 66,170 62,190
