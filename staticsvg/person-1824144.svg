@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="800" height="800" version="1.1" viewBox="0 0 800.00001 800.00001" xmlns="http://www.w3.org/2000/svg">
+ <defs>
+  <mask id="e" maskUnits="userSpaceOnUse">
+   <circle cx="400" cy="400" r="400" color="#000000" color-rendering="auto" fill="#fff" fill-rule="evenodd" image-rendering="auto" shape-rendering="auto" solid-color="#000000" stroke-width="0" style="isolation:auto;mix-blend-mode:normal"/>
+  </mask>
+  <mask id="f" maskUnits="userSpaceOnUse">
+   <circle cx="400" cy="400" r="400" color="#000000" color-rendering="auto" fill="#fff" fill-rule="evenodd" image-rendering="auto" shape-rendering="auto" solid-color="#000000" stroke-width="0" style="isolation:auto;mix-blend-mode:normal"/>
+  </mask>
+  <linearGradient id="d" x1="419.5" x2="158" y1="437.5" y2="699" gradientUnits="userSpaceOnUse">
+   <stop stop-opacity=".42" offset="0"/>
+   <stop stop-opacity="0" offset="1"/>
+  </linearGradient>
+ </defs>
+ <circle cx="400" cy="400" r="400" color="#000000" color-rendering="auto" fill="#1c8adb" fill-rule="evenodd" image-rendering="auto" shape-rendering="auto" solid-color="#000000" stroke-width="0" style="isolation:auto;mix-blend-mode:normal"/>
+ <path d="m399.99 234.11c-26.671 1.2e-4 -50.742 11.129-67.826 28.994l-300.03 300.03c69.567 143.89 174.46 208.29 297.23 232.48l229.73-229.73c0.0436-0.83725 0.0815-1.6758 0.11328-2.5137-0.0349-58.365-28.352-112.59-74.93-143.48h-0.0293c-20.988 19.279-47.874 30.736-76.148 32.619 5e-3 -5e-3 0.0105-0.0103 0.0156-0.0156l56.719-56.717c17.865-17.084 28.993-41.157 28.992-67.828-2.4e-4 -51.824-42.012-93.836-93.836-93.836z" color="#000000" color-rendering="auto" fill="url(#d)" image-rendering="auto" mask="url(#f)" shape-rendering="auto" solid-color="#000000" stroke-width="0" style="isolation:auto;mix-blend-mode:normal"/>
+ <path d="m399.99 234.11c-51.824 2.4e-4 -93.835 42.012-93.835 93.835-6.5e-4 51.824 42.011 93.837 93.835 93.837 51.824-2.3e-4 93.836-42.013 93.835-93.837-2.4e-4 -51.824-42.012-93.835-93.835-93.835zm84.258 185.78c-22.985 21.114-53.047 32.853-84.258 32.901-31.166-0.0566-61.183-11.769-84.151-32.835-46.6 30.851-74.96 85.053-75.04 143.42 0.0313 0.83786 0.0686 1.6754 0.11151 2.5127h318.18c0.0436-0.83725 0.0813-1.6748 0.11311-2.5127-0.0349-58.365-28.354-112.59-74.931-143.48z" color="#000000" color-rendering="auto" fill="#fff" image-rendering="auto" mask="url(#e)" shape-rendering="auto" solid-color="#000000" stroke-width="0" style="isolation:auto;mix-blend-mode:normal"/>
+</svg>
